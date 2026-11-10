@@ -1,6 +1,7 @@
 import { onRoute } from './router.js';
 import { store } from './store.js';
 import { icon } from './icons.js';
+import { installDefineHandler } from './ui/define.js';
 
 const TABS = {
   learn: { label: 'Learn', icon: 'compass', views: ['learn', 'lesson', 'about'] },
@@ -86,6 +87,7 @@ async function show({ view, param }) {
     if (!reduceMotion.matches) { root.classList.remove('page-enter'); void root.offsetWidth; root.classList.add('page-enter'); }
   }
 }
+installDefineHandler();
 onRoute(show);
 
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
