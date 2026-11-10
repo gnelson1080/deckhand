@@ -94,6 +94,7 @@ export function boardReducer(prev, action) {
     case 'block': {
       if (!s.battle) return fail(s, 'Blocking only happens during an attack.');
       if (s.battle.blocked) return fail(s, 'You can only block once per attack.');
+      if (s.battle.countered) return fail(s, 'Blockers must be used before Counters. Start over and block first.');
       const defWho = other(s.turn);
       const b = side(s, defWho).chars.find(c => c.id === action.blocker);
       if (!b?.blocker) return fail(s, 'Only a card with [Blocker] can block.');
@@ -113,6 +114,7 @@ export function boardReducer(prev, action) {
       const [card] = defP.hand.splice(i, 1);
       defP.trash.push(card);
       s.battle.counter += card.counter;
+      s.battle.countered = true;
       s.log.push({ t: 'counter', id: card.id, amount: card.counter });
       return s;
     }

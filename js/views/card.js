@@ -1,5 +1,5 @@
 import { getCards, getGlossary, getMeta, tcgplayerUrl } from '../data.js';
-import { richText, termsIn, escapeHtml } from '../ui/rich-text.js';
+import { richText, termsIn, escapeHtml, safeUrl, safeColors } from '../ui/rich-text.js';
 import { termIndex, displayName } from '../ui/define.js';
 import { icon } from '../icons.js';
 
@@ -39,7 +39,7 @@ export async function render(root, id) {
     ${arts.length > 1 ? `<div class="arts" role="group" aria-label="Other artwork">${arts.map((a, i) => `<button type="button" class="art" data-art="${i}" aria-pressed="${i === 0}" aria-label="Art ${i + 1}"><img src="${escapeHtml(a.replace(/_in_1000x1000\.jpg$/, '_200w.jpg'))}" alt="" loading="lazy"></button>`).join('')}</div>` : ''}
     <h1 class="card-title">${escapeHtml(name)}</h1>
     <p class="card-sub"><span>${escapeHtml(c.id)}</span><span>${escapeHtml(c.type || '')}</span>${c.rarity ? `<span>${escapeHtml(c.rarity)}</span>` : ''}</p>
-    <div class="color-row">${(c.colors || []).map(col => `<span class="chip static"><span class="dot ${col}"></span>${col}</span>`).join('')}${c.attribute ? `<span class="chip static">&lt;${escapeHtml(c.attribute)}&gt;</span>` : ''}</div>
+    <div class="color-row">${safeColors(c.colors).map(col => `<span class="chip static"><span class="dot ${col}"></span>${col}</span>`).join('')}${c.attribute ? `<span class="chip static">&lt;${escapeHtml(c.attribute)}&gt;</span>` : ''}</div>
     <div class="stats">
       ${c.type === 'Leader' ? stat('Life', c.life) : stat('Cost', c.cost)}
       ${stat('Power', c.power, v => v.toLocaleString())}
@@ -56,7 +56,7 @@ export async function render(root, id) {
       <div class="used-list">${usedIn.map(d => `<a class="chip" href="#/deck/${d.rank}"><span class="rank">#${d.rank}</span>${escapeHtml(d.name)}</a>`).join('')}</div></section>` : ''}
     <section class="buy panel">
       <div><span class="muted">TCGplayer market price</span><strong class="price">${c.price != null ? '$' + c.price.toFixed(2) : 'Not listed yet'}</strong></div>
-      <a class="btn btn-primary" href="${escapeHtml(tcgplayerUrl(c))}" target="_blank" rel="noopener">View on TCGplayer ${icon('link', { size: 18 })}</a>
+      <a class="btn btn-primary" href="${escapeHtml(safeUrl(tcgplayerUrl(c)))}" target="_blank" rel="noopener">View on TCGplayer ${icon('link', { size: 18 })}</a>
     </section>`;
 
   // Flip in, then let the reader tilt the card.

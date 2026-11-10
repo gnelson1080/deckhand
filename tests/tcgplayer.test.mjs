@@ -50,3 +50,14 @@ test('aggregateMeta groups decks by leader and ranks by count', () => {
   assert.equal(meta.decks[0].lists.length, 2);
   assert.ok(meta.decks[0].lists[0].placeMin <= meta.decks[0].lists[1].placeMin);
 });
+
+test('deck detail coerces counts to numbers and drops unknown colors', () => {
+  const j = fx('tcg-deck.json');
+  const first = j.result.deck.subDecks.maindeck[1];
+  first.quantity = '4"><b>';
+  const leader = Object.values(j.result.cards).find(c => c.cardType === 'Leader');
+  leader.colors = "['Green', 'Red\"><img>']";
+  const d = parseDeckDetail(j);
+  assert.ok(d.cards.every(c => Number.isInteger(c.count)));
+  assert.deepEqual(d.cardInfo.find(c => c.id === leader.number).colors, ['Green']);
+});

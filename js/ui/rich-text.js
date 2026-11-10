@@ -58,3 +58,9 @@ export function termsIn(text, idx) {
   }
   return found;
 }
+
+// Links from third-party data: https only.
+export const safeUrl = u => (/^https:\/\//i.test(String(u ?? '').trim()) ? String(u).trim() : '#');
+
+export const GAME_COLORS = ['Red', 'Green', 'Blue', 'Purple', 'Black', 'Yellow'];
+export const safeColors = cs => (Array.isArray(cs) ? cs.filter(c => GAME_COLORS.includes(c)) : []);

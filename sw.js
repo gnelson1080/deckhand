@@ -2,7 +2,7 @@
 // - App files (precached): cache first, refreshed in the background.
 // - data/*.json: network first, cached copy when offline.
 // - Card images: cache first, at most 400 kept.
-const VERSION = 'c69b396426';
+const VERSION = '0c0da66a70';
 const SHELL = `deckhand-shell-${VERSION}`;
 const DATA = 'deckhand-data';
 const IMAGES = 'deckhand-images';
@@ -12,6 +12,10 @@ const PRECACHE = [
   'index.html',
   'manifest.webmanifest',
   'assets/app-icon.svg',
+  'assets/fonts/alfa-slab-one-400.woff2',
+  'assets/fonts/atkinson-hyperlegible-400-italic.woff2',
+  'assets/fonts/atkinson-hyperlegible-400.woff2',
+  'assets/fonts/atkinson-hyperlegible-700.woff2',
   'assets/icon-192.png',
   'assets/icon-512.png',
   'assets/icon-maskable.png',
@@ -36,6 +40,7 @@ const PRECACHE = [
   'content/lessons/index.json',
   'css/base.css',
   'css/components.css',
+  'css/fonts.css',
   'css/motion.css',
   'css/tokens.css',
   'js/app.js',
@@ -67,8 +72,35 @@ const PRECACHE = [
   'js/views/meta.js'
 ];
 
+// Only cache real, successful answers of the expected kind. Captive-portal login pages,
+// errors and redirects must never replace a good cached copy.
+function cacheable(res, kind, url = '') {
+  if (!res || !res.ok || res.redirected || res.type === 'opaque') return false;
+  const type = (res.headers && res.headers.get && res.headers.get('Content-Type')) || '';
+  if (kind === 'data') return type.includes('json');
+  if (kind === 'shell') {
+    const path = new URL(url || 'https://x/', 'https://x/').pathname;
+    const isPage = path.endsWith('/') || path.endsWith('.html');
+    return isPage || !type.includes('text/html');
+  }
+  if (kind === 'image') return type.startsWith('image/');
+  if (kind === 'font') return true;
+  return false;
+}
+
+// Try the network, but answer from the cache if it takes longer than `ms` or fails.
+function networkFirst(getNetwork, getCached, ms = 3500) {
+  return new Promise(resolve => {
+    let done = false;
+    const finish = r => { if (!done && r) { done = true; resolve(r); } };
+    const timer = setTimeout(async () => finish(await getCached()), ms);
+    getNetwork().then(r => { clearTimeout(timer); finish(r); })
+      .catch(async () => { clearTimeout(timer); finish((await getCached()) || new Response('{}', { status: 503, headers: { 'Content-Type': 'application/json' } })); });
+  });
+}
+
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(SHELL).then(c => c.addAll(PRECACHE)).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(SHELL).then(c => c.addAll(PRECACHE.map(u => new Request(u, { cache: 'reload' })))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', e => {
@@ -80,6 +112,7 @@ async function trim(cacheName, max) {
   const keys = await c.keys();
   for (let i = 0; i < keys.length - max; i++) await c.delete(keys[i]);
 }
+const put = (name, req, res) => caches.open(name).then(c => c.put(req, res)).catch(() => {});
 
 self.addEventListener('fetch', e => {
   const req = e.request;
@@ -87,23 +120,27 @@ self.addEventListener('fetch', e => {
   const url = new URL(req.url);
 
   if (url.origin === location.origin && url.pathname.includes('/data/')) {
-    e.respondWith(fetch(req).then(res => { const copy = res.clone(); caches.open(DATA).then(c => c.put(req, copy)); return res; })
-      .catch(async () => (await caches.match(req)) || new Response('{}', { status: 503, headers: { 'Content-Type': 'application/json' } })));
+    e.respondWith(networkFirst(
+      () => fetch(req).then(res => { if (cacheable(res, 'data')) put(DATA, req, res.clone()); return res; }),
+      () => caches.match(req),
+    ));
     return;
   }
   if (req.destination === 'image' && url.origin !== location.origin) {
     e.respondWith(caches.open(IMAGES).then(async c => {
-      const hit = await c.match(req);
+      const hit = await c.match(req.url);
       if (hit) return hit;
-      const res = await fetch(req);
-      if (res.ok || res.type === 'opaque') { c.put(req, res.clone()); trim(IMAGES, MAX_IMAGES); }
-      return res;
-    }).catch(() => Response.error()));
+      // Ask for a CORS copy (TCGplayer's CDN allows it) so the cached size is real, not padded.
+      let res;
+      try { res = await fetch(new Request(req.url, { mode: 'cors', credentials: 'omit' })); } catch { res = null; }
+      if (res && cacheable(res, 'image')) { put(IMAGES, req.url, res.clone()).then(() => trim(IMAGES, MAX_IMAGES)); return res; }
+      return fetch(req);
+    }).catch(() => fetch(req)));
     return;
   }
   if (url.origin === location.origin) {
     e.respondWith(caches.match(req, { ignoreSearch: true }).then(hit => {
-      const net = fetch(req).then(res => { if (res.ok) { const copy = res.clone(); caches.open(SHELL).then(c => c.put(req, copy)); } return res; }).catch(() => hit);
+      const net = fetch(req).then(res => { if (cacheable(res, 'shell', req.url)) put(SHELL, req, res.clone()); return res; }).catch(() => hit);
       return hit || net;
     }));
   }

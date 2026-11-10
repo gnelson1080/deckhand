@@ -1,6 +1,6 @@
 import { getMeta, getCards, getUpdated, getDeckGuide, formatDate } from '../data.js';
 import { thumb } from '../lib/search.js';
-import { escapeHtml } from '../ui/rich-text.js';
+import { escapeHtml, safeColors } from '../ui/rich-text.js';
 import { shareBar, difficultyMarks, difficultyLabel } from '../ui/charts.js';
 import { displayName } from '../ui/define.js';
 
@@ -17,7 +17,7 @@ export async function render(root) {
     <h1 class="page-title">Today's top decks</h1>
     <p class="page-lede">The Leaders winning the most tournaments right now, from ${meta.sampleSize ? `${meta.sampleSize} top-placing decklists` : 'recent decklists'}${meta.from ? ` (${formatDate(meta.from)} to ${formatDate(meta.to)})` : ''}.</p>
     <p class="updated-badge"><span class="dot" style="background:var(--good)"></span>Updated ${formatDate(updated.meta || meta.fetchedAt)} from ${escapeHtml(meta.source || 'tournament results')}</p>
-    ${easiest ? `<a class="pick panel" href="#/deck/${easiest.d.rank}">
+    ${easiest ? `<a class="pick panel" href="#/deck/${Number(easiest.d.rank) || 0}">
         <img src="${escapeHtml(thumb(cards.get(easiest.d.leaderId)?.img || ''))}" alt="" width="200" height="279">
         <span><span class="pick-label">New here? Start with</span><strong class="display">${escapeHtml(easiest.g.title)}</strong>
         <span class="muted">${escapeHtml(difficultyLabel(easiest.g.difficulty))}. Read the beginner guide.</span></span></a>` : ''}
@@ -25,12 +25,12 @@ export async function render(root) {
       ${meta.decks.map((d, i) => {
         const L = cards.get(d.leaderId);
         const g = guides[i];
-        return `<li style="--i:${i}"><a class="meta-row" href="#/deck/${d.rank}">
-          <span class="meta-rank">${d.rank}</span>
+        return `<li style="--i:${i}"><a class="meta-row" href="#/deck/${Number(d.rank) || 0}">
+          <span class="meta-rank">${Number(d.rank) || 0}</span>
           <img class="meta-leader" src="${escapeHtml(thumb(L?.img || ''))}" alt="" loading="lazy" width="200" height="279">
           <span class="meta-main">
             <span class="meta-name">${escapeHtml(d.name)}</span>
-            <span class="meta-sub">${d.colors.map(c => `<span class="dot ${c}" title="${c}"></span>`).join('')}<span>${escapeHtml(displayName(L?.name || d.leaderId))}, ${escapeHtml(d.leaderId)}</span></span>
+            <span class="meta-sub">${safeColors(d.colors).map(c => `<span class="dot ${c}" title="${c}"></span>`).join('')}<span>${escapeHtml(displayName(L?.name || d.leaderId))}, ${escapeHtml(d.leaderId)}</span></span>
             ${shareBar(d.share, max)}
             ${g ? `<span class="meta-guide">${difficultyMarks(g.difficulty)}Beginner guide</span>` : ''}
           </span></a></li>`;

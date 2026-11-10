@@ -1,6 +1,7 @@
 // Parsers for TCGplayer's public deck feed (infinite-api.tcgplayer.com), One Piece vertical.
 import { splitTraits } from './normalize-cards.mjs';
 
+const COLORS = ['Red', 'Green', 'Blue', 'Purple', 'Black', 'Yellow'];
 export const TCG_API = 'https://infinite-api.tcgplayer.com';
 export const deckIndexUrl = (rows, offset) => `${TCG_API}/content/decks/one%20piece/?rows=${rows}&offset=${offset}`;
 export const deckDetailUrl = id => `${TCG_API}/deck/one%20piece/${id}/?subDecks=true&cards=true`;
@@ -43,7 +44,7 @@ export function tcgCardToCard(c) {
     set: c.set || null,
     setName: c.setName || null,
     rarity: c.rarity || null,
-    colors: pyList(c.colors),
+    colors: pyList(c.colors).filter(x => COLORS.includes(x)),
     type,
     cost: type === 'Leader' ? null : num(c.cost),
     power: type === 'Event' ? null : num(c.power),
@@ -69,7 +70,7 @@ export function parseDeckDetail(json) {
     const c = info[String(e.cardID)];
     if (!c?.number) continue;
     if (c.cardType === 'Leader') { leaderId = c.number; continue; }
-    counts.set(c.number, (counts.get(c.number) || 0) + e.quantity);
+    counts.set(c.number, (counts.get(c.number) || 0) + (parseInt(e.quantity, 10) || 0));
   }
   return {
     name: deck.name?.trim(),

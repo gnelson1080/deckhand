@@ -119,3 +119,13 @@ test('reducer never mutates the previous state', () => {
   boardReducer(b, { type: 'play', card: 'H1' });
   assert.equal(JSON.stringify(b), snap);
 });
+
+test('blocking is not allowed after Counters were used (Block Step comes before Counter Step)', () => {
+  const b = base(); b.turn = 'opp'; b.opp.chars = [{ id: 'X', power: 6000 }];
+  let s = boardReducer(b, { type: 'attack', attacker: 'X', target: 'L' });
+  s = boardReducer(s, { type: 'useCounter', card: 'H1' });
+  const after = boardReducer(s, { type: 'block', blocker: 'B' });
+  assert.match(after.error, /before/i);
+  assert.equal(after.battle.target, 'L');
+  assert.equal(after.battle.counter, 1000);
+});

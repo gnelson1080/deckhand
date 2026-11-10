@@ -146,7 +146,7 @@ export async function buildData({
       log(`WARN could not fill ${id} (${e.message})`);
     }
   }
-  cards = cards.map(c => ({ ...c, text: fixMinusSigns(c.text) }));
+  cards = cards.map(c => ({ ...c, text: fixMinusSigns(String(c.text || '').replace(/\s*Disclaimer:[^\n]*/g, '').trim()) }));
   cards.sort((a, b) => a.id.localeCompare(b.id));
   return { cards, meta, updated };
 }

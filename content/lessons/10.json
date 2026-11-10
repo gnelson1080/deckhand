@@ -6,7 +6,7 @@
  "steps": [
   {
    "type": "text",
-   "html": "<p><strong>The rules for a legal deck:</strong></p><ul><li>Exactly <strong>1 Leader</strong>.</li><li>Exactly <strong>50 cards</strong> in the deck (Characters, Events, Stages).</li><li>Every card must match a <kw>Color</kw> on your Leader.</li><li>At most <strong>4 copies</strong> of the same <kw>Card number</kw>.</li><li>Plus <strong>10 DON!!</strong>.</li></ul>"
+   "html": "<p><strong>The rules for a legal deck:</strong></p><ul><li>Exactly <strong>1 Leader</strong>.</li><li>Exactly <strong>50 cards</strong> in the deck (Characters, Events, Stages).</li><li>Every color on the card must also be on your Leader. (A red/blue card can't go in a red/green deck.) See <kw>Color</kw>.</li><li>At most <strong>4 copies</strong> of the same <kw>Card number</kw>.</li><li>Plus <strong>10 DON!!</strong>.</li></ul>"
   },
   {
    "type": "text",
@@ -31,7 +31,7 @@
     "Only if it's an Event"
    ],
    "answer": 2,
-   "why": "Every card must share a color with your Leader."
+   "why": "Every color on the card must also be on your Leader, and blue isn't."
   },
   {
    "q": "How many copies of the same card number can a deck have?",

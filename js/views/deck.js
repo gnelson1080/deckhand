@@ -1,7 +1,7 @@
 import { getMeta, getCards, getDeckGuide, tcgplayerUrl, formatDate } from '../data.js';
 import { thumb } from '../lib/search.js';
 import { deckStats } from '../lib/deckstats.js';
-import { escapeHtml, richText } from '../ui/rich-text.js';
+import { escapeHtml, richText, safeUrl, safeColors } from '../ui/rich-text.js';
 import { termIndex, displayName } from '../ui/define.js';
 import { costCurve, difficultyMarks, difficultyLabel } from '../ui/charts.js';
 import { icon } from '../icons.js';
@@ -20,9 +20,9 @@ export async function render(root, param) {
     <header class="deck-hero">
       <a class="deck-leader" href="#/card/${encodeURIComponent(d.leaderId)}"><img src="${escapeHtml(L?.img || '')}" alt="${escapeHtml(L?.name || '')} Leader card" width="600" height="838"></a>
       <div>
-        <p class="deck-rank"><span class="rank">#${d.rank}</span> right now, ${d.share}% of top decks</p>
+        <p class="deck-rank"><span class="rank">#${Number(d.rank) || 0}</span> right now, ${Number(d.share) || 0}% of top decks</p>
         <h1 class="deck-title">${escapeHtml(g?.title || d.name)}</h1>
-        <p class="meta-sub">${d.colors.map(c => `<span class="dot ${c}"></span>${c}`).join(' ')}</p>
+        <p class="meta-sub">${safeColors(d.colors).map(c => `<span class="dot ${c}"></span>${c}`).join(' ')}</p>
         ${g ? `<p class="deck-diff">${difficultyMarks(g.difficulty)}${escapeHtml(difficultyLabel(g.difficulty))}</p>` : ''}
       </div>
     </header>
@@ -45,9 +45,9 @@ export async function render(root, param) {
     const l = d.lists[listIdx];
     const s = deckStats(l.cards, cards);
     const group = (name, items) => items.length ? `<h3>${name} <span class="muted">(${items.reduce((n, x) => n + x.count, 0)})</span></h3>
-      <ul class="dl-grid">${items.map(x => `<li><a href="#/card/${encodeURIComponent(x.id)}" class="dl-card"><img src="${escapeHtml(thumb(x.card?.img || ''))}" alt="" loading="lazy" width="200" height="279"><span class="dl-count">${x.count}×</span><span class="dl-name">${escapeHtml(displayName(x.card?.name || x.id))}</span></a></li>`).join('')}</ul>` : '';
+      <ul class="dl-grid">${items.map(x => `<li><a href="#/card/${encodeURIComponent(x.id)}" class="dl-card"><img src="${escapeHtml(thumb(x.card?.img || ''))}" alt="" loading="lazy" width="200" height="279"><span class="dl-count">${Number(x.count) || 0}×</span><span class="dl-name">${escapeHtml(displayName(x.card?.name || x.id))}</span></a></li>`).join('')}</ul>` : '';
     body.innerHTML = `
-      <p class="muted">${escapeHtml(l.player || 'A player')} placed ${escapeHtml(l.place || '')} at ${escapeHtml(l.event || 'a tournament')}${l.players ? ` (${l.players} players)` : ''}${l.date ? `, ${formatDate(l.date)}` : ''}.</p>
+      <p class="muted">${escapeHtml(l.player || 'A player')} placed ${escapeHtml(l.place || '')} at ${escapeHtml(l.event || 'a tournament')}${l.players ? ` (${Number(l.players) || 0} players)` : ''}${l.date ? `, ${formatDate(l.date)}` : ''}.</p>
       <div class="deck-stats">
         <div class="stat"><span class="stat-v">${s.total}</span><span class="stat-l">cards in deck</span></div>
         <div class="stat"><span class="stat-v">${s.counters}</span><span class="stat-l">with Counter</span></div>
@@ -55,8 +55,8 @@ export async function render(root, param) {
       </div>
       ${costCurve(s.curve)}
       ${group('Characters', s.byType.Character)}${group('Events', s.byType.Event)}${group('Stages', s.byType.Stage)}${group('Other', s.byType.Other)}
-      <p class="list-links">${l.url ? `<a class="btn" href="${escapeHtml(l.url)}" target="_blank" rel="noopener">Full list on TCGplayer ${icon('link', { size: 16 })}</a>` : ''}
-        <a class="btn" href="${escapeHtml(tcgplayerUrl(L))}" target="_blank" rel="noopener">Buy the Leader ${icon('link', { size: 16 })}</a></p>
+      <p class="list-links">${l.url ? `<a class="btn" href="${escapeHtml(safeUrl(l.url))}" target="_blank" rel="noopener">Full list on TCGplayer ${icon('link', { size: 16 })}</a>` : ''}
+        <a class="btn" href="${escapeHtml(safeUrl(tcgplayerUrl(L)))}" target="_blank" rel="noopener">Buy the Leader ${icon('link', { size: 16 })}</a></p>
       <p class="muted small">Price is an estimate from TCGplayer market prices for the cheapest common printing of each card.</p>`;
   };
   root.querySelector('.list-tabs')?.addEventListener('click', e => {

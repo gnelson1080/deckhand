@@ -8,8 +8,10 @@ const bigImg = url => String(url || '').replace(/_\d+w\.jpg$/, '_in_1000x1000.jp
 export const stripTcgHtml = s => String(s || '')
   .replace(/\r/g, '')
   .replace(/<br\s*\/?>/gi, '\n')
+  .replace(/<span[^>]*color:\s*red[^>]*>[\s\S]*?<\/span>/gi, '')
   .replace(/<[^>]+>/g, '')
   .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#0?39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ')
+  .replace(/\s*Disclaimer:[^\n]*/g, '')
   .split('\n').map(l => l.trim()).filter(Boolean).join('\n');
 
 // "Shanks (020) (Alternate Art)" -> 1 extra tag; "Shanks (020)" -> 0
@@ -44,7 +46,7 @@ export function tcgcsvToCards(products, prices, group = {}) {
       set: id.split('-')[0],
       setName: group.groupName || null,
       rarity: ex.Rarity || null,
-      colors: list(ex.Color),
+      colors: list(ex.Color).filter(x => ['Red', 'Green', 'Blue', 'Purple', 'Black', 'Yellow'].includes(x)),
       type,
       cost: type === 'Leader' ? null : num(ex.Cost),
       power: type === 'Event' || type === 'Stage' ? null : num(ex.Power),
@@ -86,12 +88,19 @@ export function mergeCardLists(lists) {
 export function fillGaps(cards, backup) {
   const b = new Map(backup.map(c => [c.id, c]));
   return cards.map(c => {
-    const o = b.get(c.id);
-    if (!o) return c;
+    const o = b.get(c.id) || {};
     const out = { ...c };
     if (!out.colors?.length && o.colors?.length) out.colors = o.colors;
     if (!out.traits?.length && o.traits?.length) out.traits = o.traits;
     if (!out.text && o.text && !/^Disclaimer:/i.test(o.text)) out.text = o.text;
+    // Every Character has printed power; a missing one plus a backup that says Event means a mislabeled Event.
+    if (out.type === 'Character' && out.power == null && o.type && o.type !== 'Character') out.type = o.type;
+    if (out.type === 'Leader') { if (out.life == null && o.life != null) out.life = o.life; out.cost = null; }
+    else if (out.cost == null && o.cost != null) out.cost = o.cost;
+    if (out.type === 'Leader' || out.type === 'Character') {
+      if (out.power == null) out.power = o.power ?? 0;
+    } else out.power = null;
+    if (out.type === 'Character' && out.counter == null && o.counter) out.counter = o.counter;
     return out;
   });
 }

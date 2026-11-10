@@ -21,3 +21,12 @@ test('manifest is valid and its icons exist', () => {
   assert.ok(m.icons.some(i => i.sizes === '512x512') && m.icons.some(i => i.purpose === 'maskable'));
   for (const i of m.icons) assert.ok(existsSync(join(ROOT, i.src)), i.src);
 });
+
+test('fonts are self-hosted: no render-blocking Google Fonts link, font files precached', () => {
+  const html = readFileSync(join(ROOT, 'index.html'), 'utf8');
+  assert.ok(!html.includes('fonts.googleapis.com'), 'index.html still loads Google Fonts');
+  const css = readFileSync(join(ROOT, 'css/fonts.css'), 'utf8');
+  const files = [...css.matchAll(/url\(\.\.\/(assets\/fonts\/[^)]+)\)/g)].map(m => m[1]);
+  assert.ok(files.length >= 4);
+  for (const f of files) { assert.ok(existsSync(join(ROOT, f)), f); assert.ok(listed.includes(f), `${f} not precached`); }
+});

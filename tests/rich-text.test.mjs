@@ -44,3 +44,17 @@ test('displayName strips the disambiguation suffix from card names', async () =>
   assert.equal(displayName('Nami'), 'Nami');
   assert.equal(displayName('Ms. All Sunday (OP1)'), 'Ms. All Sunday');
 });
+
+test('safeUrl allows only https links', async () => {
+  const { safeUrl } = await import('../js/ui/rich-text.js');
+  assert.equal(safeUrl('https://www.tcgplayer.com/product/1'), 'https://www.tcgplayer.com/product/1');
+  assert.equal(safeUrl('javascript:alert(1)'), '#');
+  assert.equal(safeUrl('http://evil.test'), '#');
+  assert.equal(safeUrl(null), '#');
+  assert.equal(safeUrl(' JAVASCRIPT:alert(1)'), '#');
+});
+test('safeColors keeps only the six game colors', async () => {
+  const { safeColors } = await import('../js/ui/rich-text.js');
+  assert.deepEqual(safeColors(['Red', 'Blue"><img src=x onerror=alert(1)>', 'Green']), ['Red', 'Green']);
+  assert.deepEqual(safeColors(undefined), []);
+});

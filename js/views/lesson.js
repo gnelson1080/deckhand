@@ -89,10 +89,10 @@ export async function render(root, param) {
       const guides = (await Promise.all(meta.decks.map(async d => ({ d, g: await getDeckGuide(d.leaderId) })))).filter(x => x.g)
         .sort((a, b) => a.g.difficulty - b.g.difficulty || a.d.rank - b.d.rank).slice(0, 3);
       if (!guides.length) return '<p class="muted">Open the Meta tab to see today\'s top decks.</p>';
-      return `<p class="step-text">Beginner-friendly decks winning right now, easiest first:</p><div class="pick-list">${guides.map(({ d, g }) => `<a class="pick panel" href="#/deck/${d.rank}">
+      return `<p class="step-text">Beginner-friendly decks winning right now, easiest first:</p><div class="pick-list">${guides.map(({ d, g }) => `<a class="pick panel" href="#/deck/${Number(d.rank) || 0}">
         <img src="${escapeHtml(thumb(cards.get(d.leaderId)?.img || ''))}" alt="" width="200" height="279" loading="lazy">
         <span><strong class="display">${escapeHtml(g.title)}</strong><span class="deck-diff">${difficultyMarks(g.difficulty)}${escapeHtml(difficultyLabel(g.difficulty))}</span>
-        <span class="muted">#${d.rank} in tournaments. ${escapeHtml(g.summary.split('. ')[0])}.</span></span></a>`).join('')}</div>`;
+        <span class="muted">#${Number(d.rank) || 0} in tournaments. ${escapeHtml(g.summary.split('. ')[0])}.</span></span></a>`).join('')}</div>`;
     } catch { return '<p class="muted">Open the Meta tab to see today\'s top decks.</p>'; }
   }
 

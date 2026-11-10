@@ -94,3 +94,30 @@ test('cleanName strips a trailing " - OP14-020" number suffix', async () => {
   assert.equal(cleanName('Shanks (020) (Alternate Art)'), 'Shanks');
   assert.equal(cleanName('Eustass"Captain"Kid'), 'Eustass"Captain"Kid');
 });
+
+test('fillGaps backfills missing life, power, cost and counter from the backup', async () => {
+  const { fillGaps } = await import('../scripts/lib/tcgcsv.mjs');
+  const main = [{ id: 'L-1', type: 'Leader', colors: ['Red'], traits: ['T'], text: 'x', life: null, power: 5000, cost: null, counter: null },
+                { id: 'C-1', type: 'Character', colors: ['Red'], traits: ['T'], text: 'x', life: null, power: null, cost: null, counter: null }];
+  const backup = [{ id: 'L-1', life: 5, power: 5000 }, { id: 'C-1', power: 3000, cost: 2, counter: 1000 }];
+  const [l, c] = fillGaps(main, backup);
+  assert.equal(l.life, 5);
+  assert.equal(l.cost, null, 'leaders never get a cost');
+  assert.deepEqual([c.power, c.cost, c.counter], [3000, 2, 1000]);
+});
+test('a Character with no power anywhere is shown as 0 power', async () => {
+  const { fillGaps } = await import('../scripts/lib/tcgcsv.mjs');
+  const [c] = fillGaps([{ id: 'C-1', type: 'Character', colors: ['Red'], traits: [], text: '', power: null, cost: 1 }], []);
+  assert.equal(c.power, 0);
+});
+test('a "Character" with no power whose backup says Event becomes an Event', async () => {
+  const { fillGaps } = await import('../scripts/lib/tcgcsv.mjs');
+  const [c] = fillGaps([{ id: 'E-1', type: 'Character', colors: ['Red'], traits: [], text: '[Counter] +2000', power: null, cost: 1 }], [{ id: 'E-1', type: 'Event' }]);
+  assert.equal(c.type, 'Event');
+  assert.equal(c.power, null);
+});
+test('reprint/errata disclaimer sentences are removed from card text', async () => {
+  const { stripTcgHtml } = await import('../scripts/lib/tcgcsv.mjs');
+  assert.equal(stripTcgHtml('[On Play] Draw 1 card.<br>Disclaimer: This card has been re-printed with new errata. Details here.'), '[On Play] Draw 1 card.');
+  assert.equal(stripTcgHtml('[Main] Draw 2. Disclaimer: This card was reprinted from the original set.'), '[Main] Draw 2.');
+});

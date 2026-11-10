@@ -157,13 +157,13 @@ L.append(dict(id=9, title="Keywords you'll see everywhere", minutes=4,
 L.append(dict(id=10, title="Building your first deck", minutes=4,
   goal="Know the deck-building rules and what a healthy deck looks like.",
   steps=[
-    T("<p><strong>The rules for a legal deck:</strong></p><ul><li>Exactly <strong>1 Leader</strong>.</li><li>Exactly <strong>50 cards</strong> in the deck (Characters, Events, Stages).</li><li>Every card must match a <kw>Color</kw> on your Leader.</li><li>At most <strong>4 copies</strong> of the same <kw>Card number</kw>.</li><li>Plus <strong>10 DON!!</strong>.</li></ul>"),
+    T("<p><strong>The rules for a legal deck:</strong></p><ul><li>Exactly <strong>1 Leader</strong>.</li><li>Exactly <strong>50 cards</strong> in the deck (Characters, Events, Stages).</li><li>Every color on the card must also be on your Leader. (A red/blue card can't go in a red/green deck.) See <kw>Color</kw>.</li><li>At most <strong>4 copies</strong> of the same <kw>Card number</kw>.</li><li>Plus <strong>10 DON!!</strong>.</li></ul>"),
     T("<p><strong>Which cards are allowed in tournaments?</strong> Most events use the <kw>Standard format</kw>. Each card has a block number printed in its lower-right corner. From April 2026 to March 2027, Standard allows <strong>Blocks 2 to 5</strong>. Block 1 cards (the oldest ones) are not allowed, unless they were reprinted with a newer block number. Each spring the oldest block rotates out (<kw>Block rotation</kw>).</p>"),
     T("<p><strong>What a healthy deck usually has:</strong></p><ul><li>A spread of costs: plenty of 1 to 5 cost cards, a few big 6+ cost finishers.</li><li>Lots of Counter cards. Most good decks have around 15 to 20 cards with +1000 or +2000 Counters, so your hand can defend you.</li><li>4 copies of the cards your Leader wants most, so you find them every game.</li></ul>"),
     TIP("<p>The easiest start is a <strong>starter deck</strong>: a ready-to-play 50-card deck with a Leader. Play it a few times, then swap in cards one at a time. Check the Cards tab to see what each card does and what it costs on TCGplayer.</p>"),
   ],
   quiz=[
-    Q("Your Leader is red and green. Can you put a blue card in your deck?", ["Yes, up to 4", "Yes, but only 1", "No, cards must match your Leader's colors", "Only if it's an Event"], 2, "Every card must share a color with your Leader."),
+    Q("Your Leader is red and green. Can you put a blue card in your deck?", ["Yes, up to 4", "Yes, but only 1", "No, cards must match your Leader's colors", "Only if it's an Event"], 2, "Every color on the card must also be on your Leader, and blue isn't."),
     Q("How many copies of the same card number can a deck have?", ["2", "3", "4", "Unlimited"], 2, "Up to 4 copies of each card number."),
     Q("Why do good decks run many Counter cards?", ["They are cheaper", "They let your hand defend against attacks", "They draw extra cards", "They are required by the rules"], 1, "Counters in hand are how you survive your opponent's turn."),
   ]))

@@ -79,3 +79,10 @@ for (const f of guideFiles) {
     for (const k of g.keyCards) assert.ok(cardIds.has(k.id) && k.why, k.id);
   });
 }
+
+test('deck color rule is stated correctly for multicolor cards (CR 5-1-2-2)', () => {
+  const all = JSON.stringify([glossary, lessons.map(l => l.body)]);
+  assert.ok(!/share a color|must match a (?:<kw>)?Color/i.test(all), 'wording implies one shared color is enough');
+  const l10 = JSON.stringify(lessons.find(l => l.meta.id === 10).body);
+  assert.match(l10, /every color on the card/i);
+});

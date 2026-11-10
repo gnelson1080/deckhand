@@ -17,6 +17,7 @@ export function costCurve(curve) {
 }
 
 export function shareBar(share, maxShare) {
+  share = Number(share) || 0;
   const w = maxShare ? Math.max(2, (share / maxShare) * 100) : 0;
   return `<span class="share" title="${share}% of top tournament decklists"><span class="share-bar" style="--w:${w}%"></span><span class="share-v">${share}%</span></span>`;
 }

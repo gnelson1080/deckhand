@@ -36,7 +36,7 @@ export async function render(root) {
   try { [all, meta] = await Promise.all([getCards().then(m => [...m.values()]), getMeta().catch(() => null)]); }
   catch { count.textContent = "Cards couldn't load. Check your connection, then pull down to refresh."; return; }
 
-  setSel.insertAdjacentHTML('beforeend', setsOf(all).map(s => `<option value="${s}" ${state.set === s ? 'selected' : ''}>${s}</option>`).join(''));
+  setSel.insertAdjacentHTML('beforeend', setsOf(all).map(s => `<option value="${escapeHtml(s)}" ${state.set === s ? 'selected' : ''}>${escapeHtml(s)}</option>`).join(''));
 
   let results = [], shown = 0;
   const tile = (c, i) => `<a class="tile" href="#/card/${encodeURIComponent(c.id)}" style="--i:${i % PAGE}">
