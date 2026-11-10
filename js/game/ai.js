@@ -4,6 +4,18 @@ import { legalActions, dispatch, actor, power, keywords, costOf, find, def } fro
 
 const opp = p => 1 - p;
 
+// What player p is allowed to know: hide the opponent's hand, every Life card and both decks.
+export function publicView(s, p) {
+  const blank = c => ({ ...c, id: '__X' });
+  const v = { ...s, players: s.players.map((P, i) => ({
+    ...P,
+    hand: i === p ? P.hand : P.hand.map(blank),
+    life: P.life.map(blank),
+    deck: P.deck.map(blank),
+  })) };
+  return v;
+}
+
 // ---------- evaluation (public information only) ----------
 export function evaluate(s, p) {
   if (s.winner === p) return 1e6;
@@ -139,6 +151,8 @@ function playOutTurn(s, p, limit = 40) {
 }
 
 function chooseHard(s, p) {
+  const pub = publicView(s, p);
+  const t0 = Date.now();
   const acts = legalActions(s).filter(a => a.type !== 'endTurn');
   const normalPick = chooseAction(s, p, 'normal');
   const cands = [{ type: 'endTurn' }, normalPick, ...acts.filter(a => a.type === 'play' || a.type === 'activate' || a.type === 'attack')].filter(Boolean);
@@ -147,8 +161,9 @@ function chooseHard(s, p) {
   for (const a of cands) {
     const key = JSON.stringify(a);
     if (seen.has(key)) continue;
+    if (seen.size >= 2 && Date.now() - t0 > 300) break; // time budget: phones stay responsive
     seen.add(key);
-    const first = dispatch(s, a);
+    const first = dispatch(pub, a);
     if (first.error) continue;
     const end = a.type === 'endTurn' ? first : playOutTurn(resolveForSim(first, p), p);
     let score = evaluate(end, p);
@@ -176,7 +191,8 @@ export function chooseAction(s, p, level = 'normal', rand = Math.random) {
     return nonEnd[Math.floor(rand() * nonEnd.length)];
   }
 
-  const base = evaluate(s, p);
+  const pub = publicView(s, p);
+  const base = evaluate(pub, p);
   let best = null, bestScore = -Infinity;
   const P = s.players[p];
   for (const a of acts) {
@@ -192,10 +208,10 @@ export function chooseAction(s, p, level = 'normal', rand = Math.random) {
         if (score > bestScore) { bestScore = score; best = { type: 'giveDon', uid: a.uid }; }
         continue;
       }
-      const sim = resolveForSim(dispatch(s, a), p);
+      const sim = resolveForSim(dispatch(pub, a), p);
       score = evaluate(sim, p) - base + (find(s, a.target)?.zone === 'leader' ? 150 : 100);
     } else {
-      const sim = resolveForSim(dispatch(s, a), p);
+      const sim = resolveForSim(dispatch(pub, a), p);
       if (sim.error) continue;
       score = evaluate(sim, p) - base;
       if (a.type === 'play') score += 60 + (def(find(s, a.uid).inst.id).cost ?? 0) * 25; // developing the board is good

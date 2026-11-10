@@ -18,7 +18,12 @@ const ME = 0, AI = 1;
 const n = x => Number(x || 0).toLocaleString('en-US');
 const nm = (s, uid) => escapeHtml(def(find(s, uid)?.inst.id)?.name || '');
 
+// The one live game loop. A new render (including Rematch) always stops the previous one first.
+let unmount = null;
+
 export async function render(root) {
+  unmount?.();
+  unmount = null;
   const st = store();
   const idx = await termIndex();
   let s, meta;
@@ -251,5 +256,8 @@ export async function render(root) {
   draw();
   save();
   scheduleAI();
-  return () => { alive = false; clearTimeout(aiTimer); document.body.classList.remove('in-game'); };
+  const stop = () => { alive = false; clearTimeout(aiTimer); document.body.classList.remove('in-game'); if (unmount === stop) unmount = null; };
+  unmount = stop;
+  // The router keeps only the first cleanup; route it to whichever game is live now.
+  return () => unmount?.();
 }

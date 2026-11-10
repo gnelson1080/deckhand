@@ -14,7 +14,9 @@ function clone(x) {
   for (const k in x) o[k] = clone(x[k]);
   return o;
 }
-export const def = id => POOL[id];
+// '__X' is an unknown card used when a computer player imagines hidden cards (see ai.publicView).
+const BLANK = { id: '__X', name: 'Unknown card', type: 'Character', colors: [], cost: 99, power: 0, counter: null, life: null, attribute: '', traits: [], text: '', img: '' };
+export const def = id => POOL[id] || BLANK;
 export const cardDef = id => CARD_DEFS[id] || {};
 
 // ---------- lookup helpers ----------
@@ -249,7 +251,9 @@ function run(s) {
 }
 
 function afterFrame(s, f) {
-  if (f.kind === 'trigger' && s.limbo && s.limbo.uid === f.src) { s.players[s.limbo.owner].trash.push(s.limbo); s.limbo = null; } // 10-1-5-3
+  if (f.kind === 'trigger' && s.limbo && s.limbo.uid === f.src) { // 10-1-5-3; declining its cost = not activating (10-1-5-2) → hand
+    s.players[s.limbo.owner][f.declined ? 'hand' : 'trash'].push(s.limbo); s.limbo = null;
+  }
 }
 
 // Move the game forward after effects are done. Returns true if something changed.
@@ -263,7 +267,7 @@ function advance(s) {
       return true;
     }
     if (b.step === 'blocked') { b.step = 'counter'; if (!onField(s, b.attacker) || !onField(s, b.target)) endBattle(s); return true; }
-    if (b.step === 'damage') { damageStep(s); return true; }
+    if (b.step === 'damage') { if (!onField(s, b.attacker) || !onField(s, b.target)) endBattle(s); else damageStep(s); return true; } // 7-1-3-1-3
     if (b.step === 'dealing') { dealDamage(s); return true; }
     if (b.step === 'end') { endBattle(s); return true; }
     return false;

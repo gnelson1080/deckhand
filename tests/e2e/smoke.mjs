@@ -279,6 +279,19 @@ const phone = async (opts = {}) => {
     await page.locator('.game').waitFor();
     assert.ok(await page.locator('.g-zone.me .gc').count() >= 1);
   });
+  await step('Rematch then leaving during the computer\'s turn leaves no game running in the background', async () => {
+    const before = errors.length;
+    await page.goto(base + '#/play');
+    await page.click('text=Computer');
+    await page.click('.start-game');
+    await page.locator('.game').waitFor();
+    await page.evaluate(() => { Date.now = () => 1001; const p = document.querySelector('.g-panel'); p.insertAdjacentHTML('beforeend', '<button type="button" class="rematch">r</button>'); p.querySelector('.rematch').click(); });
+    await page.waitForTimeout(150);
+    await page.goto(base + '#/cards');
+    await page.waitForTimeout(2500);
+    assert.equal(errors.length, before, errors.slice(before).join(' | '));
+    assert.equal(await page.locator('.game').count(), 0);
+  });
   await ctx.close();
 }
 

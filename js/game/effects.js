@@ -4,6 +4,7 @@
 import { find, def, power, costOf, basePowerOf, view, koChar, removeToHand, playCharacter, fieldCards, keywords } from './engine.js';
 
 const opp = p => 1 - p;
+const cannotRest = (s, uid) => s.mods.some(m => m.uid === uid && m.kind === 'lock' && m.what === 'cannotRest');
 const sideOf = (f, side) => (side === 'opp' ? opp(f.owner) : f.owner);
 
 // ---------- filters ----------
@@ -134,10 +135,11 @@ export function runStep(s, f, st, ans) {
 
   switch (st.do) {
     case 'may': { // "You may <cost>: <effect>" — skip everything after if declined or unpayable.
-      if (!canPay(s, p, st.cost, f.src)) { abort(); return 'stop'; }
+      const firstStep = f.step === 0;
+      if (!canPay(s, p, st.cost, f.src)) { if (firstStep) f.declined = true; abort(); return 'stop'; }
       const yes = confirm(s, f, ans, st.prompt);
       if (yes === null) return 'wait';
-      if (!yes) { abort(); return 'stop'; }
+      if (!yes) { if (firstStep) f.declined = true; abort(); return 'stop'; }
       expand(Object.entries(st.cost).map(([k, val]) => ({ do: 'pay', k, v: val })));
       return;
     }
@@ -174,13 +176,13 @@ export function runStep(s, f, st, ans) {
     }
     case 'rest': {
       const side = sideOf(f, st.side || 'opp'), Q = s.players[side];
-      const opts = [...boardTargets(s, side, { ...st.filter, rested: false }), ...(st.includeDon ? Array.from({ length: Q.donActive }, (_, i) => `ODON:${i}`) : [])];
+      const opts = [...boardTargets(s, side, { ...st.filter, rested: false }).filter(u => !cannotRest(s, u)), ...(st.includeDon ? Array.from({ length: Q.donActive }, (_, i) => `ODON:${i}`) : [])];
       const picks = ask(s, f, ans, { options: opts, min: 0, max: st.n ?? 1, prompt: st.prompt || 'Choose a card to rest.' });
       if (!picks) return 'wait';
       for (const u of picks) { if (u.startsWith('ODON:')) { Q.donActive--; Q.donRested++; } else find(s, u).inst.rested = true; }
       return;
     }
-    case 'restAllOpp': for (const c of s.players[opp(p)].chars) c.rested = true; return;
+    case 'restAllOpp': for (const c of s.players[opp(p)].chars) if (!cannotRest(s, c.uid)) c.rested = true; return;
     case 'setDonActive': { const n = Math.min(st.n, P.donRested); P.donRested -= n; P.donActive += n; return; }
     case 'addDon': {
       const a = Math.min(st.active || 0, P.donDeck); P.donDeck -= a; P.donActive += a;
