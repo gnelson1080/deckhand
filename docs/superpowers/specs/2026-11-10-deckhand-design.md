@@ -79,6 +79,33 @@ Motion (all disabled/reduced under `prefers-reduced-motion`):
   card search returns results, card detail opens.
 - Manual screenshot review of every screen in light and dark mode before handoff.
 
-## 6. Out of scope (for now)
+## 6. Full scope — built in three phases, in order
 
-Full game simulator vs. computer, accounts/sync, deck builder, prices history, other languages.
+User asked for everything. It is built in phases so each one is usable before the next starts.
+
+**Phase 1 — Core:** everything in sections 2–5.
+
+**Phase 2 — Deck tools:**
+- **Deck builder:** pick a Leader, add cards with live rule checks (exactly 50 cards, max 4
+  copies per card ID, cards must match the Leader's colors), cost curve + counter-count charts,
+  "how this compares to meta lists" hints, total TCGplayer price, import/export in the
+  standard text format used by Limitless and online simulators, save multiple decks.
+- **Price history:** the daily job appends each card's market price to compact history files;
+  card view shows a price chart (7d / 30d / all) and % change. Meta tab shows deck cost.
+- **Progress backup:** no server on GitHub Pages, so "accounts" become a backup code /
+  file you can export and import on another phone. Saves lessons, quizzes, and decks.
+
+**Phase 3 — Practice game vs. the computer:**
+- A playable match on your phone with a real board: Leader, Life, DON!! deck, hand,
+  Character area, trash. Drag or tap to play, attach DON!!, attack, block, counter.
+- **Coach mode** (on by default): explains what each phase does, why a move is good or bad,
+  and suggests a move when you're stuck. Can be turned off.
+- Computer opponent with 3 difficulties (Easy = random legal moves, Normal = rule-based
+  heuristics, Hard = looks a turn ahead).
+- Card effects are coded by hand, so the simulator supports a **curated pool**: the official
+  starter decks most beginners buy plus the beginner meta decks from the guides. Every
+  supported card's effect is tested. Unsupported cards are clearly marked in the deck builder.
+- Rules engine follows the official Comprehensive Rules (turn structure, first-player
+  restrictions, DON!! rules, damage/Life/Trigger, blocker/counter windows, win conditions).
+
+**Language:** English for now; all text lives in content files so translations can be added later.
