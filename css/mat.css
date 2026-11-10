@@ -64,14 +64,14 @@
 .z-leader { border-style: solid; border-color: #e8d9a866; padding: 4px 6px; }
 .z-life { align-self: stretch; width: calc(var(--sw) + 10px); }
 .z-deck, .z-trash { width: calc(var(--sw) + 10px); }
-.z-dondeck, .z-cost { min-height: calc(var(--ch) * .34); padding: 7px 6px 4px; }
+.z-dondeck, .z-cost { min-height: calc(var(--cw) * .66); padding: 8px 6px 4px; }
 .z-dondeck { width: calc(var(--sw) + 10px); }
 
 .slot { display: block; width: var(--cw); height: var(--ch); border-radius: 6px; border: 1.5px dashed #e8d9a838; }
 .slot.sm { width: calc(var(--sw) * .95); height: calc(var(--sw) * 1.33); }
 
 /* Cards */
-.game .gc { width: var(--cw); border-radius: 6px; }
+.game .gc { width: var(--cw); border-radius: 6px; isolation: isolate; }
 .game .gc img { border-radius: 6px; }
 .game .g-lead .gc:first-child { width: var(--cw); }
 .game .gc.stage { width: var(--cw) !important; }
@@ -81,18 +81,16 @@
 /* Card backs, piles, DON!! */
 .cb {
   display: block; width: calc(var(--sw) * .95); height: calc(var(--sw) * 1.33); border-radius: 5px;
-  background:
-    radial-gradient(circle at 50% 50%, #f3b400 0 9%, transparent 10%),
-    radial-gradient(circle at 50% 50%, transparent 0 22%, #f3b40055 23% 25%, transparent 26%),
-    repeating-linear-gradient(135deg, #1a2f4d 0 6px, #142640 6px 12px);
-  box-shadow: inset 0 0 0 2px #e8d9a8aa, 0 2px 4px #0008;
+  /* The real ONE PIECE CARD GAME card back (Bandai). Navy fallback while it loads. */
+  background: #27285c url("../assets/card-back.jpg") center / cover no-repeat;
+  box-shadow: 0 2px 4px #0008;
 }
 .pile { position: relative; display: grid; place-items: center; padding: 0; border: 0; background: none; color: inherit; font: inherit; }
 .pile > * { grid-area: 1 / 1; }
 .pile .cb.b2 { transform: translate(2px, -2px); } .pile .cb.b3 { transform: translate(4px, -4px); }
 .pile-n { position: absolute; bottom: -6px; right: -6px; min-width: 20px; padding: 0 5px; border-radius: 999px; background: #f8faf7; color: #12304a; font: 700 .7rem/1.5 var(--font-body); text-align: center; box-shadow: 0 1px 3px #0007; }
 .z-dondeck .cb, .z-dondeck .slot.sm { width: calc(var(--cw) * .42); height: calc(var(--cw) * .58); }
-.pile.don .cb { background: radial-gradient(circle at 50% 45%, #fff6 0 18%, transparent 19%), linear-gradient(160deg, #f6c933, #b98600); box-shadow: inset 0 0 0 2px #7a5a00, 0 2px 4px #0008; }
+.pile.don .cb { background: #f4f4f2 var(--don-img) center / cover no-repeat; box-shadow: 0 2px 4px #0008; }
 .trash-btn { cursor: pointer; }
 .trash-btn img { width: calc(var(--sw) * .95); border-radius: 5px; box-shadow: 0 2px 4px #0008; filter: saturate(.8); }
 .life-col { position: relative; display: flex; flex-direction: column; align-items: center; padding: 4px 0 8px; }
@@ -104,9 +102,10 @@
 .life-n { right: 50%; transform: translateX(50%); bottom: -4px; background: #cf2330; color: #fff; }
 .g-zone.opp .life-col { flex-direction: column-reverse; padding: 8px 0 4px; }
 .g-zone.opp .life-n { bottom: auto; top: -4px; }
-.don-row { display: flex; flex-wrap: nowrap; justify-content: center; align-items: center; gap: 4px; padding: 0 4px; }
-.dn { display: block; width: calc(var(--cw) * .26); height: calc(var(--cw) * .36); border-radius: 3px; background: linear-gradient(160deg, #f6c933, #b98600); box-shadow: inset 0 0 0 1.5px #7a5a00, 0 1px 2px #0008; transition: transform .3s var(--ease-spring), opacity .3s; }
-.dn.r { transform: rotate(90deg); opacity: .5; }
+.don-row { display: flex; flex-wrap: nowrap; justify-content: center; align-items: center; gap: 0; padding: 0 4px; }
+.dn { display: block; flex: none; width: calc(var(--cw) * .42); height: calc(var(--cw) * .59); border-radius: 3px; background: #f4f4f2 var(--don-img) center / cover no-repeat; box-shadow: 0 1px 3px #000a; transition: transform .3s var(--ease-spring), filter .3s; }
+.dn + .dn { margin-left: calc(var(--cw) * -.12); }
+.dn.r { transform: rotate(90deg) scale(.92); filter: brightness(.62); margin: 0 calc(var(--cw) * .02); }
 
 /* Center strip and hand */
 .g-mid { display: grid; gap: 4px; align-content: center; min-height: 36px; }
@@ -120,7 +119,7 @@
 :root[data-layout="desktop"] body.in-game main#view { margin: 0 auto; max-width: none; padding: 8px 20px 12px; }
 :root[data-layout="desktop"] .game {
   /* height budget: header + top bar + gaps ≈ 150px; mats ≈ 6.1 card widths; hand ≈ 1.25 */
-  --cwb: min(calc((100vw - 420px) / 7.6), calc((100vh - var(--header-h) - 262px) / 7.05), 140px);
+  --cwb: min(calc((100vw - 420px) / 7.6), calc((100vh - var(--header-h) - 262px) / 7.3), 140px);
   grid-template-columns: minmax(0, 1fr) 330px; column-gap: 18px;
   grid-template-areas: "top top" "opp mid" "me mid" "hand panel";
   grid-template-rows: auto auto auto 1fr;
@@ -144,7 +143,7 @@
 /* Big board: the side panel goes away and the mats use the full height. Your hand and the buttons sit to the
    right of your mat (like cards held beside the table); the log + coach sit beside the computer's smaller mat. */
 :root[data-layout="desktop"] .game.collapsed {
-  --cwb: min(calc((100vw - 560px) / 7.7), calc((100vh - var(--header-h) - 236px) / 5.7), 160px);
+  --cwb: min(calc((100vw - 560px) / 7.7), calc((100vh - var(--header-h) - 236px) / 5.95), 160px);
   grid-template-columns: auto minmax(280px, 1fr); column-gap: 22px;
   grid-template-areas: "top top" "opp mid" "me side";
   grid-template-rows: auto auto 1fr;
@@ -174,3 +173,10 @@
   .gp-info p { margin: 4px 0 0; }
 }
 @media (prefers-reduced-motion: reduce) { .dn, .g-preview { transition: none; animation: none !important; } }
+
+/* DON!! given to a card: real DON!! cards tucked under it, peeking out (count badge on top). */
+.gc-dons { position: absolute; z-index: -1; left: 0; right: 0; bottom: 0; height: 100%; pointer-events: none; }
+.gc-dons i { position: absolute; left: 50%; bottom: 0; width: 82%; aspect-ratio: 600 / 838; border-radius: 4px; background: #f4f4f2 var(--don-img) center / cover no-repeat; box-shadow: 0 1px 3px #0009; transform: translate(calc(-50% - 16% - var(--k, 0) * 7%), 20%) rotate(-10deg); }
+.gc-dons i:nth-child(2) { --k: 1; } .gc-dons i:nth-child(3) { --k: 2; } .gc-dons i:nth-child(4) { --k: 3; } .gc-dons i:nth-child(5) { --k: 4; }
+.game .gc-don { background: #f8faf7; color: #12304a; box-shadow: 0 1px 3px #0007; }
+.gc.rested .gc-dons { display: none; }

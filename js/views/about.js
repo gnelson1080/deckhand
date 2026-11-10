@@ -40,7 +40,7 @@ export async function render(root) {
       <h2>Start over</h2>
       <button type="button" class="btn reset-progress">Reset my lesson progress</button>
       <h2>The fine print</h2>
-      <p class="muted">Deckhand is an unofficial fan-made learning tool. It is not affiliated with or endorsed by Bandai, Eiichiro Oda, Shueisha, Toei Animation or TCGplayer. ONE PIECE card names, text and images belong to their owners. Card images marked "SAMPLE" are the official preview scans.</p>
+      <p class="muted">Deckhand is an unofficial fan-made learning tool. It is not affiliated with or endorsed by Bandai, Eiichiro Oda, Shueisha, Toei Animation or TCGplayer. ONE PIECE card names, text and images, the card back and the DON!! card art belong to their owners. Card images marked "SAMPLE" are the official preview scans.</p>
     </section>`;
 
   const msg = root.querySelector('.backup-msg');

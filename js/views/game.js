@@ -16,6 +16,8 @@ import { icon } from '../icons.js';
 import { isDesktop } from '../lib/layout.js';
 
 const ME = 0, AI = 1;
+// The standard DON!! card (Bandai), from TCGplayer like every other card picture.
+const DON_IMG = 'https://tcgplayer-cdn.tcgplayer.com/product/672598_200w.jpg';
 const n = x => Number(x || 0).toLocaleString('en-US');
 const nm = (s, uid) => escapeHtml(def(find(s, uid)?.inst.id)?.name || '');
 
@@ -44,7 +46,7 @@ export async function render(root) {
   let collapsed = st.get('gameSideCollapsed', false);
 
   document.body.classList.add('in-game');
-  root.innerHTML = `<div class="game ${collapsed ? 'collapsed' : ''}" aria-live="polite">
+  root.innerHTML = `<div class="game ${collapsed ? 'collapsed' : ''}" aria-live="polite" style="--don-img:url('${DON_IMG}')">
     <div class="g-top"></div>
     <div class="g-zone opp" aria-label="Computer's side of the table"></div>
     <div class="g-mid"></div>
@@ -66,7 +68,7 @@ export async function render(root) {
     return `<button type="button" class="gc ${c.rested ? 'rested' : ''} ${selected === c.uid ? 'sel' : ''} ${hintFor === c.uid ? 'hinted' : ''} ${extra}" data-uid="${c.uid}" aria-label="${escapeHtml(d.name)}${pw != null ? `, ${pw} power` : ''}${c.rested ? ', rested' : ''}">
       <img src="${escapeHtml(thumb(d.img))}" alt="" draggable="false" loading="lazy">
       ${pw != null ? `<span class="gc-pow ${pw > base ? 'up' : pw < base ? 'down' : ''}">${n(pw)}</span>` : ''}
-      ${c.don ? `<span class="gc-don">+${c.don}</span>` : ''}
+      ${c.don ? `<span class="gc-dons" aria-hidden="true">${'<i></i>'.repeat(Math.min(c.don, 5))}</span><span class="gc-don">+${c.don}</span>` : ''}
       ${kw.has('Blocker') ? '<span class="gc-kw">B</span>' : ''}
     </button>`;
   };
