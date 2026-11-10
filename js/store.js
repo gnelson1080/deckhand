@@ -1,7 +1,7 @@
 // Tiny persistent store. Falls back to memory when localStorage is missing or blocked.
 const PREFIX = 'deckhand:';
 
-export function createStore(storage = globalThis.localStorage) {
+export function createStore(storage) {
   const mem = new Map();
   return {
     get(key, fallback = null) {
@@ -19,4 +19,4 @@ export function createStore(storage = globalThis.localStorage) {
 }
 
 let shared;
-export const store = () => (shared ||= (() => { try { return createStore(globalThis.localStorage); } catch { return createStore(undefined); } })());
+export const store = () => (shared ||= (() => { let ls = null; try { ls = globalThis.localStorage; } catch { /* blocked */ } return createStore(ls); })());

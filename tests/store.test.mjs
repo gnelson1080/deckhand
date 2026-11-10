@@ -26,3 +26,12 @@ test('works with no storage at all', () => {
   st.set('x', 1);
   assert.equal(st.get('x', 0), 1);
 });
+
+test('shared store() survives a localStorage getter that throws (blocked storage)', async () => {
+  Object.defineProperty(globalThis, 'localStorage', { configurable: true, get() { throw new Error('denied'); } });
+  try {
+    const { store } = await import('../js/store.js?blocked');
+    assert.doesNotThrow(() => store().set('theme', 'dark'));
+    assert.equal(store().get('theme'), 'dark');
+  } finally { delete globalThis.localStorage; }
+});
