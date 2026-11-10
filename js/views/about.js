@@ -1,9 +1,10 @@
 import { getUpdated, formatDate } from '../data.js';
 import { store } from '../store.js';
+import { icon } from '../icons.js';
 
 export async function render(root) {
   const u = await getUpdated();
-  root.innerHTML = `<a class="back-link" href="#/learn" data-back>Back</a>
+  root.innerHTML = `<a class="back-link" href="#/learn" data-back>${icon('back', { size: 20 })}Back</a>
     <h1 class="page-title">About Deckhand</h1>
     <p class="page-lede">A free, unofficial guide for people learning the One Piece Card Game from scratch.</p>
     <section class="panel about">

@@ -9,7 +9,7 @@
 .kw-trait { font-weight: 400; font-style: italic; }
 
 /* Search input */
-.search-field {
+.search-field { position: relative;
   display: flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 14px;
   background: var(--paper); border: 2px solid var(--ink); border-radius: 999px; color: var(--ink-soft);
   box-shadow: 0 3px 0 var(--rule);
@@ -68,12 +68,12 @@
 .sheet-more { display: inline-block; margin-top: 6px; font-weight: 700; }
 
 /* Cards tab */
-.filters { display: grid; gap: 8px; margin: 14px calc(-1 * var(--gutter)) 4px; }
+.filters { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; margin: 14px calc(-1 * var(--gutter)) 4px; }
 .filter-row { display: flex; gap: 8px; overflow-x: auto; padding: 2px var(--gutter); scrollbar-width: none; }
 .filter-row::-webkit-scrollbar { display: none; }
 .filter-row .chip { white-space: nowrap; flex: none; }
 .color-chip[aria-pressed="true"] .dot { box-shadow: 0 0 0 2px var(--paper); }
-.select-chip { padding-right: 6px; }
+.select-chip { position: relative; padding-right: 6px; }
 .select-chip select { border: 0; background: transparent; font: inherit; font-weight: 700; color: inherit; outline: none; }
 .result-count { margin: 8px 0 10px; font-size: var(--t-sm); min-height: 1.4em; }
 .card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 10px; }
