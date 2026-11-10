@@ -1,6 +1,6 @@
 // Computer players. They only ever pick from legalActions(state) and never look at hidden cards
 // (the opponent's hand contents or anyone's Life/deck order).
-import { legalActions, dispatch, actor, power, keywords, costOf, find, def } from './engine.js';
+import { legalActions, dispatch, actor, power, keywords, costOf, find, def, counterOf } from './engine.js';
 
 const opp = p => 1 - p;
 
@@ -102,8 +102,8 @@ function defend(s, p, level) {
   // counter step
   if (gap < 0) return { type: 'endCounter' };
   const counters = acts.filter(a => a.type === 'counter').map(a => {
-    const d = def(find(s, a.uid).inst.id);
-    return { a, value: d.type === 'Character' ? d.counter : 3000, cost: d.type === 'Character' ? 0 : costOf(s, a.uid) };
+    const inst = find(s, a.uid).inst; const d = def(inst.id);
+    return { a, value: d.type === 'Character' ? counterOf(s, actor(s), inst) : 3000, cost: d.type === 'Character' ? 0 : costOf(s, a.uid) };
   }).sort((x, y) => x.value - y.value);
   const total = counters.reduce((n, c) => n + c.value, 0);
   const worth = lethalish || (isLeader && me.life.length <= 2 && me.hand.length >= 3) || (valuable && gap < 2000) || (level === 'hard' && isLeader && me.hand.length >= 6 && gap < 2000);

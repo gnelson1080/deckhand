@@ -15,7 +15,7 @@ export const stripTcgHtml = s => String(s || '')
   .split('\n').map(l => l.trim()).filter(Boolean).join('\n');
 
 // Printing tags TCGplayer adds to product names. Character aliases like "Mr.1 (Daz.Bonez)" are kept.
-const VARIANT_RE = /alternate art|parallel|\bsp\b|foil|full art|manga|box topper|wanted poster|reprint|treasure|gold|super alt|oda stamped|signature/i;
+const VARIANT_RE = /alternate art|parallel|\bsp\b|\btr\b|foil|full art|manga|box topper|wanted poster|reprint|treasure|gold|super alt|oda stamped|signature/i;
 const EVENT_RE = /pack|regional|deck|collection|cup|edition|fest|vol\.?|promo|film|event|anniversary|championship|tournament|release|kit|party|participant|winner|judge|set|exclusive|celebration|battle|gift|top players|finalist|store|convention|stamped|online|offline|\d{4}/i;
 const NUM_RE = /^(?:[A-Z]*-?\d+[A-Z\d-]*)$/;
 const tagsOf = name => (String(name).match(/\(([^)]*)\)|\[([^\]]*)\]/g) || []).map(t => t.slice(1, -1).trim());

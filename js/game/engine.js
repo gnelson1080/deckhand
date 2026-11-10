@@ -214,6 +214,14 @@ export function pushEffect(s, owner, srcUid, cardId, eff, extra = {}) {
   s.stack.push({ owner, src: srcUid, cardId, eff, step: 0, ctx: {}, paid: false, ...extra });
 }
 
+// Counter value of a Character card in hand (printed, or granted by its own text).
+export function counterOf(s, p, inst) {
+  const d = def(inst.id);
+  if (d.counter) return d.counter;
+  const hc = cardDef(inst.id).handCounter;
+  return hc ? hc(view(s, p)) || 0 : 0;
+}
+
 function effectsOf(id, on) { return (cardDef(id).effects || []).map((e, i) => [e, i]).filter(([e]) => e.on === on); }
 
 function canTrigger(s, owner, inst, e) {
@@ -226,7 +234,10 @@ function canTrigger(s, owner, inst, e) {
 }
 
 function queue(s, owner, inst, on) {
-  for (const [e, i] of effectsOf(inst.id, on)) if (canTrigger(s, owner, inst, e)) pushEffect(s, owner, inst.uid, inst.id, i);
+  for (const [e, i] of effectsOf(inst.id, on)) if (canTrigger(s, owner, inst, e)) {
+    if (e.once) s.once[`${inst.uid}:${e.key || 'x'}:${s.turn}`] = true; // [Once Per Turn] triggered abilities
+    pushEffect(s, owner, inst.uid, inst.id, i);
+  }
 }
 
 // Run effects until a choice is needed or the stack is empty, then continue the game flow.
@@ -318,7 +329,7 @@ function endBattle(s) {
 export function koChar(s, uid, by, srcOwner) {
   const f = find(s, uid); if (!f || f.zone !== 'chars') return false;
   const P = s.players[f.owner];
-  if (by === 'effect' && srcOwner !== f.owner && replaceRemoval(s, f.owner)) return false;
+  if (by === 'effect' && srcOwner !== f.owner && replaceRemoval(s, f.owner, uid)) return false;
   P.chars.splice(f.index, 1);
   P.donRested += f.inst.don; f.inst.don = 0; f.inst.rested = false; // 6-5-5-4
   s.mods = s.mods.filter(m => m.uid !== uid);
@@ -329,8 +340,16 @@ export function koChar(s, uid, by, srcOwner) {
 }
 
 // OP17-095 Roronoa Zoro: replace removal by an opponent's effect with putting 3 trash cards on the deck bottom.
-export function replaceRemoval(s, owner) {
+export function replaceRemoval(s, owner, uid) {
   const P = s.players[owner];
+  // OP17-045 Kyo: trash 2 cards from hand instead. Used for Characters worth saving (cost 4+) when the hand can pay.
+  const kyo = P.chars.find(c => c.id === 'OP17-045' && !negated(s, c.uid));
+  if (kyo && uid && P.hand.length >= 2 && costOf(s, uid) >= 4) {
+    const idx = (cardDef('OP17-045').effects || []).findIndex(e => e.on === 'replace');
+    pushEffect(s, owner, kyo.uid, 'OP17-045', idx, { paid: true });
+    log(s, { e: 'replaced', p: owner });
+    return true;
+  }
   const z = P.chars.find(c => c.id === 'OP17-095' && !negated(s, c.uid));
   if (!z || P.trash.length < 3) return false;
   P.deck.push(...P.trash.splice(P.trash.length - 3, 3));
@@ -340,12 +359,25 @@ export function replaceRemoval(s, owner) {
 
 export function removeToHand(s, uid, srcOwner) {
   const f = find(s, uid); if (!f || f.zone !== 'chars') return false;
-  if (srcOwner !== f.owner && replaceRemoval(s, f.owner)) return false;
+  if (srcOwner !== f.owner && replaceRemoval(s, f.owner, uid)) return false;
   const P = s.players[f.owner];
   P.chars.splice(f.index, 1);
   P.donRested += f.inst.don; f.inst.don = 0; f.inst.rested = false;
   s.mods = s.mods.filter(m => m.uid !== uid);
   P.hand.push(f.inst);
+  return true;
+}
+
+// Place a Character at the bottom of its owner's deck (Gloriosa OP17-046).
+export function removeToBottom(s, uid, srcOwner) {
+  const f = find(s, uid); if (!f || f.zone !== 'chars') return false;
+  if (srcOwner !== f.owner && replaceRemoval(s, f.owner, uid)) return false;
+  const P = s.players[f.owner];
+  P.chars.splice(f.index, 1);
+  P.donRested += f.inst.don; f.inst.don = 0; f.inst.rested = false;
+  s.mods = s.mods.filter(m => m.uid !== uid);
+  P.deck.push(f.inst);
+  log(s, { e: 'bottom', uid, id: f.inst.id });
   return true;
 }
 
@@ -404,12 +436,15 @@ function canBattle(s) { return s.players[s.active].turns > 1; } // 6-5-6-1
 function attackersAndTargets(s) {
   const p = s.active, P = s.players[p], Q = s.players[opp(p)];
   const out = [];
+  const taunts = def(Q.leader.id).traits.some(t => t.includes('Rocks Pirates'))
+    ? Q.chars.filter(t => t.rested && t.id === 'OP17-044' && !negated(s, t.uid)) : [];
   for (const c of [P.leader, ...P.chars]) {
     if (c.rested || locked(s, c.uid, 'cannotAttack') || locked(s, c.uid, 'cannotRest')) continue;
     const kw = keywords(s, c.uid);
     const fresh = c !== P.leader && c.playedTurn === s.turn;
     if (fresh && !kw.has('Rush') && !kw.has('Rush: Character')) continue;
     const leaderOk = !fresh || kw.has('Rush');
+    if (taunts.length) { for (const t of taunts) out.push({ type: 'attack', uid: c.uid, target: t.uid }); continue; }
     if (leaderOk) out.push({ type: 'attack', uid: c.uid, target: Q.leader.uid });
     for (const t of Q.chars) if (t.rested) out.push({ type: 'attack', uid: c.uid, target: t.uid });
   }
@@ -440,7 +475,7 @@ export function legalActions(s) {
       const out = [{ type: 'endCounter' }];
       for (const c of P.hand) {
         const d = def(c.id);
-        if (d.type === 'Character' && d.counter) out.push({ type: 'counter', uid: c.uid });
+        if (d.type === 'Character' && counterOf(s, who, c)) out.push({ type: 'counter', uid: c.uid });
         if (d.type === 'Event' && effectsOf(c.id, 'counter').length && payable(s, who, costOf(s, c.uid))) out.push({ type: 'counter', uid: c.uid });
       }
       return out;
@@ -532,10 +567,11 @@ function apply(s, a) {
         const f = find(s, a.uid);
         if (!f || f.zone !== 'hand' || f.owner !== who) return 'Counter with a card from your hand.';
         const d = def(f.inst.id);
-        if (d.type === 'Character' && d.counter) {
+        const cv = d.type === 'Character' ? counterOf(s, who, f.inst) : 0;
+        if (cv) {
           P.hand.splice(f.index, 1); P.trash.push(f.inst);
-          s.mods.push({ uid: b.target, kind: 'power', amount: d.counter, until: 'battle', owner: who }); // 7-1-3-1-1
-          log(s, { e: 'counter', id: f.inst.id, amount: d.counter });
+          s.mods.push({ uid: b.target, kind: 'power', amount: cv, until: 'battle', owner: who }); // 7-1-3-1-1
+          log(s, { e: 'counter', id: f.inst.id, amount: cv });
           return null;
         }
         const [e, idx] = effectsOf(f.inst.id, 'counter')[0] || [];
@@ -581,6 +617,7 @@ function apply(s, a) {
       s.battle = { attacker: a.uid, target: a.target, step: 'attack', blocked: false };
       log(s, { e: 'attack', uid: a.uid, target: a.target });
       queue(s, who, atk, 'whenAttacking'); // 7-1-1-3
+      if (atk.uid === P.leader.uid) for (const c of P.chars) queue(s, who, c, 'leaderAttacks');
       const d = opp(who);
       for (const c of fieldCards(s, d)) queue(s, d, c, 'onOppAttack');
       // Effects resolve in stack order: put the attacker's first.

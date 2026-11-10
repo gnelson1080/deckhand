@@ -101,6 +101,9 @@ export async function render(root) {
       case 'trigger': return `[Trigger]: ${escapeHtml(POOL[e.id]?.name || '')}!`;
       case 'activate': return `${escapeHtml(POOL[e.id]?.name || '')} used its ability.`;
       case 'win': return e.p === ME ? 'You win!' : 'Computer wins.';
+      case 'reveal': return `${who} revealed ${escapeHtml(POOL[e.id]?.name || 'a card')}${(POOL[e.id]?.traits || []).some(t => t.includes('Rocks Pirates')) ? ': a Rocks Pirate, draw 2!' : ': not a Rocks Pirate.'}`;
+      case 'bottom': return `${escapeHtml(POOL[e.id]?.name || 'A Character')} went to the bottom of the deck.`;
+      case 'replaced': return `${e.p === ME ? 'You' : 'The computer'} saved a Character from removal.`;
       default: return '';
     }
   }

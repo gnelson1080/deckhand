@@ -6,18 +6,20 @@ import { readFileSync, writeFileSync } from 'node:fs';
 const cards = new Map(JSON.parse(readFileSync(new URL('../data/cards.json', import.meta.url))).map(c => [c.id, c]));
 const meta = JSON.parse(readFileSync(new URL('../data/meta.json', import.meta.url)));
 const OLD = await import('../js/game/pool-data.js');
-const LEADERS = [['ST30-001', 'luffy-ace'], ['OP14-020', 'mihawk'], ['OP13-001', 'luffy'], ['OP13-004', 'sabo'], ['OP09-062', 'robin']];
+const LEADERS = [['ST30-001', 'luffy-ace'], ['OP17-039', 'rocks'], ['OP14-020', 'mihawk'], ['OP13-001', 'luffy'], ['OP13-004', 'sabo'], ['OP09-062', 'robin']];
 
 const pool = {};
 const decks = {};
 for (const [leaderId, key] of LEADERS) {
   const d = meta.decks.find(x => x.leaderId === leaderId);
-  if (!d) {
-    // Leader left the meta (e.g. banned): keep the frozen list so saved games still load.
+  if (OLD.DECKS[key] || !d) {
+    // Decks already in the game stay frozen (their card effects are coded for these exact lists),
+    // even if the Leader left the meta or got banned. Only new decks come from today's meta.
     const old = OLD.DECKS[key];
     if (!old) throw new Error(`No meta deck for ${leaderId}`);
     decks[key] = old;
-    for (const id of [leaderId, ...old.entries.map(e => e.id)]) pool[id] = OLD.POOL[id];
+    // Rules text stays frozen; names and pictures follow the card list (art fixes).
+    for (const id of [leaderId, ...old.entries.map(e => e.id)]) pool[id] = { ...OLD.POOL[id], name: cards.get(id)?.name || OLD.POOL[id].name, img: cards.get(id)?.img || OLD.POOL[id].img };
     continue;
   }
   const list = d.lists[0];

@@ -302,6 +302,277 @@ export const POOL = {
   "text": "[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Straw Hat Crew} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order.\n[Activate: Main] You may rest this Stage: Give up to 1 rested DON!! card to 1 of your [Monkey.D.Luffy] cards.",
   "img": "https://tcgplayer-cdn.tcgplayer.com/product/706318_in_1000x1000.jpg"
  },
+ "OP17-039": {
+  "id": "OP17-039",
+  "name": "Rocks.D.Xebec",
+  "type": "Leader",
+  "colors": [
+   "Blue"
+  ],
+  "cost": null,
+  "power": 5000,
+  "counter": null,
+  "life": 5,
+  "attribute": "Slash",
+  "traits": [
+   "Rocks Pirates"
+  ],
+  "text": "[When Attacking] You may trash 1 card from your hand: Reveal 1 card from the top of your deck. If the revealed card's type includes \"Rocks Pirates\", draw 2 cards.",
+  "img": "https://tcgplayer-cdn.tcgplayer.com/product/712086_in_1000x1000.jpg"
+ },
+ "OP08-051": {
+  "id": "OP08-051",
+  "name": "Buckin",
+  "type": "Character",
+  "colors": [
+   "Blue"
+  ],
+  "cost": 1,
+  "power": 2000,
+  "counter": 1000,
+  "life": null,
+  "attribute": "Wisdom",
+  "traits": [
+   "Former Rocks Pirates"
+  ],
+  "text": "[Your Turn] [On Play] Up to 1 of your [Edward Weevil] cards gains +2000 power during this turn.",
+  "img": "https://tcgplayer-cdn.tcgplayer.com/product/558079_in_1000x1000.jpg"
+ },
+ "OP17-050": {
+  "id": "OP17-050",
+  "name": "Streusen",
+  "type": "Character",
+  "colors": [
+   "Blue"
+  ],
+  "cost": 1,
+  "power": 2000,
+  "counter": null,
+  "life": null,
+  "attribute": "Slash",
+  "traits": [
+   "Rocks Pirates"
+  ],
+  "text": "[On Play] Look at 2 cards from the top of your deck, reorganize them in any order and place them at the top or bottom of your deck. Then, draw 1 card.",
+  "img": "https://tcgplayer-cdn.tcgplayer.com/product/712619_in_1000x1000.jpg"
+ },
+ "OP17-045": {
+  "id": "OP17-045",
+  "name": "Kyo",
+  "type": "Character",
+  "colors": [
+   "Blue"
+  ],
+  "cost": 2,
+  "power": 4000,
+  "counter": null,
+  "life": null,
+  "attribute": "Slash",
+  "traits": [
+   "Rocks Pirates"
+  ],
+  "text": "If one of your Characters would be removed from the field by your opponent's effect, you may trash 2 cards from your hand instead.\n[On Play] Draw 1 card.",
+  "img": "https://tcgplayer-cdn.tcgplayer.com/product/712616_in_1000x1000.jpg"
+ },
+ "OP17-052": {
+  "id": "OP17-052",
+  "name": "Don Marlon",
+  "type": "Character",
+  "colors": [
+   "Blue"
+  ],
+  "cost": 3,
+  "power": 5000,
+  "counter": null,
+  "life": null,
+  "attribute": "Ranged",
+  "traits": [
+   "Rocks Pirates"
+  ],
+  "text": "[On Play] Add up to 1 blue Event with a cost of 0 from your trash to your hand.",
+  "img": "https://tcgplayer-cdn.tcgplayer.com/product/712621_in_1000x1000.jpg"
+ },
+ "OP17-054": {
+  "id": "OP17-054",
+  "name": "Miss Buckingham Stussy",
+  "type": "Character",
+  "colors": [
+   "Blue"
+  ],
+  "cost": 3,
+  "power": 5000,
+  "counter": null,
+  "life": null,
+  "attribute": "Wisdom",
+  "traits": [
+   "Rocks Pirates"
+  ],
+  "text": "[On Play] Up to 1 of your opponent's Characters with a base cost of 6 or less cannot attack until the end of your opponent's next End Phase.\n[Activate: Main] You may rest 3 of your DON!! cards and this Character: Up to 1 of your opponent's Characters cannot attack until the end of your opponent's next End Phase.",
+  "img": "https://tcgplayer-cdn.tcgplayer.com/product/712089_in_1000x1000.jpg"
+ },
+ "OP17-046": {
+  "id": "OP17-046",
+  "name": "Gloriosa",
+  "type": "Character",
+  "colors": [
+   "Blue"
+  ],
+  "cost": 4,
+  "power": 1000,
+  "counter": null,
+  "life": null,
+  "attribute": "Wisdom",
+  "traits": [
+   "Amazon Lily",
+   "Rocks Pirates"
+  ],
+  "text": "[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)\n[On Play] Place up to 1 Character with a cost of 5 or less at the bottom of the owner's deck.",
+  "img": "https://tcgplayer-cdn.tcgplayer.com/product/710541_in_1000x1000.jpg"
+ },
+ "OP17-042": {
+  "id": "OP17-042",
+  "name": "Kaido",
+  "type": "Character",
+  "colors": [
+   "Blue"
+  ],
+  "cost": 4,
+  "power": 6000,
+  "counter": null,
+  "life": null,
+  "attribute": "Strike",
+  "traits": [
+   "Rocks Pirates"
+  ],
+  "text": "[Blocker]\n[On Play] You may reveal 3 cards with a type including \"Rocks Pirates\" from your hand: Give up to 1 of your opponent's Characters -3000 power during this turn.",
+  "img": "https://tcgplayer-cdn.tcgplayer.com/product/712613_in_1000x1000.jpg"
+ },
+ "OP17-044": {
+  "id": "OP17-044",
+  "name": "Captain John",
+  "type": "Character",
+  "colors": [
+   "Blue"
+  ],
+  "cost": 4,
+  "power": 6000,
+  "counter": null,
+  "life": null,
+  "attribute": "Special",
+  "traits": [
+   "Rocks Pirates"
+  ],
+  "text": "If your Leader's type includes \"Rocks Pirates\" and this Character is rested, your opponent cannot attack any card other than the Character [Captain John].\n[Activate: Main] You may rest this Character: Draw 1 card and trash 1 card from your hand.",
+  "img": "https://tcgplayer-cdn.tcgplayer.com/product/712615_in_1000x1000.jpg"
+ },
+ "OP17-049": {
+  "id": "OP17-049",
+  "name": "Charlotte Linlin",
+  "type": "Character",
+  "colors": [
+   "Blue"
+  ],
+  "cost": 5,
+  "power": 7000,
+  "counter": null,
+  "life": null,
+  "attribute": "Special",
+  "traits": [
+   "Rocks Pirates"
+  ],
+  "text": "[On Play] Your opponent chooses one:\n• Draw 2 cards.\n• Your opponent trashes 2 cards from their hand.\n[On Your Opponent's Attack] [Once Per Turn] You may trash 1 card from your hand: Up to 1 of your Leader or Characters gains +1000 power during this battle.",
+  "img": "https://tcgplayer-cdn.tcgplayer.com/product/712088_in_1000x1000.jpg"
+ },
+ "OP17-040": {
+  "id": "OP17-040",
+  "name": "Edward.Newgate",
+  "type": "Character",
+  "colors": [
+   "Blue"
+  ],
+  "cost": 6,
+  "power": 8000,
+  "counter": null,
+  "life": null,
+  "attribute": "Special",
+  "traits": [
+   "Rocks Pirates"
+  ],
+  "text": "[On Play] Draw 1 card.\n[Once Per Turn] When your Leader with a type including \"Rocks Pirates\" attacks or is attacked, you may trash 1 card from your hand to activate this effect. Your Leader gains +3000 power during this battle.",
+  "img": "https://tcgplayer-cdn.tcgplayer.com/product/712031_in_1000x1000.jpg"
+ },
+ "OP17-048": {
+  "id": "OP17-048",
+  "name": "Shiki",
+  "type": "Character",
+  "colors": [
+   "Blue"
+  ],
+  "cost": 7,
+  "power": 9000,
+  "counter": null,
+  "life": null,
+  "attribute": "Slash",
+  "traits": [
+   "Rocks Pirates"
+  ],
+  "text": "[Rush: Character]\n[When Attacking]/[On Your Opponent's Attack] [Once Per Turn] You may trash 1 card with a type including \"Rocks Pirates\" from your hand: Give up to 1 of your opponent's Characters -3000 power during this turn.",
+  "img": "https://tcgplayer-cdn.tcgplayer.com/product/710542_in_1000x1000.jpg"
+ },
+ "OP17-118": {
+  "id": "OP17-118",
+  "name": "Rocks.D.Xebec",
+  "type": "Character",
+  "colors": [
+   "Blue"
+  ],
+  "cost": 10,
+  "power": 12000,
+  "counter": null,
+  "life": null,
+  "attribute": "Slash",
+  "traits": [
+   "Rocks Pirates"
+  ],
+  "text": "If you only have Characters without a Counter, this card in your hand has a +2000 Counter.\n[On Play] Draw 1 card and play up to 2 {Rocks Pirates} type cards with different card names and a total cost of 9 or less from your hand.",
+  "img": "https://tcgplayer-cdn.tcgplayer.com/product/709836_in_1000x1000.jpg"
+ },
+ "OP17-055": {
+  "id": "OP17-055",
+  "name": "There's No Authority in the World That Lasts Forever!!!",
+  "type": "Event",
+  "colors": [
+   "Blue"
+  ],
+  "cost": 0,
+  "power": null,
+  "counter": null,
+  "life": null,
+  "attribute": null,
+  "traits": [
+   "Rocks Pirates"
+  ],
+  "text": "[Main] You may rest 1 of your DON!! cards: Up to 1 of your [Rocks.D.Xebec] gains [Unblockable] during this turn.\n[Counter] Up to 1 of your Leader with a type including \"Rocks Pirates\" or up to 1 of your Characters with a type including \"Rocks Pirates\" gains +2000 power during this battle.",
+  "img": "https://tcgplayer-cdn.tcgplayer.com/product/712623_in_1000x1000.jpg"
+ },
+ "OP17-056": {
+  "id": "OP17-056",
+  "name": "Rocks Pirates",
+  "type": "Event",
+  "colors": [
+   "Blue"
+  ],
+  "cost": 0,
+  "power": null,
+  "counter": null,
+  "life": null,
+  "attribute": null,
+  "traits": [
+   "Rocks Pirates"
+  ],
+  "text": "[Main] You may rest 5 of your DON!! cards: Return up to 1 Character with a cost of 6 or less to the owner's hand.\n[Counter] Up to 1 of your Leader with a type including \"Rocks Pirates\" or up to 1 of your Characters with a type including \"Rocks Pirates\" gains +2000 power during this battle.",
+  "img": "https://tcgplayer-cdn.tcgplayer.com/product/712624_in_1000x1000.jpg"
+ },
  "OP14-020": {
   "id": "OP14-020",
   "name": "Dracule Mihawk",
@@ -1004,7 +1275,7 @@ export const POOL = {
    "Egghead"
   ],
   "text": "[On Play] Your Leader gains +2000 power until the end of your opponent's next End Phase.\n[Activate: Main] [Once Per Turn] If your opponent has a Character with 8000 power or more, this Character gains [Rush: Character] during this turn.",
-  "img": "https://tcgplayer-cdn.tcgplayer.com/product/705991_in_1000x1000.jpg"
+  "img": "https://tcgplayer-cdn.tcgplayer.com/product/685303_in_1000x1000.jpg"
  },
  "OP17-093": {
   "id": "OP17-093",
@@ -1175,7 +1446,7 @@ export const POOL = {
  },
  "OP05-073": {
   "id": "OP05-073",
-  "name": "Miss Doublefinger",
+  "name": "Miss Doublefinger(Zala)",
   "type": "Character",
   "colors": [
    "Purple"
@@ -1390,6 +1661,70 @@ export const DECKS = {
    }
   ],
   "source": "2nd Regional Mexico 2026-09-22"
+ },
+ "rocks": {
+  "key": "rocks",
+  "name": "Blue Rocks",
+  "leaderId": "OP17-039",
+  "entries": [
+   {
+    "id": "OP08-051",
+    "count": 3
+   },
+   {
+    "id": "OP17-050",
+    "count": 3
+   },
+   {
+    "id": "OP17-045",
+    "count": 4
+   },
+   {
+    "id": "OP17-052",
+    "count": 4
+   },
+   {
+    "id": "OP17-054",
+    "count": 4
+   },
+   {
+    "id": "OP17-046",
+    "count": 4
+   },
+   {
+    "id": "OP17-042",
+    "count": 2
+   },
+   {
+    "id": "OP17-044",
+    "count": 2
+   },
+   {
+    "id": "OP17-049",
+    "count": 4
+   },
+   {
+    "id": "OP17-040",
+    "count": 4
+   },
+   {
+    "id": "OP17-048",
+    "count": 4
+   },
+   {
+    "id": "OP17-118",
+    "count": 4
+   },
+   {
+    "id": "OP17-055",
+    "count": 4
+   },
+   {
+    "id": "OP17-056",
+    "count": 4
+   }
+  ],
+  "source": "1st [EB05] ChinoizeCup #133 MONDAY 2026-11-09"
  },
  "mihawk": {
   "key": "mihawk",

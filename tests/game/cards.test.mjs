@@ -484,6 +484,153 @@ T('OP09-078', 'Counter: DON!! −2 and trash 1: Straw Hat Leader → +4000 and d
   assert.equal(s.players[1].hand.length, 2);
 });
 
+// ===== Blue Rocks =====
+const R = 'OP17-039';
+const settle = s => { let g = 0; while (s.pending && g++ < 20) s = s.pending.kind === 'confirm' ? yes(s) : A(s, legalActions(s).find(a => a.picks?.length) || legalActions(s)[0]); return s; };
+T('OP17-039', 'when attacking: trash 1, reveal top; a Rocks Pirates card draws 2', () => {
+  let s = board({ p0: { leader: R, hand: [F], deck: ['OP17-045', F, F, F] } });
+  s = attack(s, s.players[0].leader.uid, s.players[1].leader.uid);
+  s = yes(s);
+  assert.equal(s.players[0].hand.length, 2);
+  s = board({ p0: { leader: R, hand: [F], deck: [F, F, F, F] } });
+  s = attack(s, s.players[0].leader.uid, s.players[1].leader.uid);
+  s = yes(s);
+  assert.equal(s.players[0].hand.length, 0);
+});
+T('OP08-051', 'no Edward Weevil in this deck: plays as a plain 2000', () => {
+  let s = board({ p0: { leader: R, hand: ['OP08-051'] } });
+  s = play(s, 'OP08-051');
+  assert.equal(s.pending, null);
+  assert.deepEqual(charIds(s), ['OP08-051']);
+});
+T('OP17-050', 'looks at 2, sends chosen ones to the bottom, then draws 1', () => {
+  let s = board({ p0: { leader: R, hand: ['OP17-050'], deck: ['OP17-045', 'OP17-046', F, F] } });
+  s = play(s, 'OP17-050');
+  assert.equal(s.pending.options.length, 2);
+  s = pick(s, 'OP17-045');
+  assert.deepEqual(handIds(s), ['OP17-046']);
+  assert.equal(s.players[0].deck.at(-1).id, 'OP17-045');
+});
+T('OP17-045', 'draws 1; trash 2 from hand instead of losing a 4+ cost Character to an opponent\'s effect', () => {
+  let s = board({ p0: { leader: R, hand: ['OP17-045'], deck: [F, F, F] } });
+  s = play(s, 'OP17-045');
+  assert.deepEqual(handIds(s), [F]);
+  s = board({ p0: { leader: R, chars: ['OP17-045', 'OP17-049'], hand: [F, F] }, p1: { leader: R, hand: ['OP17-056'], donActive: 5 }, active: 1 });
+  s = play(s, 'OP17-056', 1); s = yes(s); s = pick(s, 'OP17-049');
+  assert.ok(charIds(s).includes('OP17-049'), 'Linlin stays');
+  assert.equal(s.players[0].hand.length, 0);
+  assert.equal(s.players[0].trash.length, 2);
+});
+T('OP17-052', 'adds a blue 0-cost Event from the trash to hand', () => {
+  let s = board({ p0: { leader: R, hand: ['OP17-052'], trash: ['OP17-055', F] } });
+  s = play(s, 'OP17-052');
+  assert.deepEqual(idsOf(s, s.pending.options), ['OP17-055']);
+  s = pick(s, 'OP17-055');
+  assert.deepEqual(handIds(s), ['OP17-055']);
+});
+T('OP17-054', 'stops a base-cost-6-or-less Character attacking; activate (rest 3 DON!! + self) stops any', () => {
+  let s = board({ p0: { leader: R, hand: ['OP17-054'], donActive: 6 }, p1: { chars: [F, 'OP17-118'] } });
+  s = play(s, 'OP17-054');
+  assert.deepEqual(idsOf(s, s.pending.options), [F]);
+  s = pick(s, F);
+  assert.ok(s.mods.some(m => m.what === 'cannotAttack' && m.uid === s.players[1].chars[0].uid));
+  s = A(s, { type: 'activate', uid: s.players[0].chars[0].uid, idx: 1 });
+  s = pick(s, 'OP17-118');
+  assert.ok(s.mods.some(m => m.what === 'cannotAttack' && m.uid === s.players[1].chars[1].uid));
+  assert.equal(s.players[0].chars[0].rested, true);
+  assert.equal(s.players[0].donActive, 0);
+});
+T('OP17-046', '[Blocker]; puts a cost-5-or-less Character on the bottom of its owner\'s deck', () => {
+  let s = board({ p0: { leader: R, hand: ['OP17-046'] }, p1: { chars: ['OP17-049'] } });
+  s = play(s, 'OP17-046');
+  s = pick(s, 'OP17-049');
+  assert.equal(s.players[1].chars.length, 0);
+  assert.equal(s.players[1].deck.at(-1).id, 'OP17-049');
+  assert.ok(keywords(s, s.players[0].chars[0].uid).has('Blocker'));
+});
+T('OP17-042', '[Blocker]; reveal 3 Rocks Pirates: −3000 to an opponent\'s Character', () => {
+  let s = board({ p0: { leader: R, hand: ['OP17-042', 'OP17-045', 'OP17-050', 'OP17-052'] }, p1: { chars: ['OP17-049'] } });
+  s = play(s, 'OP17-042'); s = yes(s); s = pick(s, 'OP17-049');
+  assert.equal(power(s, s.players[1].chars[0].uid), 4000);
+  assert.equal(handIds(s).length, 3, 'revealed cards stay in hand');
+});
+T('OP17-044', 'rested under a Rocks Leader: the only legal attack target; activate: draw 1, trash 1', () => {
+  let s = board({ p0: { leader: R, chars: [{ id: 'OP17-044', rested: true }] }, p1: { chars: [F] }, active: 1 });
+  const targets = new Set(legalActions(s).filter(a => a.type === 'attack').map(a => a.target));
+  assert.deepEqual([...targets], [s.players[0].chars[0].uid]);
+  s = board({ p0: { leader: R, chars: ['OP17-044'], hand: [F], deck: ['OP17-045', F] } });
+  s = A(s, { type: 'activate', uid: s.players[0].chars[0].uid, idx: 0 });
+  s = pick(s, F);
+  assert.deepEqual(handIds(s), ['OP17-045']);
+  assert.equal(s.players[0].chars[0].rested, true);
+});
+T('OP17-049', 'opponent picks: you draw 2, or they trash 2; +1000 on defense for a card', () => {
+  let s = board({ p0: { leader: R, hand: ['OP17-049'], donActive: 5 }, p1: { hand: [F, F, F] } });
+  s = play(s, 'OP17-049');
+  assert.equal(s.pending.player, 1);
+  s = A(s, { type: 'choose', option: 1 });
+  s = A(s, { type: 'choose', picks: s.pending.options.slice(0, 2) });
+  assert.equal(s.players[1].hand.length, 1);
+  s = board({ p0: { leader: R, hand: ['OP17-049'], donActive: 5, deck: [F, F, F] } });
+  s = play(s, 'OP17-049'); s = A(s, { type: 'choose', option: 0 });
+  assert.equal(s.players[0].hand.length, 2);
+  s = board({ p0: { leader: R, chars: ['OP17-049'], hand: [F] }, p1: { chars: [F] }, active: 1 });
+  s = attack(s, s.players[1].chars[0].uid, s.players[0].leader.uid);
+  s = yes(s); s = settle(s);
+  assert.equal(power(s, s.players[0].leader.uid), 6000);
+});
+T('OP17-040', 'draws 1; once per turn, trash 1 when your Rocks Leader attacks or is attacked: Leader +3000', () => {
+  let s = board({ p0: { leader: R, hand: ['OP17-040'], donActive: 6, deck: [F, F] } });
+  s = play(s, 'OP17-040');
+  assert.deepEqual(handIds(s), [F]);
+  s = board({ p0: { leader: R, chars: ['OP17-040'], hand: [F, F], deck: [F, F, F] } });
+  s = attack(s, s.players[0].leader.uid, s.players[1].leader.uid);
+  s = settle(s);
+  assert.equal(power(s, s.players[0].leader.uid), 8000);
+  s = board({ p0: { leader: R, chars: ['OP17-040'], hand: [F] }, p1: { chars: [F] }, active: 1 });
+  s = attack(s, s.players[1].chars[0].uid, s.players[0].leader.uid);
+  s = settle(s);
+  assert.equal(power(s, s.players[0].leader.uid), 8000);
+});
+T('OP17-048', '[Rush: Character] hits Characters only; trash a Rocks card: −3000 to an opponent\'s Character', () => {
+  let s = board({ p0: { leader: R, chars: [{ id: 'OP17-048', played: true }], hand: ['OP17-045'] }, p1: { chars: [{ id: 'OP17-049', rested: true }] } });
+  const shiki = s.players[0].chars[0].uid;
+  const targets = legalActions(s).filter(a => a.type === 'attack' && a.uid === shiki).map(a => a.target);
+  assert.deepEqual(targets, [s.players[1].chars[0].uid]);
+  s = attack(s, shiki, s.players[1].chars[0].uid);
+  s = yes(s); s = pick(s, 'OP17-049');
+  assert.equal(power(s, s.players[1].chars[0].uid), 4000);
+});
+T('OP17-118', '+2000 Counter in hand only when none of your Characters have a Counter; plays 2 Rocks Pirates (total cost 9)', () => {
+  let s = board({ p0: { leader: R, hand: ['OP17-118'] }, p1: { chars: [F] }, active: 1 });
+  s = attack(s, s.players[1].chars[0].uid, s.players[0].leader.uid); s = nb(s);
+  assert.ok(legalActions(s).some(a => a.type === 'counter'));
+  s = A(s, { type: 'counter', uid: s.players[0].hand[0].uid });
+  assert.equal(power(s, s.players[0].leader.uid), 7000);
+  s = board({ p0: { leader: R, hand: ['OP17-118'], chars: ['OP08-051'] }, p1: { chars: [F] }, active: 1 });
+  s = attack(s, s.players[1].chars[0].uid, s.players[0].leader.uid); s = nb(s);
+  assert.ok(!legalActions(s).some(a => a.type === 'counter'));
+  s = board({ p0: { leader: R, hand: ['OP17-118', 'OP17-045', 'OP17-054', 'OP17-048'], donActive: 10, deck: [F, F] } });
+  s = play(s, 'OP17-118');
+  s = pick(s, 'OP17-045', 'OP17-054');
+  assert.deepEqual(charIds(s).sort(), ['OP17-045', 'OP17-054', 'OP17-118'].sort());
+});
+T('OP17-055', 'Main: rest 1 DON!! for Unblockable on Rocks.D.Xebec; Counter: +2000 to a Rocks Pirate', () => {
+  let s = board({ p0: { leader: R, hand: ['OP17-055'], chars: ['OP17-118'] } });
+  s = play(s, 'OP17-055'); s = yes(s);
+  if (s.pending) s = pick(s, 'OP17-118');
+  assert.ok(keywords(s, s.players[0].chars[0].uid).has('Unblockable'));
+  s = board({ p0: { leader: R, hand: ['OP17-055'] }, p1: { chars: [F] }, active: 1 });
+  s = attack(s, s.players[1].chars[0].uid, s.players[0].leader.uid); s = nb(s);
+  s = A(s, { type: 'counter', uid: s.players[0].hand[0].uid }); s = settle(s);
+  assert.equal(power(s, s.players[0].leader.uid), 7000);
+});
+T('OP17-056', 'Main: rest 5 DON!! to return a cost-6-or-less Character to hand; Counter: +2000', () => {
+  let s = board({ p0: { leader: R, hand: ['OP17-056'], donActive: 5 }, p1: { chars: ['OP17-049'] } });
+  s = play(s, 'OP17-056'); s = yes(s); s = pick(s, 'OP17-049');
+  assert.deepEqual(handIds(s, 1), ['OP17-049']);
+});
+
 test('every card in the practice pool has a definition and a test', () => {
   for (const id of Object.keys(POOL)) {
     assert.ok(CARD_DEFS[id], `${id} has no definition`);

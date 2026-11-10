@@ -165,3 +165,10 @@ test('a P- promo reprinted in a premium booster is labeled with that booster', a
   const jr = { id: 'P-014', set: 'P', img: 'jr.jpg', imgLabel: 'Jolly Roger Foil', altImgs: [], altLabels: [], _variant: true, _group: 'PRB-01', _groupName: 'Premium Booster' };
   assert.deepEqual(mergeCardLists([[jr], [pr]])[0].altLabels, ['Jolly Roger Foil · Premium Booster']);
 });
+
+test('a Treasure Rare "(TR)" printing is a variant, never the main card', async () => {
+  const { isVariantName, cleanName } = await import('../scripts/lib/tcgcsv.mjs');
+  assert.equal(isVariantName('Edward.Newgate (040) (TR)'), true);
+  assert.equal(isVariantName('Edward.Newgate (040)'), false);
+  assert.equal(cleanName('Edward.Newgate (040) (TR)'), 'Edward.Newgate');
+});

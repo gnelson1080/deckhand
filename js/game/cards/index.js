@@ -3,6 +3,8 @@
 //   costMod?(view, self) -> number, effects?: [{ on, steps, once?, key?, don?, yourTurn?, cond?, costCheck?, restSelf? }] }
 // Step reference: js/game/effects.js.
 
+import { removeToBottom, removeToHand, playCharacter, def, costOf } from '../engine.js';
+
 const look = (n, filter, rest = 'bottom', extra = {}) => ({ do: 'look', n, filter, take: 1, rest, ...extra });
 const may = (cost, prompt) => ({ do: 'may', cost, prompt });
 const ifc = (cond, then) => ({ do: 'if', cond, then });
@@ -12,7 +14,102 @@ const leaderPlus3000 = { on: 'counter', steps: [{ do: 'power', target: 'leader',
 const cost12 = v => v.anyCharCostAtLeast(12);
 const shc = 'Straw Hat Crew';
 
+const rp = 'Rocks Pirates';
+const newgate = [may({ trashHand: { n: 1 } }, 'Edward.Newgate: trash 1 card from your hand to give your Leader +3000 power this battle?'), { do: 'power', target: 'leader', side: 'me', amount: 3000, until: 'battle' }];
+
 export const CARD_DEFS = {
+  // ===== Blue Rocks (OP17-039) =====
+  'OP17-039': { effects: [{ on: 'whenAttacking', steps: [
+    may({ trashHand: { n: 1 } }, 'Trash 1 card from your hand to reveal your top card? If it is a Rocks Pirates card, you draw 2.'),
+    { do: 'custom', fn: (s, f, ans, { P }) => {
+      const top = P.deck[0]; if (!top) return;
+      s.log.push({ t: s.turn, e: 'reveal', p: f.owner, id: top.id });
+      if (def(top.id).traits.some(t => t.includes(rp))) for (let i = 0; i < 2 && P.deck.length; i++) P.hand.push(P.deck.shift());
+    } },
+  ] }] },
+  'OP08-051': { vanilla: true }, // its effect only helps [Edward Weevil], which this deck doesn't play
+  'OP17-050': { effects: [{ on: 'onPlay', steps: [{ do: 'custom', fn: (s, f, ans, { P, ask }) => {
+    const looked = P.deck.slice(0, 2).map(c => c.uid);
+    const picks = ask({ options: looked, min: 0, max: looked.length, prompt: 'Choose cards to put on the bottom of your deck. The rest stay on top.', show: 'look' });
+    if (!picks) { s.pending.looked = looked; return 'wait'; }
+    for (const u of picks) P.deck.push(...P.deck.splice(P.deck.findIndex(c => c.uid === u), 1));
+    if (P.deck.length) P.hand.push(P.deck.shift());
+  } }] }] },
+  'OP17-045': { effects: [
+    { on: 'onPlay', steps: [draw(1)] },
+    { on: 'replace', steps: [{ do: 'trashHand', n: 2 }] }, // used by engine.replaceRemoval
+  ] },
+  'OP17-052': { effects: [{ on: 'onPlay', steps: [{ do: 'addFromTrash', filter: { type: 'Event', color: 'Blue', maxCost: 0 } }] }] },
+  'OP17-054': { effects: [
+    { on: 'onPlay', steps: [{ do: 'lock', side: 'opp', filter: { maxBaseCost: 6 }, what: 'cannotAttack', until: 'oppNextEnd', prompt: "Choose an opponent's Character (base cost 6 or less) that can't attack next turn." }] },
+    { on: 'activateMain', restSelf: true, costCheck: v => v.donActive(v.me) >= 3, steps: [{ do: 'pay', k: 'restDon', v: 3 }, { do: 'lock', side: 'opp', what: 'cannotAttack', until: 'oppNextEnd', prompt: "Choose an opponent's Character that can't attack next turn." }] },
+  ] },
+  'OP17-046': { kw: ['Blocker'], effects: [{ on: 'onPlay', steps: [{ do: 'custom', fn: (s, f, ans, { ask }) => {
+    const opts = [0, 1].flatMap(p => s.players[p].chars).filter(c => c.uid !== f.src && costOf(s, c.uid) <= 5).map(c => c.uid);
+    const picks = ask({ options: opts, min: 0, max: 1, prompt: 'Choose a Character with a cost of 5 or less to put at the bottom of its owner\'s deck.' });
+    if (!picks) return 'wait';
+    for (const u of picks) removeToBottom(s, u, f.owner);
+  } }] }] },
+  'OP17-042': { kw: ['Blocker'], effects: [{ on: 'onPlay', steps: [
+    may({ revealHand: { n: 3, filter: { traitIncludes: rp } } }, 'Reveal 3 Rocks Pirates cards from your hand to give an opponent\'s Character −3000 power this turn?'),
+    { do: 'power', side: 'opp', amount: -3000, until: 'turn', includeLeader: false, prompt: "Choose an opponent's Character to get −3000 power." },
+  ] }] },
+  'OP17-044': { effects: [{ on: 'activateMain', restSelf: true, steps: [draw(1), { do: 'trashHand', n: 1 }] }] }, // attack-target rule lives in engine
+  'OP17-049': { effects: [
+    { on: 'onPlay', steps: [{ do: 'custom', fn: (s, f, ans, { P, ask }) => {
+      const o = 1 - f.owner, Q = s.players[o];
+      if (f.ctx.linlin == null) {
+        if (!ans) { s.pending = { player: o, kind: 'mode', labels: ['Your opponent draws 2 cards', 'You trash 2 cards from your hand'], prompt: 'Charlotte Linlin: you choose one.' }; return 'wait'; }
+        f.ctx.linlin = ans.option; ans = undefined;
+        if (f.ctx.linlin === 0) { for (let i = 0; i < 2 && P.deck.length; i++) P.hand.push(P.deck.shift()); return; }
+      }
+      if (f.ctx.linlin !== 1) return;
+      const n = Math.min(2, Q.hand.length);
+      const picks = ans ? ans.picks : (n ? null : []);
+      if (!picks) { s.pending = { player: o, kind: 'pick', options: Q.hand.map(c => c.uid), min: n, max: n, prompt: `Choose ${n} card${n > 1 ? 's' : ''} to trash from your hand.`, show: 'hand' }; return 'wait'; }
+      for (const u of picks) { const i = Q.hand.findIndex(c => c.uid === u); if (i >= 0) Q.trash.push(...Q.hand.splice(i, 1)); }
+    } }] },
+    { on: 'onOppAttack', once: true, steps: [may({ trashHand: { n: 1 } }, 'Charlotte Linlin: trash 1 card from your hand for +1000 power this battle?'), battlePlus(1000)] },
+  ] },
+  'OP17-040': { effects: [
+    { on: 'onPlay', steps: [draw(1)] },
+    { on: 'leaderAttacks', once: true, key: 'ng', steps: newgate },
+    { on: 'onOppAttack', once: true, key: 'ng', cond: v => v.s.battle?.target === v.leader(v.me).uid, steps: newgate },
+  ] },
+  'OP17-048': { kw: ['Rush: Character'], effects: ['whenAttacking', 'onOppAttack'].map(on => ({ on, once: true, key: 'sk', steps: [
+    may({ trashHand: { n: 1, filter: { traitIncludes: rp } } }, 'Shiki: trash a Rocks Pirates card from your hand to give an opponent\'s Character −3000 power this turn?'),
+    { do: 'power', side: 'opp', amount: -3000, until: 'turn', includeLeader: false, prompt: "Choose an opponent's Character to get −3000 power." },
+  ] })) },
+  'OP17-118': {
+    handCounter: v => (v.chars(v.me).every(c => !v.def(c.uid).counter) ? 2000 : 0),
+    effects: [{ on: 'onPlay', steps: [draw(1), { do: 'custom', fn: (s, f, ans, { P, ask }) => {
+      const opts = P.hand.filter(c => def(c.id).type === 'Character' && def(c.id).traits.some(t => t.includes(rp))).map(c => c.uid);
+      let picks = ask({ options: opts, min: 0, max: 2, budget: 9, prompt: 'Play up to 2 Rocks Pirates with different names and a total cost of 9 or less.', show: 'hand' });
+      if (!picks) return 'wait';
+      const names = new Set(); let total = 0;
+      picks = picks.filter(u => { const d = def(P.hand.find(c => c.uid === u)?.id); if (!d || names.has(d.name) || total + (d.cost ?? 0) > 9) return false; names.add(d.name); total += d.cost ?? 0; return true; });
+      for (const u of picks) {
+        const i = P.hand.findIndex(c => c.uid === u); if (i < 0) continue;
+        const [inst] = P.hand.splice(i, 1);
+        playCharacter(s, f.owner, inst, { fromEffect: true });
+        if (s.pending) break;
+      }
+    } }] }],
+  },
+  'OP17-055': { effects: [
+    { on: 'main', steps: [may({ restDon: 1 }, 'Rest 1 DON!! to give your Rocks.D.Xebec [Unblockable] this turn?'), { do: 'keyword', kw: 'Unblockable', until: 'turn', filter: { name: 'Rocks.D.Xebec' }, prompt: 'Choose your Rocks.D.Xebec.' }] },
+    { on: 'counter', steps: [battlePlus(2000, { traitIncludes: rp })] },
+  ] },
+  'OP17-056': { effects: [
+    { on: 'main', steps: [may({ restDon: 5 }, 'Rest 5 DON!! to return a Character with a cost of 6 or less to its owner\'s hand?'), { do: 'custom', fn: (s, f, ans, { ask }) => {
+      const opts = [0, 1].flatMap(p => s.players[p].chars).filter(c => costOf(s, c.uid) <= 6).map(c => c.uid);
+      const picks = ask({ options: opts, min: 0, max: 1, prompt: "Choose a Character with a cost of 6 or less to return to its owner's hand." });
+      if (!picks) return 'wait';
+      for (const u of picks) removeToHand(s, u, f.owner);
+    } }] },
+    { on: 'counter', steps: [battlePlus(2000, { traitIncludes: rp })] },
+  ] },
+
   // ===== Red/Green Luffy & Ace (ST30-001) =====
   'ST30-001': {
     aura: (v, src, tgt, owner) => {
