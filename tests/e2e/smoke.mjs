@@ -14,7 +14,9 @@ async function step(name, fn) {
   catch (e) { results.push(['FAIL', name, e.message.split('\n')[0]]); }
 }
 const phone = async (opts = {}) => {
-  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, ...opts });
+  const { layout = 'mobile', ...rest } = opts;
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, ...rest });
+  if (layout) await ctx.addInitScript(l => { try { localStorage.setItem('deckhand:layout', JSON.stringify(l)); } catch {} }, layout);
   const page = await ctx.newPage();
   page.on('pageerror', e => errors.push(e.message));
   return { ctx, page };
@@ -115,6 +117,7 @@ const phone = async (opts = {}) => {
   });
   await step('with storage blocked, lesson 1 still opens and quiz runs', async () => {
     await page.goto(base + '#/lesson/1');
+    await page.click('.lc-opt[data-layout="mobile"]'); // nothing can be remembered, so the chooser asks
     await page.locator('.lesson-title').waitFor();
     await page.click('.lesson-next');
     await page.locator('.lesson-page').waitFor();
@@ -291,6 +294,49 @@ const phone = async (opts = {}) => {
     await page.waitForTimeout(2500);
     assert.equal(errors.length, before, errors.slice(before).join(' | '));
     assert.equal(await page.locator('.game').count(), 0);
+  });
+  await ctx.close();
+}
+
+// 10. Computer version
+{
+  const { ctx, page } = await phone({ layout: null, viewport: { width: 1440, height: 900 }, serviceWorkers: 'block' });
+  await step('first open asks computer or phone, suggesting computer on a wide screen', async () => {
+    await page.goto(base);
+    await page.locator('.layout-chooser').waitFor();
+    assert.equal(await page.getAttribute('.lc-opt.suggested', 'data-layout'), 'desktop');
+    await page.click('.lc-opt[data-layout="desktop"]');
+    await page.locator('.layout-chooser').waitFor({ state: 'detached' });
+    assert.equal(await page.getAttribute('html', 'data-layout'), 'desktop');
+    const nav = await page.locator('.tabbar').boundingBox();
+    assert.ok(nav.height > nav.width, 'navigation is a sidebar');
+  });
+  await step('the choice is remembered and the header switch flips versions', async () => {
+    await page.reload();
+    assert.equal(await page.locator('.layout-chooser').count(), 0);
+    await page.click('#layout-toggle');
+    assert.equal(await page.getAttribute('html', 'data-layout'), 'mobile');
+    await page.click('#layout-toggle');
+    assert.equal(await page.getAttribute('html', 'data-layout'), 'desktop');
+  });
+  await step('computer deck builder shows search and the deck side by side', async () => {
+    await page.evaluate(() => localStorage.setItem('deckhand:seenIntro', 'true'));
+    await page.goto(base + '#/build/from/1/0');
+    await page.locator('.bb-side .dl-row').first().waitFor();
+    assert.ok(await page.locator('.bb-add .add-tile').count() > 0);
+    const before = await page.locator('.bb-side .stepper-n').first().textContent();
+    await page.locator('.bb-side [data-minus]').first().click();
+    assert.equal(Number(await page.locator('.bb-side .stepper-n').first().textContent()), Number(before) - 1);
+  });
+  await step('game keyboard shortcuts: 1 picks a button, E ends the turn', async () => {
+    await page.goto(base + '#/play');
+    await page.click('text=Me');
+    await page.click('.start-game');
+    await page.locator('[data-act*="keep"]').waitFor();
+    await page.keyboard.press('1');
+    await page.locator('[data-act*="endTurn"]').waitFor();
+    await page.keyboard.press('e');
+    await page.locator('.g-wait').waitFor({ timeout: 3000 });
   });
   await ctx.close();
 }

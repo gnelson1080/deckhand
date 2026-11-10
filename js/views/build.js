@@ -12,6 +12,7 @@ import { shake, buzz } from '../ui/fx.js';
 import { go } from '../router.js';
 import { icon } from '../icons.js';
 import { ring } from './decks.js';
+import { isDesktop } from '../lib/layout.js';
 
 const PAGE = 45;
 const TYPE_ORDER = ['Character', 'Event', 'Stage'];
@@ -60,7 +61,8 @@ export async function render(root, param) {
     <div class="build-bar" aria-live="polite"></div>
     <div class="toast" role="status" aria-live="assertive"></div>`;
 
-  const body = root.querySelector('.build-body');
+  let body = root.querySelector('.build-body');
+  const mainBody = body;
   const bar = root.querySelector('.build-bar');
   const toastEl = root.querySelector('.toast');
   let toastT;
@@ -104,13 +106,13 @@ export async function render(root, param) {
     if (badge) { badge.textContent = countIn(card.id); badge.classList.remove('pop'); void badge.offsetWidth; badge.classList.add('pop'); }
     else from?.querySelector('.tile-img')?.insertAdjacentHTML('beforeend', `<span class="in-deck pop">${countIn(card.id)}</span>`);
     toast(`Added ${displayName(card.name)} (${countIn(card.id)}/4)`);
-    drawBar();
+    drawBar(); refreshSide();
   }
   function remove(id) {
     const e = deck.entries.find(x => x.id === id);
     if (!e) return;
     e.count--; if (e.count <= 0) deck.entries = deck.entries.filter(x => x !== e);
-    save(); drawBar();
+    save(); drawBar(); refreshSide();
   }
 
   // ---- Leader picker
@@ -193,8 +195,8 @@ export async function render(root, param) {
       + (unknown.length ? `<h3 class="dl-h">Unknown cards</h3><ul class="dl-rows">${unknown.map(row).join('')}</ul>` : '');
     body.querySelectorAll('.dl-rows').forEach(ul => ul.addEventListener('click', e => {
       const li = e.target.closest('.dl-row'); if (!li) return;
-      if (e.target.closest('[data-minus]')) { remove(li.dataset.id); drawList(); }
-      if (e.target.closest('[data-plus]')) { add(cards.get(li.dataset.id), li); drawList(); }
+      if (e.target.closest('[data-minus]')) { remove(li.dataset.id); if (!sideBySide()) drawList(); }
+      if (e.target.closest('[data-plus]')) { add(cards.get(li.dataset.id), li); if (!sideBySide()) drawList(); }
     }));
   }
 
@@ -228,11 +230,29 @@ export async function render(root, param) {
     body.querySelector('.share-list')?.addEventListener('click', () => navigator.share({ title: deck.name, text }).catch(() => {}));
   }
 
+  // Computer layout: search on the left, your deck and its check on the right, all at once.
+  const sideBySide = () => isDesktop() && hasLeader() && tab !== 'leader';
+  function refreshSide() {
+    if (!sideBySide()) return;
+    body = mainBody.querySelector('.bb-list'); if (body) drawList();
+    body = mainBody.querySelector('.bb-check'); if (body) drawCheck();
+    body = mainBody.querySelector('.bb-add');
+  }
   function draw() {
     drawHead(); drawBar();
+    body = mainBody;
+    mainBody.classList.toggle('split', sideBySide());
+    if (sideBySide()) {
+      mainBody.innerHTML = '<div class="bb-add"></div><div class="bb-side"><h2 class="bb-h">Your deck</h2><div class="bb-list"></div><div class="bb-check"></div></div>';
+      body = mainBody.querySelector('.bb-add'); drawAdd();
+      refreshSide();
+      return;
+    }
     if (tab !== 'add') { cleanupIO?.(); cleanupIO = null; }
     if (tab === 'leader' || !hasLeader()) drawLeader(); else if (tab === 'list') drawList(); else if (tab === 'check') drawCheck(); else drawAdd();
   }
+  const onLayout = () => draw();
+  addEventListener('layoutchange', onLayout);
   // Listen on this screen's own wrapper (not the shared #view), so old visits leave nothing behind.
   const screen = document.createElement('div');
   screen.className = 'build-screen';
@@ -245,5 +265,5 @@ export async function render(root, param) {
     screen.querySelector('.seg').scrollIntoView({ block: 'nearest' });
   });
   draw();
-  return () => { cleanupIO?.(); clearTimeout(toastT); };
+  return () => { cleanupIO?.(); clearTimeout(toastT); removeEventListener('layoutchange', onLayout); };
 }

@@ -31,6 +31,7 @@ export async function render(root, id) {
 
   root.innerHTML = `
     <a class="back-link" href="#/cards" data-back>${icon('back', { size: 20 })}Cards</a>
+    <div class="card-layout"><div class="card-left">
     <div class="card-hero">
       <div class="card-3d" tabindex="0" aria-label="${escapeHtml(name)} card image. Drag to tilt.">
         <div class="card-flip">
@@ -40,6 +41,7 @@ export async function render(root, id) {
       </div>
     </div>
     ${arts.length > 1 ? `<div class="arts" role="group" aria-label="Other artwork">${arts.map((a, i) => `<button type="button" class="art" data-art="${i}" aria-pressed="${i === 0}" aria-label="Art ${i + 1}"><img src="${escapeHtml(a.replace(/_in_1000x1000\.jpg$/, '_200w.jpg'))}" alt="" loading="lazy"></button>`).join('')}</div>` : ''}
+    </div><div class="card-right">
     <h1 class="card-title">${escapeHtml(name)}</h1>
     <p class="card-sub"><span>${escapeHtml(c.id)}</span><span>${escapeHtml(c.type || '')}</span>${c.rarity ? `<span>${escapeHtml(c.rarity)}</span>` : ''}</p>
     <div class="color-row">${safeColors(c.colors).map(col => `<span class="chip static"><span class="dot ${col}"></span>${col}</span>`).join('')}${c.attribute ? `<span class="chip static">&lt;${escapeHtml(c.attribute)}&gt;</span>` : ''}</div>
@@ -61,7 +63,8 @@ export async function render(root, id) {
       <div><span class="muted">TCGplayer market price</span><strong class="price">${c.price != null ? '$' + c.price.toFixed(2) : 'Not listed yet'}</strong></div>
       <a class="btn btn-primary" href="${escapeHtml(safeUrl(tcgplayerUrl(c)))}" target="_blank" rel="noopener">View on TCGplayer ${icon('link', { size: 18 })}</a>
     </section>
-    <section class="panel price-host"></section>`;
+    <section class="panel price-host"></section>
+    </div></div>`;
 
   // Grab this page's own chart slot now; if the reader has moved on when the data arrives, draw nothing.
   const priceHost = root.querySelector('.price-host');

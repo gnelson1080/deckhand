@@ -26,6 +26,7 @@ export async function render(root, param) {
         ${g ? `<p class="deck-diff">${difficultyMarks(g.difficulty)}${escapeHtml(difficultyLabel(g.difficulty))}</p>` : ''}
       </div>
     </header>
+    <div class="deck-cols">
     ${g ? `<section class="guide">
         <p class="guide-summary">${richText(g.summary, idx)}</p>
         <h2>Game plan</h2><ol class="plan">${g.gamePlan.map(s => `<li>${richText(s, idx)}</li>`).join('')}</ol>
@@ -38,7 +39,8 @@ export async function render(root, param) {
       <h2>A winning list</h2>
       ${d.lists.length > 1 ? `<div class="list-tabs" role="tablist">${d.lists.map((l, i) => `<button type="button" role="tab" class="chip" aria-pressed="${i === 0}" data-list="${i}">${escapeHtml(l.place || '')}, ${escapeHtml(l.event || 'tournament')}</button>`).join('')}</div>` : ''}
       <div class="list-body"></div>
-    </section>`;
+    </section>
+    </div>`;
 
   const body = root.querySelector('.list-body');
   const drawList = () => {

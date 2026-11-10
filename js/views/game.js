@@ -13,6 +13,7 @@ import { openSheet } from '../ui/sheet.js';
 import { confetti, buzz, shake } from '../ui/fx.js';
 import { go } from '../router.js';
 import { icon } from '../icons.js';
+import { isDesktop } from '../lib/layout.js';
 
 const ME = 0, AI = 1;
 const n = x => Number(x || 0).toLocaleString('en-US');
@@ -106,7 +107,7 @@ export async function render(root) {
 
   function drawMid() {
     const b = s.battle;
-    const lines = s.log.slice(-3).map(eventText).filter(Boolean);
+    const lines = s.log.slice(isDesktop() ? -14 : -3).map(eventText).filter(Boolean);
     $('.g-mid').innerHTML = `${b ? `<div class="g-battle"><span>${nm(s, b.attacker)} <b>${n(power(s, b.attacker))}</b></span><span class="vs">vs</span><span>${nm(s, b.target)} <b>${n(power(s, b.target))}</b></span></div>` : ''}
       <div class="g-log">${lines.map(l => `<p>${l}</p>`).join('')}</div>
       ${meta.coach && s.phase !== 'over' ? `<div class="g-coach ${coachMsg?.tone || ''}">${icon('compass', { size: 18 })}<span>${coachMsg ? escapeHtml(coachMsg.text) : escapeHtml(phaseTip(s, ME))}</span></div>` : ''}`;
@@ -145,7 +146,7 @@ export async function render(root) {
       return;
     }
     panel.innerHTML = `<div class="g-btns main">${meta.coach ? '<button type="button" class="btn hint-btn">Hint</button>' : ''}<button type="button" class="btn log-btn">Log</button><button type="button" class="btn btn-primary" data-act='{"type":"endTurn"}'>End turn</button></div>
-      <p class="muted small g-help">Tap a glowing card to play it, give it DON!!, or attack.</p>`;
+      <p class="muted small g-help">${isDesktop() ? 'Click a glowing card to play it, give it DON!!, or attack. Keys: <kbd>E</kbd> end turn, <kbd>H</kbd> hint, <kbd>1</kbd>–<kbd>9</kbd> pick a button, <kbd>Esc</kbd> back.' : 'Tap a glowing card to play it, give it DON!!, or attack.'}</p>`;
   }
   const label = a => {
     if (a.type === 'attack') return `Attack ${def(find(s, a.target).inst.id).name}${find(s, a.target).zone === 'leader' ? ' (Leader)' : ''}: ${n(power(s, a.uid))} vs ${n(power(s, a.target))}`;
@@ -253,10 +254,24 @@ export async function render(root) {
     openSheet({ title: d.name, html: `<div class="g-cardinfo"><img src="${escapeHtml(d.img)}" alt="" width="600" height="838"><div><p class="muted small">${escapeHtml(d.type)}${d.cost != null ? `, cost ${costOf(s, uid)}` : ''}${d.power != null ? `, ${n(power(s, uid))} power now` : ''}${d.counter ? `, Counter +${n(d.counter)}` : ''}</p><p>${d.text ? richText(d.text, idx) : 'No effect.'}</p></div></div>` });
   }
 
+  // Keyboard shortcuts (handy on a computer).
+  const onKey = e => {
+    if (e.target.closest?.('input, textarea, select') || e.metaKey || e.ctrlKey || e.altKey || document.querySelector('.sheet.open')) return;
+    const k = e.key.toLowerCase();
+    const panel = $('.g-panel');
+    if (!panel) return;
+    if (k === 'e') { const b = panel.querySelector('[data-act*="endTurn"]'); if (b) { e.preventDefault(); b.click(); } }
+    else if (k === 'h') { const b = panel.querySelector('.hint-btn'); if (b) { e.preventDefault(); b.click(); } }
+    else if (k === 'escape') { if (selected) { selected = null; draw(); } }
+    else if (/^[1-9]$/.test(k)) { const bs = [...panel.querySelectorAll('[data-act], .opt, .pick-ok:not([disabled])')]; const b = bs[+k - 1]; if (b) { e.preventDefault(); b.click(); } }
+    else if (k === 'enter' && e.target === document.body) { const b = panel.querySelector('.btn-primary:not([disabled])'); if (b) { e.preventDefault(); b.click(); } }
+  };
+  addEventListener('keydown', onKey);
+
   draw();
   save();
   scheduleAI();
-  const stop = () => { alive = false; clearTimeout(aiTimer); document.body.classList.remove('in-game'); if (unmount === stop) unmount = null; };
+  const stop = () => { alive = false; clearTimeout(aiTimer); removeEventListener('keydown', onKey); document.body.classList.remove('in-game'); if (unmount === stop) unmount = null; };
   unmount = stop;
   // The router keeps only the first cleanup; route it to whichever game is live now.
   return () => unmount?.();

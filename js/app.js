@@ -2,6 +2,8 @@ import { onRoute } from './router.js';
 import { store } from './store.js';
 import { icon } from './icons.js';
 import { installDefineHandler } from './ui/define.js';
+import { initLayout } from './ui/layout-switch.js';
+import { parseHash } from './router.js';
 
 const TABS = {
   learn: { label: 'Learn', icon: 'compass', views: ['learn', 'lesson', 'about', 'play', 'game'] },
@@ -41,7 +43,7 @@ function markTab(view) {
   const key = Object.keys(TABS).find(k => TABS[k].views.includes(view)) || 'learn';
   tabEls.forEach((el, i) => {
     const on = el.dataset.tab === key;
-    if (on) { el.setAttribute('aria-current', 'page'); flag.style.transform = `translateX(${i * 100}%)`; }
+    if (on) { el.setAttribute('aria-current', 'page'); flag.style.setProperty('--i', i); }
     else el.removeAttribute('aria-current');
   });
 }
@@ -102,6 +104,7 @@ document.addEventListener('click', e => {
   const a = e.target.closest('a[data-back]');
   if (a && navCount > 0) { e.preventDefault(); history.back(); }
 });
+initLayout(() => show(parseHash(location.hash)));
 onRoute(show);
 
 addEventListener('beforeinstallprompt', e => { e.preventDefault(); window.__installPrompt = e; });
