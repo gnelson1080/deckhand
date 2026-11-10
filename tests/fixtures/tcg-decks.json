@@ -1,0 +1,151 @@
+{
+ "count": 6,
+ "offset": 0,
+ "total": 538,
+ "result": [
+  {
+   "age": "4h",
+   "contentType": "Deck",
+   "date": "11/9/2026",
+   "deckData": {
+    "deckName": "Red/Green Luffy",
+    "deckSource": "dashboard",
+    "eventDate": "11-08-2026",
+    "eventName": "Regional Pomona",
+    "eventRank": "9th-16th",
+    "format": "standard regulation",
+    "game": "one piece",
+    "marketPrice": 260.75,
+    "playerName": "lugiablaster"
+   },
+   "deckID": "552644",
+   "featured": false,
+   "imageURL": "https://tcgplayer-cdn.tcgplayer.com/product/657250_in_600x600.jpg",
+   "isExternalID": false,
+   "readTime": 0,
+   "title": "Red/Green Luffy",
+   "vertical": "one piece",
+   "canonicalURL": "/one-piece/deck/Red-Green-Luffy/552644"
+  },
+  {
+   "age": "4h",
+   "contentType": "Deck",
+   "date": "11/9/2026",
+   "deckData": {
+    "deckName": "Red/Green Luffy",
+    "deckSource": "dashboard",
+    "eventDate": "11-08-2026",
+    "eventName": "Regional Pomona",
+    "eventRank": "9th-16th",
+    "format": "standard regulation",
+    "game": "one piece",
+    "marketPrice": 254.41,
+    "playerName": "Xtotx"
+   },
+   "deckID": "552643",
+   "featured": false,
+   "imageURL": "https://tcgplayer-cdn.tcgplayer.com/product/657250_in_600x600.jpg",
+   "isExternalID": false,
+   "readTime": 0,
+   "title": "Red/Green Luffy",
+   "vertical": "one piece",
+   "canonicalURL": "/one-piece/deck/Red-Green-Luffy/552643"
+  },
+  {
+   "age": "4h",
+   "contentType": "Deck",
+   "date": "11/9/2026",
+   "deckData": {
+    "deckName": "Blue Rocks",
+    "deckSource": "dashboard",
+    "eventDate": "11-08-2026",
+    "eventName": "Regional Pomona",
+    "eventRank": "9th-16th",
+    "format": "standard regulation",
+    "game": "one piece",
+    "marketPrice": 62.23999999999999,
+    "playerName": "Thuan Le"
+   },
+   "deckID": "552642",
+   "featured": false,
+   "imageURL": "https://tcgplayer-cdn.tcgplayer.com/product/712086_in_600x600.jpg",
+   "isExternalID": false,
+   "readTime": 0,
+   "title": "Blue Rocks",
+   "vertical": "one piece",
+   "canonicalURL": "/one-piece/deck/Blue-Rocks/552642"
+  },
+  {
+   "age": "4h",
+   "contentType": "Deck",
+   "date": "11/9/2026",
+   "deckData": {
+    "deckName": "Red/Green Luffy",
+    "deckSource": "dashboard",
+    "eventDate": "11-08-2026",
+    "eventName": "Regional Pomona",
+    "eventRank": "9th-16th",
+    "format": "standard regulation",
+    "game": "one piece",
+    "marketPrice": 259.36,
+    "playerName": "Clayton H"
+   },
+   "deckID": "552641",
+   "featured": false,
+   "imageURL": "https://tcgplayer-cdn.tcgplayer.com/product/657250_in_600x600.jpg",
+   "isExternalID": false,
+   "readTime": 0,
+   "title": "Red/Green Luffy",
+   "vertical": "one piece",
+   "canonicalURL": "/one-piece/deck/Red-Green-Luffy/552641"
+  },
+  {
+   "age": "4h",
+   "contentType": "Deck",
+   "date": "11/9/2026",
+   "deckData": {
+    "deckName": "Blue Rocks",
+    "deckSource": "dashboard",
+    "eventDate": "11-08-2026",
+    "eventName": "Regional Pomona",
+    "eventRank": "9th-16th",
+    "format": "standard regulation",
+    "game": "one piece",
+    "marketPrice": 62.02,
+    "playerName": "makabaka"
+   },
+   "deckID": "552640",
+   "featured": false,
+   "imageURL": "https://tcgplayer-cdn.tcgplayer.com/product/712086_in_600x600.jpg",
+   "isExternalID": false,
+   "readTime": 0,
+   "title": "Blue Rocks",
+   "vertical": "one piece",
+   "canonicalURL": "/one-piece/deck/Blue-Rocks/552640"
+  },
+  {
+   "age": "4h",
+   "contentType": "Deck",
+   "date": "11/9/2026",
+   "deckData": {
+    "deckName": "Blue Buggy",
+    "deckSource": "dashboard",
+    "eventDate": "11-08-2026",
+    "eventName": "Regional Pomona",
+    "eventRank": "9th-16th",
+    "format": "standard regulation",
+    "game": "one piece",
+    "marketPrice": 84.03,
+    "playerName": "Nebulus"
+   },
+   "deckID": "552639",
+   "featured": false,
+   "imageURL": "https://tcgplayer-cdn.tcgplayer.com/product/596970_in_600x600.jpg",
+   "isExternalID": false,
+   "readTime": 0,
+   "title": "Blue Buggy",
+   "vertical": "one piece",
+   "canonicalURL": "/one-piece/deck/Blue-Buggy/552639"
+  }
+ ]
+}
