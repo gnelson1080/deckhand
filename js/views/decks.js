@@ -46,7 +46,8 @@ export async function render(root) {
         </a>
         <span class="my-deck-tools"><button type="button" class="chip" data-dup="${escapeHtml(d.id)}">Duplicate</button><button type="button" class="chip" data-del="${escapeHtml(d.id)}">Delete</button></span></li>`;
     }).join('')}</ul>`
-    : `<div class="empty decks-empty"><p><strong>No decks yet.</strong></p><p>Start a new one, or open a winning deck in the <a href="#/meta">Meta tab</a> and tap "Copy into my decks".</p></div>`}`;
+    : `<div class="empty decks-empty"><p><strong>No decks yet.</strong></p><p>Start a new one, or open a winning deck in the <a href="#/meta">Meta tab</a> and tap "Copy into my decks".</p></div>`}
+    <p class="decks-foot">Switching phones? <a href="#/about">Back up your decks and lessons</a>.</p>`;
 
   root.querySelector('.my-decks')?.addEventListener('click', e => {
     const dup = e.target.closest('[data-dup]');

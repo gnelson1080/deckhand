@@ -495,3 +495,11 @@ main#view:has(.build-bar:not([hidden])) { padding-bottom: calc(var(--tabbar-h) +
 .pc-table table { width: 100%; border-collapse: collapse; margin-top: 6px; }
 .pc-table td, .pc-table th { text-align: left; padding: 4px 0; border-bottom: 1px solid var(--rule); }
 @media (prefers-reduced-motion: reduce) { .pc-line { animation: none; stroke-dashoffset: 0; } }
+
+/* ---------- Backup ---------- */
+.restore { margin-top: 12px; }
+.restore summary { cursor: pointer; font-weight: 700; color: var(--sea); min-height: 36px; }
+.file-btn { cursor: pointer; }
+.good-text { color: var(--good); font-weight: 700; display: flex; align-items: center; gap: 6px; }
+.backup-msg { font-size: var(--t-sm); min-height: 1.2em; margin-top: 8px; }
+.decks-foot { margin-top: 22px; font-size: var(--t-sm); color: var(--ink-soft); }

@@ -2,7 +2,7 @@
 // - App files (precached): cache first, refreshed in the background.
 // - data/*.json: network first, cached copy when offline.
 // - Card images: cache first, at most 400 kept.
-const VERSION = 'abee2c82bf';
+const VERSION = '16ccae90a5';
 const SHELL = `deckhand-shell-${VERSION}`;
 const DATA = 'deckhand-data';
 const IMAGES = 'deckhand-images';
@@ -46,6 +46,7 @@ const PRECACHE = [
   'js/app.js',
   'js/data.js',
   'js/icons.js',
+  'js/lib/backup.js',
   'js/lib/board.js',
   'js/lib/deck.js',
   'js/lib/decks-store.js',
