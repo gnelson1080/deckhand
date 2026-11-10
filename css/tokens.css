@@ -1,0 +1,58 @@
+/* Deckhand design tokens — "navigator's sea chart" */
+:root {
+  color-scheme: light;
+  --chart: #e7eeeb;        /* page: pale sea-chart paper */
+  --chart-line: #12304a0f; /* faint lat/long grid */
+  --paper: #f8faf7;        /* raised surfaces */
+  --paper-2: #eef3f0;
+  --ink: #12304a;          /* Prussian navy, used instead of black */
+  --ink-soft: #4b6475;
+  --ink-faint: #8aa0ad;
+  --rule: #12304a26;
+  --flag-red: #cf2330;     /* signal flag red: primary action */
+  --flag-red-ink: #ffffff;
+  --flag-yellow: #f3b400;  /* signal flag yellow: progress / highlight */
+  --sea: #1d7486;          /* routes, links */
+  --good: #1f8a5b;
+  --bad: #cf2330;
+  --shadow: 0 1px 0 #12304a14, 0 6px 18px -8px #12304a40;
+
+  /* Game colors (card colors) */
+  --g-red: #d3202b; --g-green: #1c8c4e; --g-blue: #1f63b8;
+  --g-purple: #7a3fa0; --g-black: #2b2b2b; --g-yellow: #e9b300;
+
+  --font-display: 'Alfa Slab One', 'Rockwell', 'Roboto Slab', serif;
+  --font-body: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+
+  /* Type scale (1.25 ratio, 17px base for phone reading) */
+  --t-xs: 0.8125rem; --t-sm: 0.9375rem; --t-md: 1.0625rem; --t-lg: 1.3125rem;
+  --t-xl: 1.625rem; --t-2xl: 2.0625rem; --t-3xl: 2.625rem;
+
+  --gutter: 16px;
+  --tabbar-h: 68px;
+  --header-h: 56px;
+  --r-sm: 6px; --r-md: 12px; --r-lg: 20px;
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --chart: #0b1d2b; --chart-line: #e8eef00a; --paper: #12293a; --paper-2: #183346;
+    --ink: #e8eef0; --ink-soft: #a9bcc6; --ink-faint: #6d8796; --rule: #e8eef021;
+    --flag-red: #ff5a5f; --flag-red-ink: #1a0a0b; --flag-yellow: #ffc93c; --sea: #5cc2d4;
+    --good: #4fd08f; --bad: #ff6b70;
+    --shadow: 0 1px 0 #00000040, 0 10px 24px -10px #000000a0;
+    --g-black: #c9d2d8;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --chart: #0b1d2b; --chart-line: #e8eef00a; --paper: #12293a; --paper-2: #183346;
+  --ink: #e8eef0; --ink-soft: #a9bcc6; --ink-faint: #6d8796; --rule: #e8eef021;
+  --flag-red: #ff5a5f; --flag-red-ink: #1a0a0b; --flag-yellow: #ffc93c; --sea: #5cc2d4;
+  --good: #4fd08f; --bad: #ff6b70;
+  --shadow: 0 1px 0 #00000040, 0 10px 24px -10px #000000a0;
+  --g-black: #c9d2d8;
+}
