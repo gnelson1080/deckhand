@@ -122,6 +122,57 @@ const phone = async (opts = {}) => {
   await ctx.close();
 }
 
+// 7. Deck builder, price section, backup → restore on another "phone" (Phase 2)
+{
+  const { ctx, page } = await phone();
+  await ctx.addInitScript(() => localStorage.setItem('deckhand:seenIntro', 'true'));
+  await step('new deck: pick a Leader, add 4 copies, 5th is refused with a reason', async () => {
+    await page.goto(base + '#/decks');
+    await page.click('text=New deck');
+    await page.locator('.pick-leader').first().click();
+    const first = page.locator('.add-tile').first();
+    await first.waitFor();
+    for (let i = 0; i < 5; i++) { await first.click(); await page.waitForTimeout(120); }
+    assert.match(await page.textContent('.toast'), /4 copies/);
+    assert.match(await page.textContent('.bar-main strong'), /^4 \/ 50/);
+  });
+  await step('a winning meta list copies into my decks as a legal 50-card deck', async () => {
+    await page.goto(base + '#/deck/1');
+    await page.click('text=Copy into my decks');
+    await page.locator('.bar-check').waitFor();
+    assert.match(await page.textContent('.bar-main strong'), /^50 \/ 50/);
+    assert.match(await page.textContent('.bar-check'), /Legal/);
+    await page.click('.seg [data-tab="check"]');
+    assert.match(await page.inputValue('.export-box'), /^1x[A-Z0-9]+-\d+\n\d+x/);
+  });
+  await step('card detail shows a price history section', async () => {
+    await page.goto(base + '#/card/OP14-020');
+    await page.locator('.price-host h2').waitFor();
+  });
+  let code;
+  await step('backup code is produced', async () => {
+    await page.goto(base + '#/about');
+    code = await page.evaluate(async () => (await import('./js/lib/backup.js')).makeBackup({
+      progress: JSON.parse(localStorage.getItem('deckhand:progress') || '{"completed":[],"quiz":{}}'),
+      decks: JSON.parse(localStorage.getItem('deckhand:decks') || '[]'), theme: null }));
+    assert.match(code, /^DH1\./);
+  });
+  await ctx.close();
+  const other = await phone();
+  await step('restoring the code on a fresh phone brings the decks back', async () => {
+    await other.page.goto(base + '#/about');
+    await other.page.click('text=Restore from a backup');
+    await other.page.fill('#restore-box', code);
+    await other.page.click('text=Check the code');
+    await other.page.click('.restore-go');
+    await other.page.locator('.good-text').waitFor();
+    await other.page.goto(base + '#/decks');
+    await other.page.locator('.my-deck').first().waitFor({ timeout: 5000 });
+    assert.equal(await other.page.locator('.my-deck').count(), 2, `restored from: ${code.slice(0, 12)}…`);
+  });
+  await other.ctx.close();
+}
+
 await browser.close();
 server.close();
 for (const r of results) console.log(r.join('  '));
