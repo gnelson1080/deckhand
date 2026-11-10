@@ -1,0 +1,67 @@
+{
+ "id": 6,
+ "title": "Attacking and blocking",
+ "minutes": 4,
+ "goal": "Make an attack, and know how a defender can block it.",
+ "steps": [
+  {
+   "type": "text",
+   "html": "<p>To <kw>Attack</kw>, turn one of your active cards sideways: your Leader or a Character. Then pick a target:</p><ul><li>your opponent's <strong>Leader</strong>, or</li><li>one of their <strong>rested</strong> (sideways) Characters.</li></ul><p>Upright Characters can't be attacked. And a Character can't attack on the turn it was played unless it has <kw>Rush</kw>.</p>"
+  },
+  {
+   "type": "text",
+   "html": "<p>Then compare <kw>Power</kw>. If the attacker's power is <strong>equal or higher</strong>, the attacker wins.</p><ul><li>Beat a Leader: it takes 1 <kw>Damage</kw> (loses 1 Life).</li><li>Beat a Character: it's <kw term=\"K.O.\">K.O.'d</kw> and goes to the trash.</li></ul>"
+  },
+  {
+   "type": "board",
+   "scenario": "attack-leader"
+  },
+  {
+   "type": "text",
+   "html": "<p>Defenders get a chance to respond. If they have an active Character with <kw>Blocker</kw>, they can rest it to make it the new target. You can block only once per attack.</p>"
+  },
+  {
+   "type": "board",
+   "scenario": "blocker"
+  },
+  {
+   "type": "tip",
+   "html": "<p>Attacking with a Character leaves it sideways during your opponent's turn, so it can be attacked back. Think about that before you swing.</p>"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Your 5000 Character attacks a 5000 Leader. Who wins?",
+   "choices": [
+    "The defender",
+    "The attacker",
+    "Nobody",
+    "Both lose"
+   ],
+   "answer": 1,
+   "why": "Ties go to the attacker."
+  },
+  {
+   "q": "Which of your opponent's Characters can you attack?",
+   "choices": [
+    "Any of them",
+    "Only upright ones",
+    "Only rested (sideways) ones",
+    "None, only the Leader"
+   ],
+   "answer": 2,
+   "why": "Only rested Characters can be attacked."
+  },
+  {
+   "q": "What does [Blocker] let a card do?",
+   "choices": [
+    "Attack twice",
+    "Become the new target of an attack",
+    "Stop all damage this turn",
+    "Return to hand"
+   ],
+   "answer": 1,
+   "why": "A Blocker rests to take the attack in place of another card."
+  }
+ ]
+}

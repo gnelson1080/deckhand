@@ -1,15 +1,59 @@
 {
-  "id": 1, "title": "What is the One Piece Card Game?", "minutes": 2,
-  "goal": "Placeholder lesson to exercise the lesson engine.",
-  "steps": [
-    { "type": "text", "html": "<p>Two players. Each has a <kw>Leader</kw> and a 50-card deck.</p>" },
-    { "type": "card", "cardId": "ST01-012", "callouts": [{ "part": "cost", "label": "Cost" }, { "part": "power", "label": "Power" }] },
-    { "type": "board", "scenario": "counter" },
-    { "type": "tip", "html": "<p>Tip.</p>" }
-  ],
-  "quiz": [
-    { "q": "How many cards in a deck?", "choices": ["40", "50", "60", "30"], "answer": 1, "why": "Exactly 50 cards plus your Leader." },
-    { "q": "Who wins ties?", "choices": ["Defender", "Attacker", "Nobody", "Coin flip"], "answer": 1, "why": "The attacker wins ties." },
-    { "q": "How many DON!! cards?", "choices": ["5", "8", "10", "12"], "answer": 2, "why": "Your DON!! deck has 10 cards." }
-  ]
+ "id": 1,
+ "title": "What is the One Piece Card Game?",
+ "minutes": 2,
+ "goal": "Learn what you're trying to do in a game, and what you need to play.",
+ "steps": [
+  {
+   "type": "text",
+   "html": "<p>The One Piece Card Game is a battle between <strong>two pirate captains</strong>. You are one of them.</p><p>Your captain is a card called your <kw>Leader</kw>. You build a crew of <kw term=\"Character\">Characters</kw>, attack your opponent's Leader, and protect your own.</p>"
+  },
+  {
+   "type": "text",
+   "html": "<p><strong>How you win:</strong></p><ul><li>Every Leader starts with a few face-down <kw>Life</kw> cards. Each time you hit your opponent's Leader, they lose 1 Life.</li><li>When they have <strong>0 Life</strong> and you hit their Leader <strong>one more time</strong>, you win.</li><li>You also win if your opponent's <kw>Deck</kw> runs out of cards.</li></ul>"
+  },
+  {
+   "type": "text",
+   "html": "<p><strong>What each player brings:</strong></p><ul><li><strong>1 Leader</strong> card.</li><li>A <strong>50-card deck</strong> of Characters, Events and Stages.</li><li><strong>10 <kw>DON!!</kw> cards.</strong> DON!! are your energy. You spend them to play cards.</li></ul>"
+  },
+  {
+   "type": "tip",
+   "html": "<p>A game usually takes 20 to 30 minutes. Don't worry about memorizing anything yet. Every underlined word in Deckhand can be tapped to see what it means.</p>"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Your opponent has 0 Life cards left. What happens when you hit their Leader once more?",
+   "choices": [
+    "They draw a card",
+    "You win the game",
+    "They get 1 Life back",
+    "Nothing, Leaders can't be hit at 0 Life"
+   ],
+   "answer": 1,
+   "why": "At 0 Life, the next hit on the Leader ends the game."
+  },
+  {
+   "q": "How many cards are in your main deck?",
+   "choices": [
+    "40",
+    "50",
+    "60",
+    "Any number"
+   ],
+   "answer": 1,
+   "why": "A deck is exactly 50 cards. Your Leader and your 10 DON!! are kept separate."
+  },
+  {
+   "q": "What are DON!! cards for?",
+   "choices": [
+    "They are your Life",
+    "They are your energy for playing cards",
+    "They are extra Leaders",
+    "They are only used in tournaments"
+   ],
+   "answer": 1,
+   "why": "You spend DON!! to pay for cards, and you can attach them to cards to make them stronger."
+  }
+ ]
 }

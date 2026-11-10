@@ -1,0 +1,70 @@
+{
+ "id": 9,
+ "title": "Keywords you'll see everywhere",
+ "minutes": 4,
+ "goal": "Read card effects quickly by learning the common bracket words.",
+ "steps": [
+  {
+   "type": "text",
+   "html": "<p>Words in [square brackets] are keywords. Here are the ones that tell you <strong>when</strong> something happens:</p><ul><li><kw>On Play</kw>: when you play the card.</li><li><kw>When Attacking</kw>: each time it attacks.</li><li><kw>On K.O.</kw>: when it gets K.O.'d.</li><li><kw>On Block</kw>: when it blocks.</li><li><kw>Activate: Main</kw>: an ability you choose to use in your Main Phase.</li><li><kw>End of Your Turn</kw>: during your End Phase.</li></ul>"
+  },
+  {
+   "type": "text",
+   "html": "<p>These ones are <strong>conditions</strong>:</p><ul><li><kw>Your Turn</kw> / <kw>Opponent's Turn</kw>: only works during that turn.</li><li><kw>Once Per Turn</kw>: can be used only once each turn.</li><li><kw term=\"DON!! xN\">[DON!! x2]</kw>: only works with 2 or more DON!! given.</li></ul>"
+  },
+  {
+   "type": "text",
+   "html": "<p>And these are <strong>abilities</strong>:</p><ul><li><kw>Rush</kw>: can attack the turn it's played.</li><li><kw>Blocker</kw>: can take an attack for another card.</li><li><kw>Double Attack</kw>, <kw>Banish</kw>, <kw>Unblockable</kw>: make attacks hurt more.</li></ul>"
+  },
+  {
+   "type": "card",
+   "cardId": "ST31-001",
+   "callouts": [
+    {
+     "part": "effect",
+     "label": "[DON!! x2]: give Sanji 2 DON!! and he gains [Rush], so he can attack right away."
+    }
+   ],
+   "html": "<p>Put it together. Tap the pin:</p>"
+  },
+  {
+   "type": "tip",
+   "html": "<p>When a card does something you didn't expect, the card wins: card text overrides the general rules.</p>"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "A Character has [On Play] Draw 1 card. When do you draw?",
+   "choices": [
+    "Every turn",
+    "When it attacks",
+    "When you play it",
+    "When it is K.O.'d"
+   ],
+   "answer": 2,
+   "why": "On Play happens once, right when the card is played."
+  },
+  {
+   "q": "What does [Once Per Turn] mean?",
+   "choices": [
+    "You must use it every turn",
+    "It can be used only one time each turn",
+    "It works only on your first turn",
+    "It costs 1 DON!!"
+   ],
+   "answer": 1,
+   "why": "It limits how often the effect can be used."
+  },
+  {
+   "q": "Which keyword lets a Character attack on the turn it's played?",
+   "choices": [
+    "Blocker",
+    "Banish",
+    "Rush",
+    "Trigger"
+   ],
+   "answer": 2,
+   "why": "Rush removes the usual wait of one turn."
+  }
+ ]
+}

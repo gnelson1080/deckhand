@@ -59,7 +59,7 @@ for (const { meta, body } of lessons) {
     const { SCENARIOS } = await import('../js/lib/scenarios.js');
     const terms = new Set(glossary.flatMap(g => [g.term, ...g.aliases]));
     for (const st of body.steps) {
-      assert.ok(['text', 'card', 'board', 'tip'].includes(st.type), st.type);
+      assert.ok(['text', 'card', 'board', 'tip', 'deckpick'].includes(st.type), st.type);
       if (st.type === 'card') { assert.ok(cardIds.has(st.cardId), st.cardId); assert.ok(st.callouts.length); }
       if (st.type === 'board') assert.ok(SCENARIOS[st.scenario], st.scenario);
       for (const m of String(st.html || '').matchAll(/<kw(?:\s+term="([^"]+)")?>([^<]+)<\/kw>/g)) assert.ok(terms.has(m[1] || m[2]), `<kw> ${m[1] || m[2]}`);

@@ -1,0 +1,63 @@
+{
+ "id": 5,
+ "title": "DON!! and paying costs",
+ "minutes": 4,
+ "goal": "Spend DON!! to play cards, and give DON!! to make your cards stronger.",
+ "steps": [
+  {
+   "type": "text",
+   "html": "<p>DON!! you've received sit in your <kw>Cost area</kw>. Upright DON!! are <kw>Active</kw>, ready to use. To pay a cost, you turn that many DON!! sideways. Now they're <kw>Rested</kw> until your next turn.</p>"
+  },
+  {
+   "type": "board",
+   "scenario": "pay-cost"
+  },
+  {
+   "type": "text",
+   "html": "<p>DON!! have a second use. During your Main Phase you can <kw term=\"Give DON!!\">give</kw> an active DON!! to your Leader or a Character by tucking it under the card.</p><ul><li>Each given DON!! is worth <strong>+1000 power during your turn</strong>.</li><li>At the start of your next turn, given DON!! come back to your cost area.</li></ul>"
+  },
+  {
+   "type": "board",
+   "scenario": "give-don"
+  },
+  {
+   "type": "text",
+   "html": "<p>Two DON!! words you'll see on cards:</p><ul><li><kw term=\"DON!! xN\">[DON!! x1]</kw>: this effect only works while the card has at least 1 DON!! given to it.</li><li><kw term=\"DON!! −N\">DON!! −1</kw>: to use this effect, return 1 DON!! from your table to your DON!! deck.</li></ul>"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "A Character costs 4. How do you play it?",
+   "choices": [
+    "Trash 4 cards from your hand",
+    "Rest 4 active DON!!",
+    "Return 4 DON!! to your DON!! deck",
+    "Rest your Leader"
+   ],
+   "answer": 1,
+   "why": "Paying a cost means resting that many active DON!!."
+  },
+  {
+   "q": "Your Leader has 5000 power and 2 DON!! given to it. What is its power during your turn?",
+   "choices": [
+    "5000",
+    "6000",
+    "7000",
+    "10000"
+   ],
+   "answer": 2,
+   "why": "Each given DON!! adds +1000 during your turn: 5000 + 2000 = 7000."
+  },
+  {
+   "q": "What does [DON!! x1] on a card mean?",
+   "choices": [
+    "It costs 1 DON!!",
+    "The effect works while it has 1 or more DON!! given",
+    "It gives you 1 DON!!",
+    "It can attack once"
+   ],
+   "answer": 1,
+   "why": "It's a condition: give the card at least 1 DON!! to turn the effect on."
+  }
+ ]
+}

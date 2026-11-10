@@ -1,0 +1,59 @@
+{
+ "id": 4,
+ "title": "The five steps of a turn",
+ "minutes": 3,
+ "goal": "Know what happens, in order, every time it's your turn.",
+ "steps": [
+  {
+   "type": "text",
+   "html": "<p>Every turn has the same five steps:</p><ol><li><kw>Refresh Phase</kw>: take back DON!! you attached to cards, then stand all your sideways cards back up.</li><li><kw>Draw Phase</kw>: draw 1 card.</li><li><kw>DON!! Phase</kw>: take 2 new DON!! from your DON!! deck.</li><li><kw>Main Phase</kw>: play cards, attach DON!!, use effects and attack.</li><li><kw>End Phase</kw>: end-of-turn effects happen, then it's your opponent's turn.</li></ol>"
+  },
+  {
+   "type": "text",
+   "html": "<p><strong>The first turn is special.</strong></p><ul><li>The player going first <strong>doesn't draw</strong> on their first turn.</li><li>The player going first gets only <strong>1 DON!!</strong> on their first turn.</li><li><strong>Nobody can attack</strong> on their own first turn.</li></ul>"
+  },
+  {
+   "type": "text",
+   "html": "<p>Your DON!! grow each turn: 1 or 2 on your first turn, then +2 every turn until you have all 10. That's why cheap cards come out early and big cards come out later.</p>"
+  },
+  {
+   "type": "tip",
+   "html": "<p>The Main Phase is where almost everything happens. You can do things in any order and as many times as you can afford, so plan your DON!! before you spend them.</p>"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Which step comes right after the Draw Phase?",
+   "choices": [
+    "Main Phase",
+    "DON!! Phase",
+    "Refresh Phase",
+    "End Phase"
+   ],
+   "answer": 1,
+   "why": "Refresh, Draw, DON!!, Main, End."
+  },
+  {
+   "q": "How many new DON!! do you normally get each turn?",
+   "choices": [
+    "1",
+    "2",
+    "3",
+    "All 10"
+   ],
+   "answer": 1,
+   "why": "2 per turn. The first player gets only 1 on their very first turn."
+  },
+  {
+   "q": "Can you attack on your very first turn?",
+   "choices": [
+    "Yes, with your Leader",
+    "Yes, if you go second",
+    "No, nobody can attack on their first turn",
+    "Only with Events"
+   ],
+   "answer": 2,
+   "why": "Neither player can attack on their own first turn."
+  }
+ ]
+}

@@ -1,0 +1,69 @@
+{
+ "id": 7,
+ "title": "Counters: defending from your hand",
+ "minutes": 3,
+ "goal": "Use Counter cards from your hand to survive attacks.",
+ "steps": [
+  {
+   "type": "text",
+   "html": "<p>After the block step, the defender can use <kw term=\"Counter\">Counters</kw>. Look at the side of your Character cards: many show <strong>+1000</strong> or <strong>+2000</strong>.</p><p>While you're being attacked, you can trash those cards from your hand to add their power to the card being attacked, for this battle only. You can use as many as you want.</p>"
+  },
+  {
+   "type": "card",
+   "cardId": "OP13-011",
+   "callouts": [
+    {
+     "part": "counter",
+     "label": "Counter +2000: trash this from your hand while defending to add 2000 power."
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "html": "<p>Events with <kw>Counter</kw> in brackets work at the same moment. You pay their DON!! cost, then use their effect.</p><p>Remember the tie rule: if your defender ends up <strong>equal</strong> to the attacker, the attacker still wins. You need to go higher.</p>"
+  },
+  {
+   "type": "board",
+   "scenario": "counter"
+  },
+  {
+   "type": "tip",
+   "html": "<p>Your hand is your shield. Every Counter you use is a card you can't play later, so don't spend counters to save 1 Life early in the game unless it really matters.</p>"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Your 5000 Leader is attacked by a 7000 Character. Which Counters save you?",
+   "choices": [
+    "One +2000",
+    "One +1000",
+    "+2000 and +1000 together",
+    "None can"
+   ],
+   "answer": 2,
+   "why": "You need 8000. 5000 + 2000 would only tie, and ties go to the attacker."
+  },
+  {
+   "q": "When can you use a Character's Counter value?",
+   "choices": [
+    "On your turn",
+    "While you're being attacked",
+    "Only during setup",
+    "Any time"
+   ],
+   "answer": 1,
+   "why": "Counters are used during your opponent's attack, after blockers."
+  },
+  {
+   "q": "What happens to a Character card you use as a Counter?",
+   "choices": [
+    "It goes back on top of your deck",
+    "It goes into play",
+    "It goes to your trash",
+    "It becomes a Life card"
+   ],
+   "answer": 2,
+   "why": "You trash it from your hand to add its power."
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "id": 11,
+ "title": "Picking your first deck",
+ "minutes": 3,
+ "goal": "Choose a deck that's fun, strong right now, and easy to learn.",
+ "steps": [
+  {
+   "type": "text",
+   "html": "<p>You know the rules. Now pick a ship. Three good ways to choose:</p><ol><li><strong>A starter deck</strong> in the color you like. Cheap, complete and easy to upgrade.</li><li><strong>A beginner-friendly meta deck.</strong> These are decks winning tournaments right now that are also simple to play.</li><li><strong>Your favorite character.</strong> You'll play more if you love your Leader.</li></ol>"
+  },
+  {
+   "type": "deckpick"
+  },
+  {
+   "type": "text",
+   "html": "<p>Before you buy:</p><ul><li>Check the deck's guide in the <strong>Meta</strong> tab: game plan, key cards, what beats it.</li><li>Check prices: every card links to TCGplayer.</li><li>Play some games, even against a friend with a starter deck. You'll learn faster by playing than by reading.</li></ul>"
+  },
+  {
+   "type": "tip",
+   "html": "<p>Strong decks change every few months when new sets come out. Deckhand updates its tournament data every day, so come back to the Meta tab to see what's winning.</p>"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "What's a good first deck for someone brand new?",
+   "choices": [
+    "The most expensive deck",
+    "A starter deck or a beginner-friendly meta deck",
+    "A random pile of 50 cards",
+    "A deck with no Leader"
+   ],
+   "answer": 1,
+   "why": "Starter decks and simple meta decks are the easiest way in."
+  },
+  {
+   "q": "Where in Deckhand can you see which decks are winning tournaments now?",
+   "choices": [
+    "Glossary tab",
+    "Meta tab",
+    "Learn tab",
+    "Nowhere"
+   ],
+   "answer": 1,
+   "why": "The Meta tab updates daily from recent tournament results."
+  },
+  {
+   "q": "Why might the best decks change?",
+   "choices": [
+    "New sets add new cards every few months",
+    "The rules change every week",
+    "Decks wear out",
+    "They never change"
+   ],
+   "answer": 0,
+   "why": "New sets, and the yearly block rotation, change what's strong."
+  }
+ ]
+}

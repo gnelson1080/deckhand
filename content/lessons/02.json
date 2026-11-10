@@ -1,0 +1,135 @@
+{
+ "id": 2,
+ "title": "The five kinds of cards",
+ "minutes": 4,
+ "goal": "Recognize Leaders, Characters, Events, Stages and DON!! at a glance.",
+ "steps": [
+  {
+   "type": "card",
+   "cardId": "OP13-001",
+   "callouts": [
+    {
+     "part": "power",
+     "label": "Power: how strong it is in a fight (5000)."
+    },
+    {
+     "part": "life",
+     "label": "Life: you start the game with this many Life cards (4)."
+    },
+    {
+     "part": "color",
+     "label": "Color: your deck may only use these colors (green and red)."
+    },
+    {
+     "part": "effect",
+     "label": "Effect: a special ability. Leaders have one that works all game."
+    }
+   ],
+   "html": "<p>This is a <kw>Leader</kw>. You have exactly one, and it stays on the table all game. Tap the numbered pins.</p>"
+  },
+  {
+   "type": "card",
+   "cardId": "ST31-002",
+   "callouts": [
+    {
+     "part": "cost",
+     "label": "Cost: rest this many DON!! to play it (5)."
+    },
+    {
+     "part": "power",
+     "label": "Power: its strength in battle (6000)."
+    },
+    {
+     "part": "counter",
+     "label": "Counter: trash it from your hand while defending to add +1000 power."
+    },
+    {
+     "part": "effect",
+     "label": "Effect: Jinbe has [Blocker]. Tap it to see what that means."
+    },
+    {
+     "part": "type",
+     "label": "Type: the groups he belongs to (Fish-Man and Straw Hat Crew)."
+    },
+    {
+     "part": "color",
+     "label": "Color: red."
+    }
+   ],
+   "html": "<p>This is a <kw>Character</kw>, the most common kind of card. Characters are your crew: they attack, block and protect.</p>"
+  },
+  {
+   "type": "card",
+   "cardId": "OP13-039",
+   "callouts": [
+    {
+     "part": "cost",
+     "label": "Cost: 2 DON!!."
+    },
+    {
+     "part": "effect",
+     "label": "[Counter]: you can use it while your opponent attacks you."
+    },
+    {
+     "part": "trigger",
+     "label": "[Trigger]: a free effect if this card is flipped from your Life."
+    }
+   ],
+   "html": "<p>This is an <kw>Event</kw>. You pay its cost, do what it says once, then it goes to your <kw>Trash</kw>.</p>"
+  },
+  {
+   "type": "card",
+   "cardId": "OP13-022",
+   "callouts": [
+    {
+     "part": "cost",
+     "label": "Cost: 1 DON!!."
+    },
+    {
+     "part": "effect",
+     "label": "Effect: works again and again while the Stage stays on the table."
+    }
+   ],
+   "html": "<p>This is a <kw>Stage</kw>, a place that gives you a lasting bonus. You can only have 1 Stage at a time. Stages can't attack and can't be attacked.</p>"
+  },
+  {
+   "type": "text",
+   "html": "<p>And then there's <kw>DON!!</kw>. DON!! cards aren't in your deck. You get new ones every turn and use them to pay costs or to power up your cards.</p><p>Quick sort:</p><ul><li><strong>Leader:</strong> you, the captain. 1 per deck.</li><li><strong>Character:</strong> crew that stays and fights.</li><li><strong>Event:</strong> a one-time move.</li><li><strong>Stage:</strong> a place with a lasting bonus.</li><li><strong>DON!!:</strong> energy.</li></ul>"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Which card type goes to the trash right after you use it?",
+   "choices": [
+    "Character",
+    "Stage",
+    "Event",
+    "Leader"
+   ],
+   "answer": 2,
+   "why": "Events are one-time effects. Pay, resolve, trash."
+  },
+  {
+   "q": "Where do you find how many DON!! a Character costs?",
+   "choices": [
+    "Top-left corner",
+    "Bottom-right corner",
+    "On the back",
+    "In the effect text"
+   ],
+   "answer": 0,
+   "why": "The cost is the big number in the top-left corner."
+  },
+  {
+   "q": "What does the number in a Leader's Life spot tell you?",
+   "choices": [
+    "How much it costs",
+    "How many Life cards you start with",
+    "How many times it can attack",
+    "How many Characters you can have"
+   ],
+   "answer": 1,
+   "why": "You start the game with that many face-down Life cards."
+  }
+ ]
+}

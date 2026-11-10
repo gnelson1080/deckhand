@@ -1,0 +1,59 @@
+{
+ "id": 3,
+ "title": "Setting up a game",
+ "minutes": 3,
+ "goal": "Get both sides of the table ready, step by step.",
+ "steps": [
+  {
+   "type": "text",
+   "html": "<p>Before the first turn, each player does this, in order:</p><ol><li>Shuffle your 50-card deck and put it face down.</li><li>Put your <kw>Leader</kw> face up in front of you.</li><li>Put your 10 <kw>DON!!</kw> cards to the side. This is your <kw>DON!! deck</kw>.</li><li>Play rock-paper-scissors. The winner chooses to go first or second.</li></ol>"
+  },
+  {
+   "type": "text",
+   "html": "<p>Next, the opening hand:</p><ol start=\"5\"><li>Draw 5 cards.</li><li>If you don't like them, you may do one <kw>Mulligan</kw>: shuffle all 5 back and draw 5 new cards. The player going first decides first. You must keep the second hand.</li></ol>"
+  },
+  {
+   "type": "text",
+   "html": "<p>Last, your Life:</p><ol start=\"7\"><li>Take cards from the top of your deck equal to your Leader's Life number and place them <strong>face down</strong> as your <kw>Life</kw>. Don't look at them.</li></ol><p>Now the first player starts their turn.</p>"
+  },
+  {
+   "type": "tip",
+   "html": "<p><strong>Going first or second?</strong> Going first lets you set up sooner, but on your very first turn you don't draw a card and you only get 1 DON!!. Many players still choose to go first.</p>"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "How many cards are in your opening hand?",
+   "choices": [
+    "4",
+    "5",
+    "6",
+    "7"
+   ],
+   "answer": 1,
+   "why": "Everyone draws 5 to start."
+  },
+  {
+   "q": "What do you do with your Life cards?",
+   "choices": [
+    "Look at them, then place them face up",
+    "Place them face down without looking",
+    "Shuffle them into your hand",
+    "Put them in the trash"
+   ],
+   "answer": 1,
+   "why": "Life cards go face down, unseen, from the top of your deck."
+  },
+  {
+   "q": "How many times can you mulligan (redraw) your opening hand?",
+   "choices": [
+    "Never",
+    "Once",
+    "Twice",
+    "As many times as you want"
+   ],
+   "answer": 1,
+   "why": "You get one redraw, and you must keep the new hand."
+  }
+ ]
+}

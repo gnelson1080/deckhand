@@ -1,3 +1,57 @@
 [
-  { "id": 1, "title": "What is the One Piece Card Game?", "minutes": 2 }
+ {
+  "id": 1,
+  "title": "What is the One Piece Card Game?",
+  "minutes": 2
+ },
+ {
+  "id": 2,
+  "title": "The five kinds of cards",
+  "minutes": 4
+ },
+ {
+  "id": 3,
+  "title": "Setting up a game",
+  "minutes": 3
+ },
+ {
+  "id": 4,
+  "title": "The five steps of a turn",
+  "minutes": 3
+ },
+ {
+  "id": 5,
+  "title": "DON!! and paying costs",
+  "minutes": 4
+ },
+ {
+  "id": 6,
+  "title": "Attacking and blocking",
+  "minutes": 4
+ },
+ {
+  "id": 7,
+  "title": "Counters: defending from your hand",
+  "minutes": 3
+ },
+ {
+  "id": 8,
+  "title": "Life, damage and Triggers",
+  "minutes": 3
+ },
+ {
+  "id": 9,
+  "title": "Keywords you'll see everywhere",
+  "minutes": 4
+ },
+ {
+  "id": 10,
+  "title": "Building your first deck",
+  "minutes": 4
+ },
+ {
+  "id": 11,
+  "title": "Picking your first deck",
+  "minutes": 3
+ }
 ]

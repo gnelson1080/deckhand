@@ -1,0 +1,69 @@
+{
+ "id": 8,
+ "title": "Life, damage and Triggers",
+ "minutes": 3,
+ "goal": "Know what happens when your Leader gets hit, and how the game ends.",
+ "steps": [
+  {
+   "type": "text",
+   "html": "<p>When your Leader takes damage, move your top <kw>Life</kw> card into your <strong>hand</strong>. Getting hit hurts, but it also gives you a card. Some players save their Counters early and let a few hits through.</p>"
+  },
+  {
+   "type": "text",
+   "html": "<p>Some cards have <kw>Trigger</kw>. If that card is the Life card you take, you can show it and use its Trigger effect for free instead of putting it in your hand.</p>"
+  },
+  {
+   "type": "card",
+   "cardId": "OP13-106",
+   "callouts": [
+    {
+     "part": "trigger",
+     "label": "[Trigger] Play this card: if this flips from your Life, it comes into play for free."
+    }
+   ]
+  },
+  {
+   "type": "board",
+   "scenario": "life-trigger"
+  },
+  {
+   "type": "text",
+   "html": "<p>Two attack keywords change damage:</p><ul><li><kw>Double Attack</kw>: deals 2 damage instead of 1.</li><li><kw>Banish</kw>: the Life card goes to the trash. No card in hand, no Trigger.</li></ul><p><strong>How a game ends:</strong> a Leader with 0 Life takes damage, or a player has 0 cards left in their deck.</p>"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Your Leader takes 1 damage. Where does your top Life card go?",
+   "choices": [
+    "Into your hand",
+    "Into your trash",
+    "Back on your deck",
+    "To your opponent"
+   ],
+   "answer": 0,
+   "why": "Life cards go to your hand, unless you use a Trigger or it was Banished."
+  },
+  {
+   "q": "Your Life card has [Trigger]. What can you do?",
+   "choices": [
+    "Nothing special",
+    "Use its Trigger effect instead of adding it to your hand",
+    "Play it as a second Leader",
+    "Attack immediately"
+   ],
+   "answer": 1,
+   "why": "A Trigger is a free effect you may use, or you can just add the card to your hand."
+  },
+  {
+   "q": "Which of these makes you lose?",
+   "choices": [
+    "Having 0 cards in hand",
+    "Having 0 cards in your deck",
+    "Having 0 DON!!",
+    "Having no Characters"
+   ],
+   "answer": 1,
+   "why": "If your deck reaches 0 cards, you lose."
+  }
+ ]
+}
