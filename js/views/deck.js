@@ -55,7 +55,7 @@ export async function render(root, param) {
       </div>
       ${costCurve(s.curve)}
       ${group('Characters', s.byType.Character)}${group('Events', s.byType.Event)}${group('Stages', s.byType.Stage)}${group('Other', s.byType.Other)}
-      <p class="list-links">${l.url ? `<a class="btn" href="${escapeHtml(safeUrl(l.url))}" target="_blank" rel="noopener">Full list on TCGplayer ${icon('link', { size: 16 })}</a>` : ''}
+      <p class="list-links"><a class="btn btn-primary" href="#/build/from/${Number(d.rank) || 0}/${listIdx}">${icon('anchor', { size: 16 })}Copy into my decks</a>${l.url ? `<a class="btn" href="${escapeHtml(safeUrl(l.url))}" target="_blank" rel="noopener">Full list on TCGplayer ${icon('link', { size: 16 })}</a>` : ''}
         <a class="btn" href="${escapeHtml(safeUrl(tcgplayerUrl(L)))}" target="_blank" rel="noopener">Buy the Leader ${icon('link', { size: 16 })}</a></p>
       <p class="muted small">Price is an estimate from TCGplayer market prices for the cheapest common printing of each card.</p>`;
   };

@@ -1,11 +1,13 @@
 // Hash router: #/view/param
-export const VIEWS = ['learn', 'lesson', 'cards', 'card', 'meta', 'deck', 'glossary', 'about'];
+export const VIEWS = ['learn', 'lesson', 'cards', 'card', 'decks', 'build', 'meta', 'deck', 'glossary', 'about'];
 
 export function parseHash(hash) {
   const [view, ...rest] = String(hash || '').replace(/^#\/?/, '').split('/');
   if (!VIEWS.includes(view)) return { view: 'learn', param: null };
   const raw = rest.join('/');
-  return { view, param: raw ? decodeURIComponent(raw) : null };
+  let param = null;
+  if (raw) { try { param = decodeURIComponent(raw); } catch { param = raw; } }
+  return { view, param };
 }
 
 export function onRoute(cb) {

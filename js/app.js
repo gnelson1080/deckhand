@@ -6,16 +6,19 @@ import { installDefineHandler } from './ui/define.js';
 const TABS = {
   learn: { label: 'Learn', icon: 'compass', views: ['learn', 'lesson', 'about'] },
   cards: { label: 'Cards', icon: 'scroll', views: ['cards', 'card'] },
+  decks: { label: 'Decks', icon: 'anchor', views: ['decks', 'build'] },
   meta: { label: 'Meta', icon: 'spyglass', views: ['meta', 'deck'] },
   glossary: { label: 'Glossary', icon: 'map', views: ['glossary'] },
 };
-const ORDER = ['learn', 'lesson', 'cards', 'card', 'meta', 'deck', 'glossary', 'about'];
+const ORDER = ['learn', 'lesson', 'cards', 'card', 'decks', 'build', 'meta', 'deck', 'glossary', 'about'];
 
 const views = {
   learn: () => import('./views/learn.js'),
   lesson: () => import('./views/lesson.js'),
   cards: () => import('./views/cards.js'),
   card: () => import('./views/card.js'),
+  decks: () => import('./views/decks.js'),
+  build: () => import('./views/build.js'),
   meta: () => import('./views/meta.js'),
   deck: () => import('./views/deck.js'),
   glossary: () => import('./views/glossary.js'),

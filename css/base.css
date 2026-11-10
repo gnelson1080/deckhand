@@ -60,7 +60,7 @@ main#view {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
   height: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
   padding-bottom: env(safe-area-inset-bottom);
-  display: grid; grid-template-columns: repeat(4, 1fr);
+  display: grid; grid-template-columns: repeat(5, 1fr);
   background: var(--paper);
   border-top: 1px solid var(--rule);
   box-shadow: 0 -8px 24px -18px #12304a66;
@@ -76,7 +76,7 @@ main#view {
 .tab[aria-current="page"] svg { transform: translateY(-2px); }
 /* sliding signal pennant over the active tab */
 .tab-flag {
-  position: absolute; top: -1px; left: 0; width: 25%; height: 6px; pointer-events: none;
+  position: absolute; top: -1px; left: 0; width: 20%; height: 6px; pointer-events: none;
   display: flex; justify-content: center;
   transition: transform .45s var(--ease-spring);
 }

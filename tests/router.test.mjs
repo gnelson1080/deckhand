@@ -16,3 +16,12 @@ test('empty or unknown hash falls back to learn', () => {
 test('decodes encoded params', () => {
   assert.deepEqual(parseHash('#/glossary/On%20Play'), { view: 'glossary', param: 'On Play' });
 });
+
+test('deck builder routes', () => {
+  assert.deepEqual(parseHash('#/decks'), { view: 'decks', param: null });
+  assert.deepEqual(parseHash('#/build/new'), { view: 'build', param: 'new' });
+  assert.deepEqual(parseHash('#/build/from/2/0'), { view: 'build', param: 'from/2/0' });
+});
+test('malformed percent-encoding does not throw', () => {
+  assert.deepEqual(parseHash('#/card/%E0'), { view: 'card', param: '%E0' });
+});
