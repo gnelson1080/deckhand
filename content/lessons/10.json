@@ -10,7 +10,7 @@
   },
   {
    "type": "text",
-   "html": "<p><strong>Which cards are allowed in tournaments?</strong> Most events use the <kw>Standard format</kw>. Each card has a block number printed in its lower-right corner. From April 2026 to March 2027, Standard allows <strong>Blocks 2 to 5</strong>. Block 1 cards (the oldest ones) are not allowed. Each spring the oldest block rotates out (<kw>Block rotation</kw>).</p>"
+   "html": "<p><strong>Which cards are allowed in tournaments?</strong> Most events use the <kw>Standard format</kw>. Each card has a block number printed in its lower-right corner. From April 2026 to March 2027, Standard allows <strong>Blocks 2 to 5</strong>. Block 1 cards (the oldest ones) are not allowed, unless they were reprinted with a newer block number. Each spring the oldest block rotates out (<kw>Block rotation</kw>).</p>"
   },
   {
    "type": "text",

@@ -1,0 +1,26 @@
+{
+  "leaderId": "OP13-001",
+  "title": "Red/Green Luffy",
+  "difficulty": 2,
+  "summary": "A green/red deck with a defensive Leader. When you're attacked, the Leader can rest your spare DON!! to give +2000 power each, so you lose Life slowly while your big Characters take over.",
+  "gamePlan": [
+    "Give your Leader 1 DON!! on your turn. It stays given during your opponent's turn, which switches on the Leader's [DON!! x1] defense.",
+    "When your opponent attacks and you have 5 or fewer active DON!!, rest any number of them: +2000 power per DON!! to your Leader or a Straw Hat Crew Character for that battle.",
+    "Nami (OP14-031) is key: a [Blocker] that rests 2 opponent Characters and stands up to 5 of your DON!! at the end of your turn, ready for the Leader's defense.",
+    "Mid to late game: Jewelry Bonney draws 2 and plays 2 small Characters, Oden and Kawamatsu add 6000-power bodies, and Shanks finishes."
+  ],
+  "keyCards": [
+    { "id": "OP13-001", "why": "Leader. Turns unused DON!! into +2000 power each on defense." },
+    { "id": "OP14-031", "why": "Blocker that rests 2 enemy Characters and readies 5 DON!! for your defense." },
+    { "id": "EB05-001", "why": "7000 power, draws 2 and plays 2 cheap Characters for free." },
+    { "id": "ST32-002", "why": "Draws and keeps an opponent's Character from attacking." },
+    { "id": "OP17-022", "why": "10-cost finisher with [Rush] that rests your opponent's board." }
+  ],
+  "howItWins": "Survive, then overwhelm. Your Leader soaks attacks using spare DON!!, Bonney and Nami build a bigger board than your opponent's, and Shanks closes the game.",
+  "weakTo": [
+    "[Banish] and [Double Attack] attackers that get damage through faster than you can defend.",
+    "Opponents who make you spend DON!! on your turn, leaving none for the Leader's defense."
+  ],
+  "mulliganTips": "Keep cheap searchers plus a 4 or 5 cost play. Nami (OP14-031) in your opening hand is great.",
+  "sampleListSource": "meta"
+}

@@ -87,3 +87,10 @@ test('mergeCardLists prefers the exact home group over a pre-release variant gro
   assert.equal(mergeCardLists([[pre], [home]])[0].img, 'home.jpg');
   assert.equal(mergeCardLists([[home], [pre]])[0].img, 'home.jpg');
 });
+
+test('cleanName strips a trailing " - OP14-020" number suffix', async () => {
+  const { cleanName } = await import('../scripts/lib/tcgcsv.mjs');
+  assert.equal(cleanName('Dracule Mihawk - OP14-020'), 'Dracule Mihawk');
+  assert.equal(cleanName('Shanks (020) (Alternate Art)'), 'Shanks');
+  assert.equal(cleanName('Eustass"Captain"Kid'), 'Eustass"Captain"Kid');
+});

@@ -14,7 +14,7 @@ export const stripTcgHtml = s => String(s || '')
 
 // "Shanks (020) (Alternate Art)" -> 1 extra tag; "Shanks (020)" -> 0
 const variantTags = name => (String(name).match(/\(([^)]*)\)/g) || []).filter(t => !/^\((?:[A-Z]*-?\d+[A-Z\d-]*)\)$/.test(t)).length;
-export const cleanName = name => String(name || '').replace(/\s*\([^)]*\)/g, '').trim();
+export const cleanName = name => String(name || '').replace(/\s*\([^)]*\)/g, '').replace(/\s+-\s+[A-Z]+\d*-\d+$/, '').trim();
 
 export const isCardGroup = g => !/playmat|sleeve|binder|storage|accessor|deck box|card case/i.test(g?.name || '');
 

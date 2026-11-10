@@ -1,0 +1,26 @@
+{
+  "leaderId": "OP09-062",
+  "title": "Purple/Yellow Robin",
+  "difficulty": 3,
+  "summary": "A Trigger deck. Many of its cards have [Trigger], so getting hit often gives you free plays. Your Leader has [Banish], so its hits stop your opponent's Triggers.",
+  "gamePlan": [
+    "When your Leader attacks, you may trash a [Trigger] card from your hand to add a DON!! from your DON!! deck. This gets you to big plays faster.",
+    "Big Mom Pirates searchers (Charlotte Brulee, Streusen) find your key cards. Charlotte Daifuku and Charlotte Oven have [Trigger] Play this card.",
+    "Charlotte Smoothie and Sweet 3 Generals add cards from your deck to your Life, which means more Triggers to flip later.",
+    "Charlotte Linlin (10 cost) makes every 4000-base-power Trigger Character an 8000 on your turn. Marshall.D.Teach (8 cost) adds a card to your Life."
+  ],
+  "keyCards": [
+    { "id": "OP09-062", "why": "Leader with [Banish]. Turns Trigger cards in hand into extra DON!!." },
+    { "id": "OP17-109", "why": "Trash a Trigger card to draw 3. As a Trigger, it searches 5 cards deep." },
+    { "id": "OP17-107", "why": "[Trigger] Play this card: a free 4000-power body when you take damage." },
+    { "id": "OP17-112", "why": "Makes your 4000-power Trigger Characters into 8000s on your turn." },
+    { "id": "OP16-119", "why": "Adds Life, and as a Trigger it K.O.s a Character." }
+  ],
+  "howItWins": "A long game. Your Life keeps refilling with Triggers, each hit you take can become a free card, and Linlin turns your board into 8000-power attackers.",
+  "weakTo": [
+    "Opponents with [Banish], which stops your Triggers from firing.",
+    "Very fast decks that win before your Life engine gets going."
+  ],
+  "mulliganTips": "Keep a searcher (Brulee or Streusen) and a Trigger card to feed your Leader. This deck has more decisions per turn than the others, so try it after a simpler deck.",
+  "sampleListSource": "meta"
+}

@@ -1,0 +1,27 @@
+{
+  "leaderId": "ST30-001",
+  "title": "Red/Green Luffy & Ace",
+  "difficulty": 1,
+  "summary": "Built around Starter Deck 30 (EX Luffy & Ace). Fast Luffy cards attack the turn they're played, and the Leader makes all your Luffy and Ace cards much harder to beat on your opponent's turn.",
+  "gamePlan": [
+    "Early turns: play cheap searchers like Nami and Jewelry Bonney. They look at the top of your deck and grab Straw Hat Crew cards. Thousand Sunny does the same.",
+    "From turn 3 or 4: play Monkey.D.Luffy (ST30-012) and rest 1 DON!! to give it [Rush], or play Monkey.D.Luffy (ST21-014), which already has [Rush]. Attack right away.",
+    "On your opponent's turn your Leader gives every Luffy and Ace card +3000 power, so attacking into them is hard. Your Leader itself has 6000 power.",
+    "Avoid Characters with 7000 base power or more: having one drops your Leader to 4000. That's why this deck stays with 6000-power Luffys."
+  ],
+  "keyCards": [
+    { "id": "ST30-001", "why": "Leader. +3000 to all your Luffy and Ace cards on your opponent's turn." },
+    { "id": "ST30-012", "why": "4 cost, 6000 power. Can gain [Rush], and rests one of your opponent's Blockers when it attacks." },
+    { "id": "ST21-014", "why": "5 cost [Rush] Luffy that gives a DON!! to your team when it attacks." },
+    { "id": "ST31-001", "why": "Draws a card and plays another Straw Hat from your hand for free." },
+    { "id": "OP14-019", "why": "Event that digs 4 cards deep for the Character you need." },
+    { "id": "OP04-016", "why": "Counter event: +3000 power for 0 DON!! (you trash 1 card from hand)." }
+  ],
+  "howItWins": "Pressure. You attack with several Luffys every turn, and the Leader's +3000 on defense keeps them alive to attack again.",
+  "weakTo": [
+    "Decks that rest or K.O. your Characters before they can attack.",
+    "Opponents with lots of Blockers. Each ST30-012 attack can rest only one."
+  ],
+  "mulliganTips": "Keep a hand with at least one 1-cost searcher and one 4 or 5 cost Luffy. Redraw hands full of Events.",
+  "sampleListSource": "meta"
+}

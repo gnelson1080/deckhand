@@ -92,3 +92,11 @@ test('catalog failure falls back to optcgapi cards', async () => {
   const { cards } = await buildData(opts({ fetchJSON: failing, useCatalog: true }));
   assert.ok(cards.some(c => c.id === 'OP01-077'));
 });
+
+test('card text gets its minus signs restored', async () => {
+  const raw = JSON.parse(fx('optcg-set.json'));
+  raw[0] = { ...raw[0], card_text: '[On Play] DON!! 1: Draw 1 card.' };
+  const json = async url => url.includes('tcgplayer') || url.includes('tcgcsv') ? (() => { throw new Error('x'); })() : url.includes('allSTCards') ? JSON.parse(fx('optcg-st.json')) : raw;
+  const { cards } = await buildData(opts({ fetchJSON: json }));
+  assert.equal(cards.find(c => c.id === raw[0].card_set_id).text, '[On Play] DON!! −1: Draw 1 card.');
+});

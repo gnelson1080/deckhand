@@ -1,0 +1,26 @@
+{
+  "leaderId": "OP13-004",
+  "title": "Red/Black Sabo",
+  "difficulty": 2,
+  "summary": "A red/black deck built on one trick: several cards gain +12 cost while on the table. Once you control a cost 12+ Character, your cheap Straw Hats all get much stronger.",
+  "gamePlan": [
+    "Find and play Jaguar.D.Saul (4 cost, counts as 16) or Loki (6 cost, counts as 18). Saul also digs for more {Elbaph} cards.",
+    "With a cost 12+ Character out, the 2-cost Straw Hats (Zoro, Usopp, Sanji, Nico Robin) get +3000 power, and Monkey.D.Luffy (OP17-093) gains [Rush].",
+    "Your Leader: give it 1 DON!! and, with a cost 8+ Character on your side, your Leader and every Character get +1000. Downside: with 4 or more Life the Leader has −1000 power.",
+    "Loki's [On Play] K.O.s your opponent's Characters with a total cost of 4 or less, and Loki gets +3000 power on your opponent's turn."
+  ],
+  "keyCards": [
+    { "id": "OP13-004", "why": "Leader. +1000 to your whole team once you have a cost 8+ Character." },
+    { "id": "OP17-089", "why": "4 cost that counts as cost 16, and finds more Elbaph cards." },
+    { "id": "OP17-119", "why": "Counts as cost 18, clears small Characters, and is tough on defense." },
+    { "id": "OP17-093", "why": "Gains [Rush] and replays a cheap Character from your trash." },
+    { "id": "OP15-088", "why": "7000 power that counts as cost 11 and brings back a Straw Hat from your trash." }
+  ],
+  "howItWins": "Switch on the cost-12 bonus early, then swarm with cheap Straw Hats that hit as hard as 5-cost Characters.",
+  "weakTo": [
+    "Removal aimed at Saul and Loki. Without a cost 12+ Character your small Characters are just 2000 power.",
+    "Early pressure while your Leader is at 4000 power (4+ Life)."
+  ],
+  "mulliganTips": "Hunt for Jaguar.D.Saul or Loki. Keep hands with one of them or a searcher like Usopp (OP17-080).",
+  "sampleListSource": "meta"
+}

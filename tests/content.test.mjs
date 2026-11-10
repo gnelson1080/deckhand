@@ -66,3 +66,16 @@ for (const { meta, body } of lessons) {
     }
   });
 }
+
+const guideFiles = readdirSync(new URL('../content/deck-guides/', import.meta.url)).filter(f => f.endsWith('.json'));
+test('there are at least 5 deck guides', () => assert.ok(guideFiles.length >= 5));
+for (const f of guideFiles) {
+  test(`deck guide ${f}: leader and key cards exist, difficulty 1-3, filename matches leader`, () => {
+    const g = read(`content/deck-guides/${f}`);
+    assert.equal(f, `${g.leaderId}.json`);
+    assert.ok(cardIds.has(g.leaderId), g.leaderId);
+    assert.ok([1, 2, 3].includes(g.difficulty));
+    assert.ok(g.gamePlan.length >= 3 && g.keyCards.length >= 4 && g.weakTo.length >= 1);
+    for (const k of g.keyCards) assert.ok(cardIds.has(k.id) && k.why, k.id);
+  });
+}

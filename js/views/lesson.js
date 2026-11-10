@@ -1,4 +1,6 @@
-import { getLesson, getLessonIndex } from '../data.js';
+import { getLesson, getLessonIndex, getMeta, getCards, getDeckGuide } from '../data.js';
+import { thumb } from '../lib/search.js';
+import { difficultyMarks, difficultyLabel } from '../ui/charts.js';
 import { store } from '../store.js';
 import { completeLesson, emptyProgress } from '../lib/progress.js';
 import { richText, escapeHtml } from '../ui/rich-text.js';
@@ -63,6 +65,7 @@ export async function render(root, param) {
       if (st.type === 'text') pageEl.innerHTML = `<div class="step-text">${st.html}</div>`;
       else if (st.type === 'tip') pageEl.innerHTML = `<aside class="tip"><span class="tip-flag" aria-hidden="true"></span><div>${st.html}</div></aside>`;
       else if (st.type === 'card') { const d = document.createElement('div'); pageEl.append(d); if (st.html) d.insertAdjacentHTML('beforebegin', `<div class="step-text">${st.html}</div>`); await renderCallout(d, st); }
+      else if (st.type === 'deckpick') pageEl.innerHTML = await deckPick();
       else if (st.type === 'board') {
         if (st.html) pageEl.insertAdjacentHTML('beforeend', `<div class="step-text">${st.html}</div>`);
         const d = document.createElement('div'); pageEl.append(d);
@@ -77,6 +80,20 @@ export async function render(root, param) {
       await renderQuiz(pageEl.querySelector('.quiz-box'), lesson.quiz, r => { if (r.passed) finish(r.score); });
     }
     root.querySelector('.lesson-title').scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  }
+
+  // Beginner-friendly decks from today's meta, easiest first.
+  async function deckPick() {
+    try {
+      const [meta, cards] = await Promise.all([getMeta(), getCards()]);
+      const guides = (await Promise.all(meta.decks.map(async d => ({ d, g: await getDeckGuide(d.leaderId) })))).filter(x => x.g)
+        .sort((a, b) => a.g.difficulty - b.g.difficulty || a.d.rank - b.d.rank).slice(0, 3);
+      if (!guides.length) return '<p class="muted">Open the Meta tab to see today\'s top decks.</p>';
+      return `<p class="step-text">Beginner-friendly decks winning right now, easiest first:</p><div class="pick-list">${guides.map(({ d, g }) => `<a class="pick panel" href="#/deck/${d.rank}">
+        <img src="${escapeHtml(thumb(cards.get(d.leaderId)?.img || ''))}" alt="" width="200" height="279" loading="lazy">
+        <span><strong class="display">${escapeHtml(g.title)}</strong><span class="deck-diff">${difficultyMarks(g.difficulty)}${escapeHtml(difficultyLabel(g.difficulty))}</span>
+        <span class="muted">#${d.rank} in tournaments. ${escapeHtml(g.summary.split('. ')[0])}.</span></span></a>`).join('')}</div>`;
+    } catch { return '<p class="muted">Open the Meta tab to see today\'s top decks.</p>'; }
   }
 
   // Wrap glossary words written as <kw>Term</kw> in lesson html.

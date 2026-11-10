@@ -4,6 +4,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { normalizeCards } from './lib/normalize-cards.mjs';
+import { fixMinusSigns } from './lib/text.mjs';
 import { TCGCSV, tcgcsvToCards, mergeCardLists, isCardGroup, fillGaps } from './lib/tcgcsv.mjs';
 import { parseDeckIndex, parseDeckDetail, aggregateMeta, deckIndexUrl, deckDetailUrl } from './lib/tcgplayer.mjs';
 import { parseMetaTable, parseArchetypeLists, parseDecklist, parseCardPage } from './lib/parse-limitless.mjs';
@@ -145,6 +146,7 @@ export async function buildData({
       log(`WARN could not fill ${id} (${e.message})`);
     }
   }
+  cards = cards.map(c => ({ ...c, text: fixMinusSigns(c.text) }));
   cards.sort((a, b) => a.id.localeCompare(b.id));
   return { cards, meta, updated };
 }
