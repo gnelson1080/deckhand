@@ -1,11 +1,11 @@
 // Deckhand service worker: the app works offline after the first visit.
 // - App files (precached): cache first, refreshed in the background.
 // - data/*.json: network first, cached copy when offline.
-// - Card images: cache first, at most 400 kept.
+// - Card images: served from cache, then refreshed in the background so fixed art replaces old art. At most 400 kept.
 const VERSION = 'ebc6c4378b';
 const SHELL = `deckhand-shell-${VERSION}`;
 const DATA = 'deckhand-data';
-const IMAGES = 'deckhand-images';
+const IMAGES = 'deckhand-images-v2'; // v2: dropped images cached before the art fixes
 const MAX_IMAGES = 400;
 const PRECACHE = [
   './',
@@ -133,7 +133,7 @@ self.addEventListener('install', e => {
 });
 
 self.addEventListener('activate', e => {
-  e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k.startsWith('deckhand-shell-') && k !== SHELL).map(k => caches.delete(k)))).then(() => self.clients.claim()));
+  e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => (k.startsWith('deckhand-shell-') && k !== SHELL) || (k.startsWith('deckhand-images') && k !== IMAGES)).map(k => caches.delete(k)))).then(() => self.clients.claim()));
 });
 
 async function trim(cacheName, max) {
@@ -158,12 +158,12 @@ self.addEventListener('fetch', e => {
   if (req.destination === 'image' && url.origin !== location.origin) {
     e.respondWith(caches.open(IMAGES).then(async c => {
       const hit = await c.match(req.url);
-      if (hit) return hit;
       // Ask for a CORS copy (TCGplayer's CDN allows it) so the cached size is real, not padded.
-      let res;
-      try { res = await fetch(new Request(req.url, { mode: 'cors', credentials: 'omit' })); } catch { res = null; }
-      if (res && cacheable(res, 'image')) { put(IMAGES, req.url, res.clone()).then(() => trim(IMAGES, MAX_IMAGES)); return res; }
-      return fetch(req);
+      const refresh = fetch(new Request(req.url, { mode: 'cors', credentials: 'omit', cache: 'no-cache' }))
+        .then(res => { if (cacheable(res, 'image')) { put(IMAGES, req.url, res.clone()).then(() => trim(IMAGES, MAX_IMAGES)); return res; } return null; })
+        .catch(() => null);
+      if (hit) { e.waitUntil(refresh); return hit; }
+      return (await refresh) || fetch(req);
     }).catch(() => fetch(req)));
     return;
   }
