@@ -35,6 +35,7 @@ export async function render(root) {
     <a class="btn btn-primary btn-block continue" href="#/lesson/${cur}">${allDone ? 'Review the last lesson' : progress.completed.length ? `Continue: ${escapeHtml(index[cur - 1].title)}` : 'Start lesson 1'}</a>
     ${progress.completed.length >= 1 && !st.get('installHintDismissed', false) && !matchMedia('(display-mode: standalone)').matches ? `<aside class="tip install-hint"><span class="tip-flag" aria-hidden="true"></span><div><p><strong>Keep Deckhand on your phone.</strong> ${/iPhone|iPad/.test(navigator.userAgent) ? 'Tap Share, then "Add to Home Screen".' : 'Add it to your home screen and lessons work offline.'}</p>
       <button type="button" class="btn install-go" hidden>Install</button> <button type="button" class="btn install-x">Not now</button></div></aside>` : ''}
+    <a class="btn btn-block play-cta" href="#/play">${icon('ship', { size: 20 })}Play a practice game vs. the computer</a>
     <div class="voyage" style="--h:${h}px">
       <svg class="voyage-route" viewBox="0 0 100 ${h}" preserveAspectRatio="none" aria-hidden="true">
         <path d="${path}" class="route-all" vector-effect="non-scaling-stroke"/>

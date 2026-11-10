@@ -2,7 +2,7 @@
 // - App files (precached): cache first, refreshed in the background.
 // - data/*.json: network first, cached copy when offline.
 // - Card images: cache first, at most 400 kept.
-const VERSION = 'c8dd1db235';
+const VERSION = 'bbc464a28a';
 const SHELL = `deckhand-shell-${VERSION}`;
 const DATA = 'deckhand-data';
 const IMAGES = 'deckhand-images';
@@ -47,10 +47,12 @@ const PRECACHE = [
   'js/data.js',
   'js/game/ai.js',
   'js/game/cards/index.js',
+  'js/game/coach.js',
   'js/game/effects.js',
   'js/game/engine.js',
   'js/game/pool-data.js',
   'js/game/rng.js',
+  'js/game/save.js',
   'js/icons.js',
   'js/lib/backup.js',
   'js/lib/board.js',
@@ -79,10 +81,12 @@ const PRECACHE = [
   'js/views/cards.js',
   'js/views/deck.js',
   'js/views/decks.js',
+  'js/views/game.js',
   'js/views/glossary.js',
   'js/views/learn.js',
   'js/views/lesson.js',
-  'js/views/meta.js'
+  'js/views/meta.js',
+  'js/views/play.js'
 ];
 
 // Only cache real, successful answers of the expected kind. Captive-portal login pages,

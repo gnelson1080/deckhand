@@ -18,6 +18,10 @@
   {
    "type": "tip",
    "html": "<p>Strong decks change every few months when new sets come out. Deckhand updates its tournament data every day, so come back to the Meta tab to see what's winning.</p>"
+  },
+  {
+   "type": "text",
+   "html": "<p>Ready to try it? <a href=\"#/play\">Play a practice game against the computer</a>. The coach will guide you through your first match.</p>"
   }
  ],
  "quiz": [

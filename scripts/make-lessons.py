@@ -175,6 +175,7 @@ L.append(dict(id=11, title="Picking your first deck", minutes=3,
     {"type": "deckpick"},
     T("<p>Before you buy:</p><ul><li>Check the deck's guide in the <strong>Meta</strong> tab: game plan, key cards, what beats it.</li><li>Check prices: every card links to TCGplayer.</li><li>Play some games, even against a friend with a starter deck. You'll learn faster by playing than by reading.</li></ul>"),
     TIP("<p>Strong decks change every few months when new sets come out. Deckhand updates its tournament data every day, so come back to the Meta tab to see what's winning.</p>"),
+    T("<p>Ready to try it? <a href=\"#/play\">Play a practice game against the computer</a>. The coach will guide you through your first match.</p>"),
   ],
   quiz=[
     Q("What's a good first deck for someone brand new?", ["The most expensive deck", "A starter deck or a beginner-friendly meta deck", "A random pile of 50 cards", "A deck with no Leader"], 1, "Starter decks and simple meta decks are the easiest way in."),

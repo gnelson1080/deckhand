@@ -1,5 +1,5 @@
 // Hash router: #/view/param
-export const VIEWS = ['learn', 'lesson', 'cards', 'card', 'decks', 'build', 'meta', 'deck', 'glossary', 'about'];
+export const VIEWS = ['learn', 'lesson', 'cards', 'card', 'decks', 'build', 'play', 'game', 'meta', 'deck', 'glossary', 'about'];
 
 export function parseHash(hash) {
   const [view, ...rest] = String(hash || '').replace(/^#\/?/, '').split('/');
