@@ -1,9 +1,9 @@
 {
   "source": "TCGplayer + Limitless Play",
   "format": "standard regulation",
-  "sampleSize": 191,
+  "sampleSize": 199,
   "from": "2026-10-12",
-  "to": "2026-11-09",
+  "to": "2026-11-10",
   "decks": [
     {
       "rank": 1,
@@ -13,8 +13,8 @@
         "Green",
         "Red"
       ],
-      "points": 53,
-      "share": 27.75,
+      "points": 58,
+      "share": 29.15,
       "url": "https://www.tcgplayer.com/content/one-piece/deck/Red-Green-Luffy/552613",
       "lists": [
         {
@@ -241,10 +241,10 @@
         }
       ],
       "online": {
-        "wins": 246,
-        "losses": 172,
+        "wins": 294,
+        "losses": 202,
         "ties": 3,
-        "players": 92
+        "players": 107
       }
     },
     {
@@ -254,8 +254,8 @@
       "colors": [
         "Blue"
       ],
-      "points": 32,
-      "share": 16.75,
+      "points": 34,
+      "share": 17.09,
       "url": "https://www.tcgplayer.com/content/one-piece/deck/Blue-Rocks/552656",
       "lists": [
         {
@@ -473,10 +473,10 @@
         }
       ],
       "online": {
-        "wins": 323,
-        "losses": 305,
+        "wins": 360,
+        "losses": 335,
         "ties": 8,
-        "players": 145
+        "players": 160
       }
     },
     {
@@ -487,7 +487,7 @@
         "Yellow"
       ],
       "points": 18,
-      "share": 9.42,
+      "share": 9.05,
       "url": "https://play.limitlesstcg.com/tournament/6adb736097e21d82e5c6d43b/player/drcommodore/decklist",
       "lists": [
         {
@@ -726,7 +726,7 @@
         "Red"
       ],
       "points": 14,
-      "share": 7.33,
+      "share": 7.04,
       "url": "https://play.limitlesstcg.com/tournament/6addff8d97e21d82e5c6ec84/player/shirohige06/decklist",
       "lists": [
         {
@@ -989,7 +989,7 @@
         "Yellow"
       ],
       "points": 9,
-      "share": 4.71,
+      "share": 4.52,
       "url": "https://play.limitlesstcg.com/tournament/6aec5b87e94eae0f94747bc0/player/lukas123/decklist",
       "lists": [
         {
@@ -1229,10 +1229,10 @@
         }
       ],
       "online": {
-        "wins": 105,
-        "losses": 104,
+        "wins": 106,
+        "losses": 107,
         "ties": 0,
-        "players": 44
+        "players": 45
       }
     },
     {
@@ -1244,7 +1244,7 @@
         "Black"
       ],
       "points": 7,
-      "share": 3.66,
+      "share": 3.52,
       "url": "https://play.limitlesstcg.com/tournament/6adfa75822fd412b92a4d72a/player/raiguy425/decklist",
       "lists": [
         {
@@ -1514,7 +1514,7 @@
         "Blue"
       ],
       "points": 7,
-      "share": 3.66,
+      "share": 3.52,
       "url": "https://play.limitlesstcg.com/tournament/6ae3115f80a8f79408d20af6/player/gyan/decklist",
       "lists": [
         {
@@ -1737,10 +1737,10 @@
         }
       ],
       "online": {
-        "wins": 99,
-        "losses": 89,
+        "wins": 102,
+        "losses": 98,
         "ties": 0,
-        "players": 40
+        "players": 44
       }
     },
     {
@@ -1751,7 +1751,7 @@
         "Purple"
       ],
       "points": 6,
-      "share": 3.14,
+      "share": 3.02,
       "url": "https://play.limitlesstcg.com/tournament/6ad889ac115c12b73a5a8de9/player/crossai8/decklist",
       "lists": [
         {
@@ -1982,21 +1982,288 @@
         }
       ],
       "online": {
-        "wins": 80,
-        "losses": 98,
+        "wins": 87,
+        "losses": 109,
         "ties": 0,
-        "players": 42
+        "players": 47
       }
     },
     {
       "rank": 9,
+      "name": "Green/Yellow Robin",
+      "leaderId": "EB05-010",
+      "colors": [
+        "Green",
+        "Yellow"
+      ],
+      "points": 5,
+      "share": 2.51,
+      "url": "https://play.limitlesstcg.com/tournament/6aec5bdc0c463890f304bbfe/player/bangouro/decklist",
+      "lists": [
+        {
+          "place": "1st",
+          "placeMin": 1,
+          "player": "Bangouro",
+          "event": "[EB05] ChinoizeCup #134 TUESDAY",
+          "date": "2026-11-10",
+          "players": 60,
+          "url": "https://play.limitlesstcg.com/tournament/6aec5bdc0c463890f304bbfe/player/bangouro/decklist",
+          "source": "Limitless Play",
+          "record": {
+            "wins": 6,
+            "losses": 0,
+            "ties": 0
+          },
+          "cards": [
+            {
+              "id": "OP09-102",
+              "count": 2
+            },
+            {
+              "id": "OP13-113",
+              "count": 2
+            },
+            {
+              "id": "EB05-056",
+              "count": 1
+            },
+            {
+              "id": "EB05-057",
+              "count": 3
+            },
+            {
+              "id": "OP17-109",
+              "count": 4
+            },
+            {
+              "id": "EB05-012",
+              "count": 1
+            },
+            {
+              "id": "OP12-112",
+              "count": 4
+            },
+            {
+              "id": "EB05-052",
+              "count": 3
+            },
+            {
+              "id": "EB04-018",
+              "count": 2
+            },
+            {
+              "id": "EB05-053",
+              "count": 1
+            },
+            {
+              "id": "EB05-055",
+              "count": 4
+            },
+            {
+              "id": "EB04-058",
+              "count": 2
+            },
+            {
+              "id": "OP14-108",
+              "count": 4
+            },
+            {
+              "id": "EB05-016",
+              "count": 3
+            },
+            {
+              "id": "OP17-114",
+              "count": 2
+            },
+            {
+              "id": "OP13-031",
+              "count": 1
+            },
+            {
+              "id": "OP17-022",
+              "count": 4
+            },
+            {
+              "id": "OP17-112",
+              "count": 1
+            },
+            {
+              "id": "OP06-115",
+              "count": 2
+            },
+            {
+              "id": "OP14-118",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "place": "1st",
+          "placeMin": 1,
+          "player": "Nizzintheskyz",
+          "event": "[EB05] Win a box | Rumble league #16",
+          "date": "2026-11-04",
+          "players": 20,
+          "url": "https://play.limitlesstcg.com/tournament/6ae444410d00101b48bf20e9/player/nizzintheskyz/decklist",
+          "source": "Limitless Play",
+          "record": {
+            "wins": 5,
+            "losses": 0,
+            "ties": 0
+          },
+          "cards": [
+            {
+              "id": "OP13-113",
+              "count": 4
+            },
+            {
+              "id": "EB05-050",
+              "count": 4
+            },
+            {
+              "id": "EB05-056",
+              "count": 4
+            },
+            {
+              "id": "OP09-106",
+              "count": 2
+            },
+            {
+              "id": "EB05-057",
+              "count": 4
+            },
+            {
+              "id": "OP17-109",
+              "count": 4
+            },
+            {
+              "id": "EB05-052",
+              "count": 4
+            },
+            {
+              "id": "EB04-058",
+              "count": 4
+            },
+            {
+              "id": "EB05-055",
+              "count": 4
+            },
+            {
+              "id": "EB03-053",
+              "count": 2
+            },
+            {
+              "id": "EB05-016",
+              "count": 4
+            },
+            {
+              "id": "OP14-108",
+              "count": 3
+            },
+            {
+              "id": "OP13-031",
+              "count": 2
+            },
+            {
+              "id": "OP17-022",
+              "count": 3
+            },
+            {
+              "id": "OP12-037",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "place": "2nd",
+          "placeMin": 2,
+          "player": "Ghiro",
+          "event": "[EB05] Win a box | Rumble league #14",
+          "date": "2026-10-22",
+          "players": 24,
+          "url": "https://play.limitlesstcg.com/tournament/6ad1e9418a8383117e3ecdc7/player/ghiro/decklist",
+          "source": "Limitless Play",
+          "record": {
+            "wins": 3,
+            "losses": 1,
+            "ties": 1
+          },
+          "cards": [
+            {
+              "id": "EB05-050",
+              "count": 4
+            },
+            {
+              "id": "OP17-107",
+              "count": 4
+            },
+            {
+              "id": "OP17-109",
+              "count": 4
+            },
+            {
+              "id": "OP12-112",
+              "count": 4
+            },
+            {
+              "id": "EB04-018",
+              "count": 4
+            },
+            {
+              "id": "OP17-102",
+              "count": 4
+            },
+            {
+              "id": "EB05-052",
+              "count": 3
+            },
+            {
+              "id": "EB05-055",
+              "count": 4
+            },
+            {
+              "id": "EB04-058",
+              "count": 3
+            },
+            {
+              "id": "OP17-114",
+              "count": 4
+            },
+            {
+              "id": "EB05-016",
+              "count": 4
+            },
+            {
+              "id": "OP16-119",
+              "count": 2
+            },
+            {
+              "id": "OP17-112",
+              "count": 4
+            },
+            {
+              "id": "OP06-115",
+              "count": 2
+            }
+          ]
+        }
+      ],
+      "online": {
+        "wins": 65,
+        "losses": 56,
+        "ties": 4,
+        "players": 26
+      }
+    },
+    {
+      "rank": 10,
       "name": "Black Blackbeard",
       "leaderId": "OP09-081",
       "colors": [
         "Black"
       ],
       "points": 4,
-      "share": 2.09,
+      "share": 2.01,
       "url": "https://play.limitlesstcg.com/tournament/6ae310ff22fd412b92a4f355/player/penaraul05/decklist",
       "lists": [
         {
@@ -2243,261 +2510,10 @@
         }
       ],
       "online": {
-        "wins": 22,
-        "losses": 9,
+        "wins": 25,
+        "losses": 14,
         "ties": 0,
-        "players": 6
-      }
-    },
-    {
-      "rank": 10,
-      "name": "Green/Yellow Robin",
-      "leaderId": "EB05-010",
-      "colors": [
-        "Green",
-        "Yellow"
-      ],
-      "points": 4,
-      "share": 2.09,
-      "url": "https://play.limitlesstcg.com/tournament/6ae444410d00101b48bf20e9/player/nizzintheskyz/decklist",
-      "lists": [
-        {
-          "place": "1st",
-          "placeMin": 1,
-          "player": "Nizzintheskyz",
-          "event": "[EB05] Win a box | Rumble league #16",
-          "date": "2026-11-04",
-          "players": 20,
-          "url": "https://play.limitlesstcg.com/tournament/6ae444410d00101b48bf20e9/player/nizzintheskyz/decklist",
-          "source": "Limitless Play",
-          "record": {
-            "wins": 5,
-            "losses": 0,
-            "ties": 0
-          },
-          "cards": [
-            {
-              "id": "OP13-113",
-              "count": 4
-            },
-            {
-              "id": "EB05-050",
-              "count": 4
-            },
-            {
-              "id": "EB05-056",
-              "count": 4
-            },
-            {
-              "id": "OP09-106",
-              "count": 2
-            },
-            {
-              "id": "EB05-057",
-              "count": 4
-            },
-            {
-              "id": "OP17-109",
-              "count": 4
-            },
-            {
-              "id": "EB05-052",
-              "count": 4
-            },
-            {
-              "id": "EB04-058",
-              "count": 4
-            },
-            {
-              "id": "EB05-055",
-              "count": 4
-            },
-            {
-              "id": "EB03-053",
-              "count": 2
-            },
-            {
-              "id": "EB05-016",
-              "count": 4
-            },
-            {
-              "id": "OP14-108",
-              "count": 3
-            },
-            {
-              "id": "OP13-031",
-              "count": 2
-            },
-            {
-              "id": "OP17-022",
-              "count": 3
-            },
-            {
-              "id": "OP12-037",
-              "count": 2
-            }
-          ]
-        },
-        {
-          "place": "2nd",
-          "placeMin": 2,
-          "player": "Ghiro",
-          "event": "[EB05] Win a box | Rumble league #14",
-          "date": "2026-10-22",
-          "players": 24,
-          "url": "https://play.limitlesstcg.com/tournament/6ad1e9418a8383117e3ecdc7/player/ghiro/decklist",
-          "source": "Limitless Play",
-          "record": {
-            "wins": 3,
-            "losses": 1,
-            "ties": 1
-          },
-          "cards": [
-            {
-              "id": "EB05-050",
-              "count": 4
-            },
-            {
-              "id": "OP17-107",
-              "count": 4
-            },
-            {
-              "id": "OP17-109",
-              "count": 4
-            },
-            {
-              "id": "OP12-112",
-              "count": 4
-            },
-            {
-              "id": "EB04-018",
-              "count": 4
-            },
-            {
-              "id": "OP17-102",
-              "count": 4
-            },
-            {
-              "id": "EB05-052",
-              "count": 3
-            },
-            {
-              "id": "EB05-055",
-              "count": 4
-            },
-            {
-              "id": "EB04-058",
-              "count": 3
-            },
-            {
-              "id": "OP17-114",
-              "count": 4
-            },
-            {
-              "id": "EB05-016",
-              "count": 4
-            },
-            {
-              "id": "OP16-119",
-              "count": 2
-            },
-            {
-              "id": "OP17-112",
-              "count": 4
-            },
-            {
-              "id": "OP06-115",
-              "count": 2
-            }
-          ]
-        },
-        {
-          "place": "4th",
-          "placeMin": 4,
-          "player": "DavehunterHS",
-          "event": "[EB05] Win a box | Rumble league #16",
-          "date": "2026-11-04",
-          "players": 20,
-          "url": "https://play.limitlesstcg.com/tournament/6ae444410d00101b48bf20e9/player/davehunterhs/decklist",
-          "source": "Limitless Play",
-          "record": {
-            "wins": 3,
-            "losses": 2,
-            "ties": 0
-          },
-          "cards": [
-            {
-              "id": "OP09-106",
-              "count": 4
-            },
-            {
-              "id": "OP13-113",
-              "count": 4
-            },
-            {
-              "id": "EB05-057",
-              "count": 4
-            },
-            {
-              "id": "OP17-107",
-              "count": 4
-            },
-            {
-              "id": "OP17-109",
-              "count": 4
-            },
-            {
-              "id": "OP17-102",
-              "count": 3
-            },
-            {
-              "id": "EB05-052",
-              "count": 2
-            },
-            {
-              "id": "EB05-055",
-              "count": 4
-            },
-            {
-              "id": "EB04-058",
-              "count": 2
-            },
-            {
-              "id": "OP17-114",
-              "count": 4
-            },
-            {
-              "id": "EB05-016",
-              "count": 4
-            },
-            {
-              "id": "OP14-108",
-              "count": 2
-            },
-            {
-              "id": "OP16-119",
-              "count": 2
-            },
-            {
-              "id": "OP17-112",
-              "count": 3
-            },
-            {
-              "id": "OP17-022",
-              "count": 2
-            },
-            {
-              "id": "OP06-115",
-              "count": 2
-            }
-          ]
-        }
-      ],
-      "online": {
-        "wins": 57,
-        "losses": 50,
-        "ties": 4,
-        "players": 22
+        "players": 8
       }
     }
   ],
@@ -2510,12 +2526,13 @@
     "OP04-016",
     "OP04-083",
     "ST01-011",
+    "ST02-007",
     "ST10-005",
     "ST10-010"
   ],
-  "onlineEvents": 17,
-  "onlinePlayers": 853,
+  "onlineEvents": 18,
+  "onlinePlayers": 913,
   "sinceBan": "2026-10-12",
-  "fetchedAt": "2026-11-10T19:17:09.607Z",
+  "fetchedAt": "2026-11-10T22:25:52.337Z",
   "banListChecked": "2026-11-10"
 }
