@@ -173,6 +173,64 @@ const phone = async (opts = {}) => {
   await other.ctx.close();
 }
 
+// 8. Phase 2 review regressions (service worker blocked so network stubs apply)
+{
+  const { ctx, page } = await phone({ serviceWorkers: 'block' });
+  await ctx.addInitScript(() => {
+    localStorage.setItem('deckhand:seenIntro', 'true');
+    localStorage.setItem('deckhand:decks', JSON.stringify([{ id: 'd_lost', name: 'Lost leader', leaderId: 'ZZ99-001', entries: [{ id: 'OP07-022', count: 4 }], updatedAt: '2026-11-01T00:00:00Z' }]));
+  });
+  await step('a deck whose Leader vanished opens the Leader picker instead of breaking', async () => {
+    await page.goto(base + '#/build/d_lost');
+    await page.locator('.pick-leader').first().waitFor({ timeout: 5000 });
+    assert.match(await page.textContent('.build-leader'), /ZZ99-001/);
+  });
+  await step('visiting the builder repeatedly does not pile listeners on the page', async () => {
+    await page.evaluate(() => {
+      const view = document.getElementById('view');
+      window.__viewListeners = 0;
+      const orig = view.addEventListener.bind(view);
+      view.addEventListener = (...a) => { window.__viewListeners++; return orig(...a); };
+    });
+    for (let i = 0; i < 3; i++) { await page.goto(base + '#/decks'); await page.locator('.my-deck').first().waitFor(); await page.goto(base + '#/build/d_lost'); await page.locator('.pick-leader').first().waitFor(); }
+    assert.equal(await page.evaluate(() => window.__viewListeners), 0);
+  });
+  await step('a slow price file for the previous card never draws on the next card', async () => {
+    const dates = Array.from({ length: 30 }, (_, i) => new Date(Date.UTC(2026, 9, 1 + i)).toISOString().slice(0, 10));
+    await page.route('**/data/prices/OP14.json', async r => { await new Promise(res => setTimeout(res, 1500)); r.fulfill({ contentType: 'application/json', body: JSON.stringify({ dates, p: { 'OP14-031': dates.map((_, i) => 5 + i / 10) } }) }); });
+    await page.goto(base + '#/card/OP14-031');
+    await page.locator('.card-title').waitFor();
+    await page.goto(base + '#/card/ST01-001');
+    await page.locator('.card-title').waitFor();
+    await page.waitForTimeout(2200);
+    assert.match(await page.textContent('.card-title'), /Luffy/);
+    assert.equal(await page.locator('.price-host svg').count(), 0, 'OP14-031 chart drawn on ST01-001');
+  });
+  await ctx.close();
+}
+{
+  const { ctx, page } = await phone({ serviceWorkers: 'block' });
+  await step('a malformed tournament entry does not crash the builder', async () => {
+    await page.route('**/data/meta.json', r => r.fulfill({ contentType: 'application/json', body: JSON.stringify({ source: 'x', decks: [{ rank: 1, name: 'Broken', leaderId: 'OP13-001', colors: [] }] }) }));
+    await page.goto(base + '#/build/from/1/0');
+    await page.getByText("isn't available").waitFor({ timeout: 5000 });
+  });
+  await ctx.close();
+}
+{
+  const { ctx, page } = await phone();
+  await ctx.addInitScript(() => { const orig = Storage.prototype.setItem; Storage.prototype.setItem = function (k, v) { if (k === 'deckhand:decks') throw new DOMException('full', 'QuotaExceededError'); return orig.call(this, k, v); }; });
+  await step('restore warns when the phone could not actually save it', async () => {
+    const code = await (async () => { await page.goto(base + '#/about'); return page.evaluate(async () => (await import('./js/lib/backup.js')).makeBackup({ progress: { completed: [1], quiz: { 1: 3 } }, decks: [{ id: 'd_x1', name: 'X', leaderId: null, entries: [] }] })); })();
+    await page.click('text=Restore from a backup');
+    await page.fill('#restore-box', code);
+    await page.click('text=Check the code');
+    await page.click('.restore-go');
+    await page.locator('.restore-result .bad-text').waitFor({ timeout: 3000 });
+  });
+  await ctx.close();
+}
+
 await browser.close();
 server.close();
 for (const r of results) console.log(r.join('  '));

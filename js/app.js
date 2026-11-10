@@ -84,7 +84,9 @@ async function show({ view, param }) {
     cleanup = await mod.render(root, param);
   };
   if (document.startViewTransition && !reduceMotion.matches) {
-    document.startViewTransition(swap);
+    // Fast taps can interrupt a page-turn animation; that's expected, not an error.
+    const t = document.startViewTransition(swap);
+    for (const p of [t.ready, t.finished, t.updateCallbackDone]) p?.catch?.(() => {});
   } else {
     await swap();
     if (!reduceMotion.matches) { root.classList.remove('page-enter'); void root.offsetWidth; root.classList.add('page-enter'); }

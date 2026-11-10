@@ -13,7 +13,8 @@ export function createStore(storage) {
     },
     set(key, value) {
       mem.set(key, value);
-      try { storage?.setItem(PREFIX + key, JSON.stringify(value)); } catch { /* private mode: keep in memory */ }
+      if (!storage) return false;
+      try { storage.setItem(PREFIX + key, JSON.stringify(value)); return true; } catch { return false; /* private mode or full: kept in memory only */ }
     },
   };
 }

@@ -18,6 +18,7 @@ export function parseDeckText(text, cards) {
     if (!m) { bad.push({ line, reason: 'Not a deck line. Use the form 4xOP01-016.' }); continue; }
     const count = +m[1];
     const id = m[2].toUpperCase();
+    if (count < 1) { bad.push({ line, reason: 'A count of 0 adds nothing.' }); continue; }
     const card = cards.get(id);
     if (!card) { bad.push({ line, reason: `Card ${id} not found.` }); continue; }
     if (card.type === 'Leader') { if (!leaderId) leaderId = id; else bad.push({ line, reason: 'A deck has only one Leader.' }); continue; }
@@ -37,6 +38,7 @@ export function canAdd(deck, card, cards) {
   if (!deck.leaderId) return { ok: false, reason: 'Pick a Leader first. It decides which colors you can use.' };
   if (!PLAYABLE.includes(card.type)) return { ok: false, reason: `${card.type === 'Leader' ? 'A Leader' : 'That card'} can't go in the 50-card deck.` };
   const leader = cards.get(deck.leaderId);
+  if (!leader) return { ok: false, reason: `Your Leader (${deck.leaderId}) isn't in the card list anymore. Pick a Leader again.` };
   const off = offColors(card, leader);
   if (off.length) return { ok: false, reason: `This card is ${off.join(' and ')}, and your Leader isn't. Every color on a card must be on your Leader.` };
   if (countOf(deck, card.id) >= MAX_COPIES) return { ok: false, reason: `You already have 4 copies. That's the most a deck can have.` };

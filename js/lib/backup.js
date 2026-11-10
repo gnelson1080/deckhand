@@ -13,13 +13,25 @@ const fromB64url = s => {
   return new TextDecoder('utf-8', { fatal: true }).decode(Uint8Array.from(bin, c => c.charCodeAt(0)));
 };
 
+// Normalise so a backup we write always passes our own restore check.
+const cleanEntries = es => (Array.isArray(es) ? es : [])
+  .filter(e => e && typeof e.id === 'string' && Number(e.count) > 0)
+  .map(e => ({ id: e.id, count: Math.min(99, Math.floor(Number(e.count))) }));
+
 export function makeBackup({ progress, decks, theme }) {
-  return PREFIX + toB64url(JSON.stringify({ v: 1, progress, decks, theme: theme ?? null }));
+  const safeDecks = (Array.isArray(decks) ? decks : []).map(d => ({ ...d, entries: cleanEntries(d.entries) }));
+  return PREFIX + toB64url(JSON.stringify({ v: 1, progress, decks: safeDecks, theme: theme ?? null }));
 }
 
-const isProgress = p => p && Array.isArray(p.completed) && p.completed.every(Number.isInteger) && p.quiz && typeof p.quiz === 'object' && !Array.isArray(p.quiz);
-const isDeck = d => d && typeof d.id === 'string' && typeof d.name === 'string' && (d.leaderId === null || typeof d.leaderId === 'string')
-  && Array.isArray(d.entries) && d.entries.every(e => e && typeof e.id === 'string' && Number.isInteger(e.count) && e.count > 0 && e.count < 100);
+const ID = /^[A-Z0-9]+-[A-Z0-9]+$/i;
+const isLessonId = n => Number.isInteger(n) && n >= 1 && n <= 50;
+const isProgress = p => p && Array.isArray(p.completed) && p.completed.every(isLessonId) && new Set(p.completed).size === p.completed.length
+  && p.quiz && typeof p.quiz === 'object' && !Array.isArray(p.quiz)
+  && Object.entries(p.quiz).every(([k, v]) => isLessonId(Number(k)) && Number.isInteger(v) && v >= 0 && v <= 3);
+const isDeck = d => d && typeof d.id === 'string' && /^d_[a-z0-9]+$/.test(d.id) && typeof d.name === 'string' && d.name.length <= 200
+  && (d.leaderId === null || (typeof d.leaderId === 'string' && ID.test(d.leaderId)))
+  && Array.isArray(d.entries) && d.entries.every(e => e && typeof e.id === 'string' && ID.test(e.id) && Number.isInteger(e.count) && e.count > 0 && e.count < 100);
+const uniqueIds = ds => new Set(ds.map(d => d.id)).size === ds.length;
 
 export function readBackup(code) {
   const clean = String(code ?? '').replace(/\s+/g, '');
@@ -28,7 +40,7 @@ export function readBackup(code) {
   try { obj = JSON.parse(fromB64url(clean.slice(PREFIX.length))); }
   catch { return { ok: false, error: 'This backup code is incomplete or damaged. Copy the whole code and try again.' }; }
   if (!obj || obj.v !== 1) return { ok: false, error: 'This Deckhand backup is from a newer version of the app.' };
-  if (!isProgress(obj.progress) || !Array.isArray(obj.decks) || !obj.decks.every(isDeck)) return { ok: false, error: 'This backup code is incomplete or damaged. Copy the whole code and try again.' };
+  if (!isProgress(obj.progress) || !Array.isArray(obj.decks) || !obj.decks.every(isDeck) || !uniqueIds(obj.decks)) return { ok: false, error: 'This backup code is incomplete or damaged. Copy the whole code and try again.' };
   return { ok: true, data: { progress: obj.progress, decks: obj.decks, theme: obj.theme === 'dark' || obj.theme === 'light' ? obj.theme : null } };
 }
 

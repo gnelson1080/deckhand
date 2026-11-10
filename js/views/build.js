@@ -28,14 +28,17 @@ export async function render(root, param) {
   else if (param?.startsWith('from/')) {
     const [, rank, li] = param.split('/');
     const md = meta?.decks.find(d => d.rank === +rank);
-    const list = md?.lists[+li || 0];
+    const list = md?.lists?.[+li || 0];
     if (!md || !list) { root.innerHTML = `<p class="empty">That tournament list isn't available anymore.</p><a class="btn" href="#/decks">My decks</a>`; return; }
     deck = decks.save({ name: `${md.name} (${list.place || 'top'} place)`.slice(0, 40), leaderId: md.leaderId, entries: list.cards.map(c => ({ ...c })) });
     history.replaceState(null, '', `#/build/${deck.id}`);
   } else deck = decks.get(param);
   if (!deck) { root.innerHTML = `<h1 class="page-title">Deck not found</h1><p class="page-lede">It may have been deleted.</p><a class="btn" href="#/decks">My decks</a>`; return; }
 
-  let tab = deck.leaderId ? 'add' : 'leader';
+  // A Leader that's no longer in the card list counts as "no Leader": show the picker.
+  const hasLeader = () => !!cards.get(deck.leaderId);
+  let tab = hasLeader() ? 'add' : 'leader';
+  let cleanupIO = null;
   const q = { text: '', types: [], cost: null };
   let results = [], shown = 0;
   const save = () => { deck = decks.save(deck); };
@@ -74,7 +77,9 @@ export async function render(root, param) {
       ? `<img src="${escapeHtml(thumb(L.img))}" alt="" width="200" height="279"><span><strong>${escapeHtml(displayName(L.name))}</strong>
           <span class="meta-sub">${safeColors(L.colors).map(c => `<span class="dot ${c}"></span>${c}`).join(' ')}</span>
           <button type="button" class="link-btn change-leader">Change Leader</button></span>`
-      : '<span class="muted">Step 1: pick a Leader. It decides your colors.</span>';
+      : deck.leaderId
+        ? `<span class="muted">This deck's Leader (${escapeHtml(deck.leaderId)}) isn't in the card list anymore. Pick a Leader again; matching cards are kept.</span>`
+        : '<span class="muted">Step 1: pick a Leader. It decides your colors.</span>';
     root.querySelector('.seg').hidden = !L;
     root.querySelectorAll('.seg [data-tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
     root.querySelector('.change-leader')?.addEventListener('click', () => { tab = 'leader'; draw(); });
@@ -84,7 +89,7 @@ export async function render(root, param) {
     const n = deckTotal(deck);
     const v = validateDeck(deck, cards);
     const s = deckStats(deck.entries, cards);
-    bar.hidden = !deck.leaderId;
+    bar.hidden = !hasLeader();
     bar.innerHTML = `${ring(n, DECK_SIZE, 48)}<span class="bar-main"><strong>${n} / ${DECK_SIZE} cards</strong><span class="muted">${s.price ? `About $${Math.round(s.price)} on TCGplayer` : 'Add cards to see the price'}</span></span>
       <button type="button" class="chip bar-check ${v.ok ? 'ok' : ''}" data-tab="check">${v.ok ? `${icon('check', { size: 14, stroke: 3 })}Legal` : `${v.problems.length} to fix`}</button>`;
   }
@@ -165,7 +170,9 @@ export async function render(root, param) {
     ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => grid.addEventListener(ev, () => clearTimeout(press)));
     grid.addEventListener('contextmenu', e => { if (e.target.closest('.add-tile')) e.preventDefault(); });
     grid.addEventListener('click', e => { const b = e.target.closest('.add-tile'); if (!b || longFired) return; add(cards.get(b.dataset.id), b); });
+    cleanupIO?.();
     const io = new IntersectionObserver(es => { if (es.some(x => x.isIntersecting)) more(); }, { rootMargin: '500px' });
+    cleanupIO = () => io.disconnect();
     io.observe(body.querySelector('.grid-sentinel'));
     run();
   }
@@ -223,13 +230,20 @@ export async function render(root, param) {
 
   function draw() {
     drawHead(); drawBar();
-    if (tab === 'leader') drawLeader(); else if (tab === 'list') drawList(); else if (tab === 'check') drawCheck(); else drawAdd();
+    if (tab !== 'add') { cleanupIO?.(); cleanupIO = null; }
+    if (tab === 'leader' || !hasLeader()) drawLeader(); else if (tab === 'list') drawList(); else if (tab === 'check') drawCheck(); else drawAdd();
   }
-  root.addEventListener('click', e => {
+  // Listen on this screen's own wrapper (not the shared #view), so old visits leave nothing behind.
+  const screen = document.createElement('div');
+  screen.className = 'build-screen';
+  screen.append(...root.childNodes);
+  root.append(screen);
+  screen.addEventListener('click', e => {
     const b = e.target.closest('[data-tab]'); if (!b) return;
-    if (!deck.leaderId) return;
+    if (!hasLeader()) return;
     tab = b.dataset.tab; draw();
-    root.querySelector('.seg').scrollIntoView({ block: 'nearest' });
+    screen.querySelector('.seg').scrollIntoView({ block: 'nearest' });
   });
   draw();
+  return () => { cleanupIO?.(); clearTimeout(toastT); };
 }

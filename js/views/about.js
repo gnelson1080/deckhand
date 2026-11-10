@@ -63,11 +63,12 @@ export async function render(root) {
     out.innerHTML = `<p>This backup has <strong>${escapeHtml(describeBackup(r.data))}</strong>. Restoring replaces what's on this device now (${escapeHtml(describeBackup(current()))}).</p>
       <button type="button" class="btn btn-primary restore-go">Restore it</button>`;
     out.querySelector('.restore-go').addEventListener('click', () => {
-      st.set('progress', r.data.progress);
-      st.set('decks', r.data.decks);
+      const saved = [st.set('progress', r.data.progress), st.set('decks', r.data.decks)].every(Boolean);
       st.set('seenIntro', true);
       if (r.data.theme) { st.set('theme', r.data.theme); document.documentElement.dataset.theme = r.data.theme; }
-      out.innerHTML = `<p class="good-text">${icon('check', { size: 16, stroke: 3 })} Restored: ${escapeHtml(describeBackup(r.data))}.</p>`;
+      out.innerHTML = saved
+        ? `<p class="good-text">${icon('check', { size: 16, stroke: 3 })} Restored: ${escapeHtml(describeBackup(r.data))}.</p>`
+        : `<p class="bad-text">Restored for now, but this browser didn't let Deckhand save it. It will be lost when you close the app. Private browsing or a full phone can cause this. Try again in a normal window, and keep your backup code.</p>`;
     });
   };
   root.querySelector('.restore-check').addEventListener('click', () => check(root.querySelector('#restore-box').value));

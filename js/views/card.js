@@ -63,7 +63,9 @@ export async function render(root, id) {
     </section>
     <section class="panel price-host"></section>`;
 
-  getPriceShard(c.id.split('-')[0]).then(shard => { const host = root.querySelector('.price-host'); if (host) renderPriceChart(host, shard, c.id); });
+  // Grab this page's own chart slot now; if the reader has moved on when the data arrives, draw nothing.
+  const priceHost = root.querySelector('.price-host');
+  getPriceShard(c.id.split('-')[0]).then(shard => { if (priceHost.isConnected) renderPriceChart(priceHost, shard, c.id); });
 
   // Flip in, then let the reader tilt the card.
   const box = root.querySelector('.card-3d');

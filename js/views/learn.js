@@ -45,7 +45,7 @@ export async function render(root) {
         const here = l.id === cur && !allDone;
         return `<a class="island${x > 50 ? ' flip' : ''}${done ? ' done' : ''}${here ? ' here' : ''}${just === l.id ? ' just' : ''}" href="#/lesson/${l.id}" style="--x:${x}%;--y:${y}px;--i:${i}" aria-label="Lesson ${l.id}: ${escapeHtml(l.title)}${done ? ', completed' : here ? ', current lesson' : ''}">
           <span class="isle" aria-hidden="true"><span class="isle-n">${l.id}</span>${done ? `<span class="isle-stamp">${icon('check', { size: 16, stroke: 3 })}</span>` : ''}</span>
-          <span class="isle-label"><strong>${escapeHtml(l.title)}</strong><small>${l.minutes} min${progress.quiz[l.id] ? `, quiz ${progress.quiz[l.id]}/3` : ''}</small></span>
+          <span class="isle-label"><strong>${escapeHtml(l.title)}</strong><small>${l.minutes} min${Number(progress.quiz?.[l.id]) ? `, quiz ${Number(progress.quiz[l.id])}/3` : ''}</small></span>
         </a>`;
       }).join('')}
       ${allDone ? '' : `<span class="voyage-ship" style="--x:${pts[cur - 1][0]}%;--y:${pts[cur - 1][1]}px" aria-hidden="true">${icon('ship', { size: 34 })}</span>`}

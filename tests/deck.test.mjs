@@ -71,3 +71,14 @@ test('metaHints suggests a staple played in 2+ lists for this Leader', () => {
   assert.ok(hints.length <= 4);
 });
 test('metaHints is empty-safe without meta', () => assert.deepEqual(metaHints(deck([]), null, cards), []));
+
+test('0x lines are reported as bad, not imported', () => {
+  const p = parseDeckText('1xL-RG\n0xR-1\n2xR-2', cards);
+  assert.deepEqual(p.entries, [{ id: 'R-2', count: 2 }]);
+  assert.equal(p.bad.length, 1);
+});
+test('canAdd explains a missing Leader instead of blaming colors', () => {
+  const r = canAdd(deck([], 'GONE-001'), cards.get('R-1'), cards);
+  assert.equal(r.ok, false);
+  assert.match(r.reason, /Leader .*isn't in the card list/);
+});

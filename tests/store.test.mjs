@@ -35,3 +35,9 @@ test('shared store() survives a localStorage getter that throws (blocked storage
     assert.equal(store().get('theme'), 'dark');
   } finally { delete globalThis.localStorage; }
 });
+
+test('set reports whether the value was really saved', () => {
+  const bad = { getItem() { return null; }, setItem() { throw new Error('quota'); } };
+  assert.equal(createStore(bad).set('x', 1), false);
+  assert.equal(createStore(memory()).set('x', 1), true);
+});
