@@ -33,6 +33,8 @@ export async function render(root) {
     <h1 class="page-title">Your voyage</h1>
     <p class="page-lede">${allDone ? 'Every island visited. Revisit any lesson, or go study today\'s top decks.' : `${progress.completed.length} of ${index.length} lessons done. Your ship is at lesson ${cur}.`}</p>
     <a class="btn btn-primary btn-block continue" href="#/lesson/${cur}">${allDone ? 'Review the last lesson' : progress.completed.length ? `Continue: ${escapeHtml(index[cur - 1].title)}` : 'Start lesson 1'}</a>
+    ${progress.completed.length >= 1 && !st.get('installHintDismissed', false) && !matchMedia('(display-mode: standalone)').matches ? `<aside class="tip install-hint"><span class="tip-flag" aria-hidden="true"></span><div><p><strong>Keep Deckhand on your phone.</strong> ${/iPhone|iPad/.test(navigator.userAgent) ? 'Tap Share, then "Add to Home Screen".' : 'Add it to your home screen and lessons work offline.'}</p>
+      <button type="button" class="btn install-go" hidden>Install</button> <button type="button" class="btn install-x">Not now</button></div></aside>` : ''}
     <div class="voyage" style="--h:${h}px">
       <svg class="voyage-route" viewBox="0 0 100 ${h}" preserveAspectRatio="none" aria-hidden="true">
         <path d="${path}" class="route-all" vector-effect="non-scaling-stroke"/>
@@ -49,6 +51,14 @@ export async function render(root) {
       ${allDone ? '' : `<span class="voyage-ship" style="--x:${pts[cur - 1][0]}%;--y:${pts[cur - 1][1]}px" aria-hidden="true">${icon('ship', { size: 34 })}</span>`}
     </div>
     <footer class="site-foot"><p>Deckhand is an unofficial fan-made learning tool. It is not affiliated with Bandai, Eiichiro Oda, Shueisha, Toei Animation or TCGplayer. Card images and names belong to their owners. <a href="#/about">About Deckhand</a></p></footer>`;
+
+  const hint = root.querySelector('.install-hint');
+  if (hint) {
+    const go = hint.querySelector('.install-go');
+    if (window.__installPrompt) go.hidden = false;
+    go.addEventListener('click', async () => { window.__installPrompt?.prompt(); hint.remove(); });
+    hint.querySelector('.install-x').addEventListener('click', () => { st.set('installHintDismissed', true); hint.remove(); });
+  }
 
   // If a lesson was just finished, sail the ship from the old island to the new one.
   const ship = root.querySelector('.voyage-ship');

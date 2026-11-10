@@ -394,3 +394,9 @@
 .dl-name { font-size: .72rem; font-weight: 700; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .list-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
 .small { font-size: var(--t-xs); }
+.install-hint { margin: 4px 0 12px; }
+.install-hint p { margin-bottom: 8px; }
+.install-hint .btn { min-height: 40px; padding: 0 16px; font-size: var(--t-sm); box-shadow: 0 2px 0 var(--ink); }
+.about { padding: 6px 16px 16px; }
+.about h2 { font-size: var(--t-lg); margin: 18px 0 8px; }
+.about ul { padding-left: 1.2em; }

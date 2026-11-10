@@ -97,6 +97,8 @@ document.addEventListener('click', e => {
 });
 onRoute(show);
 
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); window.__installPrompt = e; });
+
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 }
