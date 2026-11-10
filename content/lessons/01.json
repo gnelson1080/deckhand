@@ -1,0 +1,15 @@
+{
+  "id": 1, "title": "What is the One Piece Card Game?", "minutes": 2,
+  "goal": "Placeholder lesson to exercise the lesson engine.",
+  "steps": [
+    { "type": "text", "html": "<p>Two players. Each has a <kw>Leader</kw> and a 50-card deck.</p>" },
+    { "type": "card", "cardId": "ST01-012", "callouts": [{ "part": "cost", "label": "Cost" }, { "part": "power", "label": "Power" }] },
+    { "type": "board", "scenario": "counter" },
+    { "type": "tip", "html": "<p>Tip.</p>" }
+  ],
+  "quiz": [
+    { "q": "How many cards in a deck?", "choices": ["40", "50", "60", "30"], "answer": 1, "why": "Exactly 50 cards plus your Leader." },
+    { "q": "Who wins ties?", "choices": ["Defender", "Attacker", "Nobody", "Coin flip"], "answer": 1, "why": "The attacker wins ties." },
+    { "q": "How many DON!! cards?", "choices": ["5", "8", "10", "12"], "answer": 2, "why": "Your DON!! deck has 10 cards." }
+  ]
+}

@@ -67,11 +67,13 @@ export function tcgcsvToCards(products, prices, group = {}) {
 // Keep the printing from the group the number belongs to, and pool every other art.
 export function mergeCardLists(lists) {
   const by = new Map();
-  const home = c => String(c._group || '').replace(/[^A-Z0-9]/gi, '').toUpperCase().startsWith(c.set.replace(/[^A-Z0-9]/gi, '').toUpperCase());
+  const squash = v => String(v || '').replace(/[^A-Z0-9]/gi, '').toUpperCase();
+  // 2 = exact home group (ST-01 for ST01-xxx), 1 = related group (ST-01 PRE), 0 = reprint elsewhere
+  const homeRank = c => (squash(c._group) === squash(c.set) ? 2 : squash(c._group).startsWith(squash(c.set)) ? 1 : 0);
   for (const c of lists.flat()) {
     const cur = by.get(c.id);
     if (!cur) { by.set(c.id, { ...c, altImgs: [...c.altImgs] }); continue; }
-    const winner = !home(cur) && home(c) ? { ...c, altImgs: [...c.altImgs] } : cur;
+    const winner = homeRank(c) > homeRank(cur) ? { ...c, altImgs: [...c.altImgs] } : cur;
     const loser = winner === cur ? c : cur;
     winner.altImgs = [...new Set([...winner.altImgs, loser.img, ...loser.altImgs])].filter(i => i && i !== winner.img);
     if (winner.price == null) winner.price = loser.price;

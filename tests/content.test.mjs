@@ -35,3 +35,34 @@ test('every [bracket] keyword used on 20+ cards is in the glossary', async () =>
   const cardNamesAndTypes = new Set(read('data/cards.json').flatMap(c => [c.name, ...c.traits]));
   for (const [k, n] of counts) if (n >= 20 && !cardNamesAndTypes.has(k)) assert.ok(findTerm(idx, k), `[${k}] used ${n}x has no glossary entry`);
 });
+
+const index = read('content/lessons/index.json');
+const cardIds = new Set(read('data/cards.json').map(c => c.id));
+const lessons = index.map(l => ({ meta: l, body: read(`content/lessons/${String(l.id).padStart(2, '0')}.json`) }));
+
+test('lesson index ids run 1..N with titles and minutes', () => {
+  index.forEach((l, i) => { assert.equal(l.id, i + 1); assert.ok(l.title && l.minutes > 0 && l.minutes <= 4); });
+});
+for (const { meta, body } of lessons) {
+  test(`lesson ${meta.id}: matches index and has exactly 3 well-formed questions`, () => {
+    assert.equal(body.id, meta.id);
+    assert.equal(body.title, meta.title);
+    assert.equal(body.quiz.length, 3);
+    for (const q of body.quiz) {
+      assert.equal(q.choices.length, 4, q.q);
+      assert.ok(Number.isInteger(q.answer) && q.answer >= 0 && q.answer < 4, q.q);
+      assert.ok(q.why && q.why.length > 10, q.q);
+      assert.equal(new Set(q.choices).size, 4, `duplicate choices: ${q.q}`);
+    }
+  });
+  test(`lesson ${meta.id}: every card and scenario exists, every <kw> term is in the glossary`, async () => {
+    const { SCENARIOS } = await import('../js/lib/scenarios.js');
+    const terms = new Set(glossary.flatMap(g => [g.term, ...g.aliases]));
+    for (const st of body.steps) {
+      assert.ok(['text', 'card', 'board', 'tip'].includes(st.type), st.type);
+      if (st.type === 'card') { assert.ok(cardIds.has(st.cardId), st.cardId); assert.ok(st.callouts.length); }
+      if (st.type === 'board') assert.ok(SCENARIOS[st.scenario], st.scenario);
+      for (const m of String(st.html || '').matchAll(/<kw(?:\s+term="([^"]+)")?>([^<]+)<\/kw>/g)) assert.ok(terms.has(m[1] || m[2]), `<kw> ${m[1] || m[2]}`);
+    }
+  });
+}

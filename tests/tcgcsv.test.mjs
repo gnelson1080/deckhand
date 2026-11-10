@@ -79,3 +79,11 @@ test('fillGaps ignores backup reprint disclaimers as text', async () => {
   const out = fillGaps([{ id: 'A-1', colors: ['Red'], text: '', traits: [] }], [{ id: 'A-1', colors: ['Red'], text: 'Disclaimer: This card was reprinted', traits: [] }]);
   assert.equal(out[0].text, '');
 });
+
+test('mergeCardLists prefers the exact home group over a pre-release variant group', async () => {
+  const { mergeCardLists } = await import('../scripts/lib/tcgcsv.mjs');
+  const pre = { id: 'ST01-012', set: 'ST01', img: 'pre.jpg', altImgs: [], price: 9, _group: 'ST-01 PRE' };
+  const home = { id: 'ST01-012', set: 'ST01', img: 'home.jpg', altImgs: [], price: 2, _group: 'ST-01' };
+  assert.equal(mergeCardLists([[pre], [home]])[0].img, 'home.jpg');
+  assert.equal(mergeCardLists([[home], [pre]])[0].img, 'home.jpg');
+});
