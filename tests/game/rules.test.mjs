@@ -161,3 +161,9 @@ test('legalActions only lists actions dispatch accepts (random walk)', () => {
     }
   }
 });
+
+test('a budgeted choice (Loki: total cost 4 or less) only offers legal combinations', () => {
+  let s = board({ p0: { hand: ['OP17-119'], donActive: 6 }, p1: { chars: ['OP06-033', 'OP06-033', 'OP06-033', 'OP07-022'] } });
+  s = A(s, { type: 'play', uid: s.players[0].hand[0].uid });
+  for (const a of legalActions(s)) { const r = dispatch(s, a); assert.equal(r.error, undefined, JSON.stringify(a)); }
+});

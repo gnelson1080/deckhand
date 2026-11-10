@@ -469,6 +469,13 @@ function pendingActions(s) {
     if (pd.min <= 1) for (const o of pd.options) out.push({ type: 'choose', picks: [o] });
     if (pd.max > 1 && pd.options.length > 1) out.push({ type: 'choose', picks: pd.options.slice(0, Math.min(pd.max, pd.options.length)) });
     if (pd.min > 1) out.push({ type: 'choose', picks: pd.options.slice(0, pd.min) });
+    if (pd.budget != null) { // keep only combinations within the total-cost budget, plus a greedy full one
+      const ok = out.filter(a => a.picks.reduce((n, u) => n + costOf(s, u), 0) <= pd.budget);
+      const greedy = []; let left = pd.budget;
+      for (const u of pd.options) if (costOf(s, u) <= left) { greedy.push(u); left -= costOf(s, u); }
+      if (greedy.length > 1) ok.push({ type: 'choose', picks: greedy });
+      return ok;
+    }
     return out;
   }
   return [];

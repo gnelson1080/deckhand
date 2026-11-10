@@ -231,6 +231,57 @@ const phone = async (opts = {}) => {
   await ctx.close();
 }
 
+// 9. Practice game (Phase 3)
+{
+  const { ctx, page } = await phone({ serviceWorkers: 'block' });
+  await ctx.addInitScript(() => localStorage.setItem('deckhand:seenIntro', 'true'));
+  const panel = page.locator('.g-panel');
+  const waitMyTurn = async () => { for (let i = 0; i < 80; i++) { if (!(await panel.locator('.g-wait').count())) return; await page.waitForTimeout(250); } throw new Error('computer never finished'); };
+  await step('start a practice game from the Learn tab (Easy, coach on, I go first)', async () => {
+    await page.goto(base + '#/learn');
+    await page.click('text=Play a practice game');
+    await page.locator('.play-form').waitFor();
+    await page.click('text=Me');
+    await page.click('.start-game');
+    await page.locator('.g-panel [data-act*="keep"]').waitFor();
+    assert.match(await page.textContent('.g-coach'), /hand/i);
+    await page.click('[data-act*="keep"]');
+    await waitMyTurn();
+  });
+  await step('play a card, use a hint, end the turn; the computer plays its turn', async () => {
+    const card = page.locator('.g-hand .gc.can').first();
+    if (await card.count()) { await card.click(); await panel.locator('[data-act*="play"]').first().click(); }
+    while (await panel.locator('.g-q').count()) { const b = panel.locator('.btn-primary:not([disabled]), [data-act]').first(); await b.click(); await page.waitForTimeout(120); }
+    await page.click('.hint-btn');
+    await page.locator('.g-coach.hint').waitFor();
+    await page.click('[data-act*="endTurn"]');
+    await page.waitForTimeout(300);
+    for (let i = 0; i < 120 && (await panel.locator('.g-wait').count() || await panel.locator('.g-q').count()); i++) {
+      if (await panel.locator('.g-q').count()) { await panel.locator('.btn-primary:not([disabled]), [data-act]').first().click(); }
+      await page.waitForTimeout(250);
+    }
+    assert.ok(await page.locator('[data-act*="endTurn"]').count(), 'back to my turn');
+  });
+  await step('give DON!! to my Leader and attack', async () => {
+    await page.locator('.g-zone.me .g-lead .gc').first().click();
+    await panel.locator('[data-act*="giveDon"]').click();
+    await page.locator('.g-zone.me .g-lead .gc').first().click();
+    await panel.locator('[data-act*="attack"]').first().click();
+    await page.locator('.g-log p').last().waitFor();
+    assert.ok((await page.textContent('.g-log')).length > 0);
+  });
+  await step('leaving and coming back resumes the same game', async () => {
+    for (let i = 0; i < 80 && (await panel.locator('.g-wait').count()); i++) await page.waitForTimeout(250);
+    while (await panel.locator('.g-q').count()) { await panel.locator('.btn-primary:not([disabled]), [data-act]').first().click(); await page.waitForTimeout(150); }
+    await page.goto(base + '#/play');
+    await page.locator('text=Resume game').waitFor();
+    await page.click('text=Resume game');
+    await page.locator('.game').waitFor();
+    assert.ok(await page.locator('.g-zone.me .gc').count() >= 1);
+  });
+  await ctx.close();
+}
+
 await browser.close();
 server.close();
 for (const r of results) console.log(r.join('  '));
