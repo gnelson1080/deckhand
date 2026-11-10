@@ -5,6 +5,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { normalizeCards } from './lib/normalize-cards.mjs';
 import { fixMinusSigns } from './lib/text.mjs';
+import { updatePriceHistory } from './lib/prices.mjs';
 import { TCGCSV, tcgcsvToCards, mergeCardLists, isCardGroup, fillGaps } from './lib/tcgcsv.mjs';
 import { parseDeckIndex, parseDeckDetail, aggregateMeta, deckIndexUrl, deckDetailUrl } from './lib/tcgplayer.mjs';
 import { parseMetaTable, parseArchetypeLists, parseDecklist, parseCardPage } from './lib/parse-limitless.mjs';
@@ -162,4 +163,13 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   writeFileSync(new URL('cards.json', dir), JSON.stringify(cards));
   if (meta) writeFileSync(new URL('meta.json', dir), JSON.stringify(meta, null, 2));
   writeFileSync(new URL('updated.json', dir), JSON.stringify(updated, null, 2));
+  // Price history: only when today's card data actually came in (never re-record stale prices).
+  if (updated.cards === new Date().toISOString().slice(0, 10)) {
+    const pdir = new URL('prices/', dir);
+    mkdirSync(pdir, { recursive: true });
+    const sets = updatePriceHistory(cards, updated.cards,
+      k => JSON.parse(readFileSync(new URL(`${k}.json`, pdir), 'utf8')),
+      (k, shard) => writeFileSync(new URL(`${k}.json`, pdir), JSON.stringify(shard)));
+    console.log(`prices: ${sets.length} set files updated`);
+  }
 }

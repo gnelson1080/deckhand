@@ -1,7 +1,7 @@
 {
   "source": "TCGplayer",
   "format": "standard regulation",
-  "sampleSize": 217,
+  "sampleSize": 225,
   "from": "2026-09-12",
   "to": "2026-11-08",
   "decks": [
@@ -13,7 +13,7 @@
         "Green"
       ],
       "points": 65,
-      "share": 29.95,
+      "share": 28.89,
       "url": "https://www.tcgplayer.com/content/one-piece/deck/Green-Mihawk/551527",
       "lists": [
         {
@@ -236,7 +236,7 @@
         "Yellow"
       ],
       "points": 37,
-      "share": 17.05,
+      "share": 16.44,
       "url": "https://www.tcgplayer.com/content/one-piece/deck/Purple-Yellow-Robin/551503",
       "lists": [
         {
@@ -454,8 +454,8 @@
         "Green",
         "Red"
       ],
-      "points": 23,
-      "share": 10.6,
+      "points": 28,
+      "share": 12.44,
       "url": "https://www.tcgplayer.com/content/one-piece/deck/Red-Green-Luffy/552613",
       "lists": [
         {
@@ -611,31 +611,27 @@
         {
           "place": "3rd-4th",
           "placeMin": 3,
-          "player": "kyll",
-          "event": "Regional Pomona",
+          "player": "Fabby",
+          "event": "Regional Porto",
           "date": "2026-11-08",
-          "players": 1536,
-          "url": "https://www.tcgplayer.com/content/one-piece/deck/Red-Green-Luffy/552632",
+          "players": 512,
+          "url": "https://www.tcgplayer.com/content/one-piece/deck/Red-Green-Luffy/552659",
           "cards": [
             {
               "id": "OP07-022",
               "count": 4
             },
             {
-              "id": "OP13-007",
-              "count": 2
+              "id": "ST30-004",
+              "count": 3
             },
             {
               "id": "ST32-001",
-              "count": 4
+              "count": 2
             },
             {
               "id": "OP13-016",
               "count": 4
-            },
-            {
-              "id": "OP07-003",
-              "count": 1
             },
             {
               "id": "OP06-033",
@@ -662,24 +658,24 @@
               "count": 4
             },
             {
-              "id": "OP13-027",
-              "count": 1
+              "id": "OP13-031",
+              "count": 4
             },
             {
-              "id": "OP13-031",
-              "count": 3
+              "id": "OP13-029",
+              "count": 1
             },
             {
               "id": "OP17-022",
               "count": 3
             },
             {
-              "id": "OP01-055",
+              "id": "OP14-037",
               "count": 2
             },
             {
-              "id": "OP08-019",
-              "count": 1
+              "id": "OP01-055",
+              "count": 2
             },
             {
               "id": "OP10-040",
@@ -697,7 +693,7 @@
         "Purple"
       ],
       "points": 20,
-      "share": 9.22,
+      "share": 8.89,
       "url": "https://www.tcgplayer.com/content/one-piece/deck/Purple-Enel/550408",
       "lists": [
         {
@@ -952,7 +948,7 @@
         "Black"
       ],
       "points": 17,
-      "share": 7.83,
+      "share": 7.56,
       "url": "https://www.tcgplayer.com/content/one-piece/deck/Red-Black-Sabo/551504",
       "lists": [
         {
@@ -1205,10 +1201,81 @@
       "colors": [
         "Blue"
       ],
-      "points": 14,
-      "share": 6.45,
-      "url": "https://www.tcgplayer.com/content/one-piece/deck/Blue-Rocks/552629",
+      "points": 15,
+      "share": 6.67,
+      "url": "https://www.tcgplayer.com/content/one-piece/deck/Blue-Rocks/552656",
       "lists": [
+        {
+          "place": "1st",
+          "placeMin": 1,
+          "player": "Conquest",
+          "event": "Regional Porto",
+          "date": "2026-11-08",
+          "players": 512,
+          "url": "https://www.tcgplayer.com/content/one-piece/deck/Blue-Rocks/552656",
+          "cards": [
+            {
+              "id": "OP08-051",
+              "count": 2
+            },
+            {
+              "id": "OP17-050",
+              "count": 3
+            },
+            {
+              "id": "OP17-045",
+              "count": 4
+            },
+            {
+              "id": "OP17-052",
+              "count": 4
+            },
+            {
+              "id": "OP17-054",
+              "count": 4
+            },
+            {
+              "id": "OP17-046",
+              "count": 4
+            },
+            {
+              "id": "EB05-028",
+              "count": 1
+            },
+            {
+              "id": "OP17-044",
+              "count": 2
+            },
+            {
+              "id": "OP17-042",
+              "count": 2
+            },
+            {
+              "id": "OP17-049",
+              "count": 4
+            },
+            {
+              "id": "OP17-040",
+              "count": 4
+            },
+            {
+              "id": "OP17-048",
+              "count": 4
+            },
+            {
+              "id": "OP17-118",
+              "count": 4
+            },
+            {
+              "id": "OP17-056",
+              "count": 4
+            },
+            {
+              "id": "OP17-055",
+              "count": 4
+            }
+          ]
+        },
         {
           "place": "1st",
           "placeMin": 1,
@@ -1346,77 +1413,6 @@
               "count": 1
             }
           ]
-        },
-        {
-          "place": "2nd",
-          "placeMin": 2,
-          "player": "Ninssasin",
-          "event": "Regional Pomona",
-          "date": "2026-11-08",
-          "players": 1536,
-          "url": "https://www.tcgplayer.com/content/one-piece/deck/Blue-Rocks/552630",
-          "cards": [
-            {
-              "id": "OP08-051",
-              "count": 3
-            },
-            {
-              "id": "OP17-050",
-              "count": 2
-            },
-            {
-              "id": "OP17-045",
-              "count": 4
-            },
-            {
-              "id": "OP17-052",
-              "count": 4
-            },
-            {
-              "id": "OP17-054",
-              "count": 4
-            },
-            {
-              "id": "OP17-046",
-              "count": 4
-            },
-            {
-              "id": "EB05-028",
-              "count": 1
-            },
-            {
-              "id": "OP17-044",
-              "count": 3
-            },
-            {
-              "id": "OP17-042",
-              "count": 1
-            },
-            {
-              "id": "OP17-049",
-              "count": 4
-            },
-            {
-              "id": "OP17-040",
-              "count": 4
-            },
-            {
-              "id": "OP17-048",
-              "count": 4
-            },
-            {
-              "id": "OP17-118",
-              "count": 4
-            },
-            {
-              "id": "OP17-056",
-              "count": 4
-            },
-            {
-              "id": "OP17-055",
-              "count": 4
-            }
-          ]
         }
       ]
     },
@@ -1429,7 +1425,7 @@
         "Red"
       ],
       "points": 11,
-      "share": 5.07,
+      "share": 4.89,
       "url": "https://www.tcgplayer.com/content/one-piece/deck/Red-Green-Luffy-Ace/550695",
       "lists": [
         {
@@ -1666,8 +1662,8 @@
       "colors": [
         "Purple"
       ],
-      "points": 9,
-      "share": 4.15,
+      "points": 10,
+      "share": 4.44,
       "url": "https://www.tcgplayer.com/content/one-piece/deck/Purple-Kaido/551511",
       "lists": [
         {
@@ -1748,6 +1744,73 @@
         {
           "place": "3rd-4th",
           "placeMin": 3,
+          "player": "Mediavilla",
+          "event": "Regional Porto",
+          "date": "2026-11-08",
+          "players": 512,
+          "url": "https://www.tcgplayer.com/content/one-piece/deck/Purple-Kaido/552660",
+          "cards": [
+            {
+              "id": "EB04-032",
+              "count": 4
+            },
+            {
+              "id": "EB05-037",
+              "count": 4
+            },
+            {
+              "id": "OP17-073",
+              "count": 4
+            },
+            {
+              "id": "OP17-074",
+              "count": 4
+            },
+            {
+              "id": "EB04-031",
+              "count": 4
+            },
+            {
+              "id": "EB04-030",
+              "count": 2
+            },
+            {
+              "id": "OP17-065",
+              "count": 4
+            },
+            {
+              "id": "OP17-061",
+              "count": 4
+            },
+            {
+              "id": "ST34-004",
+              "count": 3
+            },
+            {
+              "id": "OP17-062",
+              "count": 3
+            },
+            {
+              "id": "OP15-078",
+              "count": 4
+            },
+            {
+              "id": "OP17-076",
+              "count": 2
+            },
+            {
+              "id": "OP07-077",
+              "count": 4
+            },
+            {
+              "id": "OP07-076",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "place": "3rd-4th",
+          "placeMin": 3,
           "player": "Fede Moltres",
           "event": "Regional Prague",
           "date": "2026-09-27",
@@ -1815,85 +1878,6 @@
               "count": 4
             }
           ]
-        },
-        {
-          "place": "5th-8th",
-          "placeMin": 5,
-          "player": "Slayde",
-          "event": "Flame Flame Fruit Coliseum NA Block D",
-          "date": "2026-09-20",
-          "players": 1160,
-          "url": "https://www.tcgplayer.com/content/one-piece/deck/Purple-Kaido/550385",
-          "cards": [
-            {
-              "id": "EB04-032",
-              "count": 4
-            },
-            {
-              "id": "OP17-073",
-              "count": 4
-            },
-            {
-              "id": "OP17-074",
-              "count": 4
-            },
-            {
-              "id": "OP08-074",
-              "count": 4
-            },
-            {
-              "id": "ST10-010",
-              "count": 2
-            },
-            {
-              "id": "EB04-031",
-              "count": 4
-            },
-            {
-              "id": "EB04-030",
-              "count": 2
-            },
-            {
-              "id": "OP17-065",
-              "count": 2
-            },
-            {
-              "id": "OP17-061",
-              "count": 2
-            },
-            {
-              "id": "ST34-004",
-              "count": 4
-            },
-            {
-              "id": "OP17-062",
-              "count": 4
-            },
-            {
-              "id": "OP17-063",
-              "count": 1
-            },
-            {
-              "id": "OP15-077",
-              "count": 1
-            },
-            {
-              "id": "OP15-078",
-              "count": 4
-            },
-            {
-              "id": "OP07-077",
-              "count": 4
-            },
-            {
-              "id": "OP09-077",
-              "count": 2
-            },
-            {
-              "id": "OP07-076",
-              "count": 2
-            }
-          ]
         }
       ]
     },
@@ -1906,7 +1890,7 @@
         "Yellow"
       ],
       "points": 4,
-      "share": 1.84,
+      "share": 1.78,
       "url": "https://www.tcgplayer.com/content/one-piece/deck/Blue-Yellow-Hancock/550355",
       "lists": [
         {
@@ -2168,7 +2152,7 @@
         "Red"
       ],
       "points": 2,
-      "share": 0.92,
+      "share": 0.89,
       "url": "https://www.tcgplayer.com/content/one-piece/deck/Red-Ace/550701",
       "lists": [
         {
@@ -2316,5 +2300,5 @@
       ]
     }
   ],
-  "fetchedAt": "2026-11-10T02:32:20.285Z"
+  "fetchedAt": "2026-11-10T17:09:26.703Z"
 }
