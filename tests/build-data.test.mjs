@@ -68,3 +68,27 @@ test('optcgapi card data is kept when TCGplayer is also present', async () => {
   assert.equal(perona.name, 'Perona');
   assert.match(perona.img, /optcgapi/);
 });
+
+const tcgcsvProducts = JSON.parse(fx('tcgcsv-products.json'));
+const tcgcsvPrices = JSON.parse(fx('tcgcsv-prices.json'));
+const catalogJSON = async url => {
+  if (url.endsWith('/68/groups')) return { results: [{ groupId: 1, name: "The World's Strongest Warriors", abbreviation: 'OP17' }] };
+  if (url.endsWith('/1/products')) return tcgcsvProducts;
+  if (url.endsWith('/1/prices')) return tcgcsvPrices;
+  return fakeJSON(url);
+};
+
+test('TCGplayer catalog is the primary card source; optcgapi fills numbers it lacks', async () => {
+  const { cards, updated } = await buildData(opts({ fetchJSON: catalogJSON, useCatalog: true }));
+  const byId = new Map(cards.map(c => [c.id, c]));
+  assert.match(byId.get('OP17-020').img, /tcgplayer-cdn/);
+  assert.equal(byId.get('OP17-020').name, 'Shanks');
+  assert.equal(byId.get('OP01-077').name, 'Perona', 'optcgapi-only card kept');
+  assert.ok(updated.cards);
+});
+
+test('catalog failure falls back to optcgapi cards', async () => {
+  const failing = async url => url.includes('tcgcsv') ? (() => { throw new Error('down'); })() : fakeJSON(url);
+  const { cards } = await buildData(opts({ fetchJSON: failing, useCatalog: true }));
+  assert.ok(cards.some(c => c.id === 'OP01-077'));
+});

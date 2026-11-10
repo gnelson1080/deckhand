@@ -4,6 +4,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { normalizeCards } from './lib/normalize-cards.mjs';
+import { TCGCSV, tcgcsvToCards, mergeCardLists, isCardGroup, fillGaps } from './lib/tcgcsv.mjs';
 import { parseDeckIndex, parseDeckDetail, aggregateMeta, deckIndexUrl, deckDetailUrl } from './lib/tcgplayer.mjs';
 import { parseMetaTable, parseArchetypeLists, parseDecklist, parseCardPage } from './lib/parse-limitless.mjs';
 
@@ -26,18 +27,43 @@ const defaultJSON = async url => {
 
 export async function buildData({
   fetchText = defaultText, fetchJSON = defaultJSON, delayMs = 300,
-  maxDecks = 10, listsPerDeck = 3, windowDays = 60, maxTcgDecks = 250, prev = { cards: [], meta: null }, prevUpdated = {}, log = console.log,
+  maxDecks = 10, listsPerDeck = 3, windowDays = 60, maxTcgDecks = 250, useCatalog = true, prev = { cards: [], meta: null }, prevUpdated = {}, log = console.log,
 } = {}) {
   const updated = { cards: prevUpdated.cards || null, meta: prevUpdated.meta || null };
-  let cards = prev.cards || [];
+  let cards = null;
+  // 1) TCGplayer catalog (via tcgcsv.com): clean images, prices, product links, newest sets.
+  if (useCatalog) try {
+    const groups = (await fetchJSON(`${TCGCSV}/groups`)).results.filter(isCardGroup);
+    const lists = [];
+    for (const g of groups) {
+      if (delayMs) await sleep(delayMs);
+      const [products, prices] = await Promise.all([fetchJSON(`${TCGCSV}/${g.groupId}/products`), fetchJSON(`${TCGCSV}/${g.groupId}/prices`)]);
+      lists.push(tcgcsvToCards(products.results, prices.results, { groupName: g.name, abbreviation: g.abbreviation }));
+    }
+    cards = mergeCardLists(lists);
+    if (!cards.length) throw new Error('catalog returned no cards');
+    log(`cards: ${cards.length} from TCGplayer catalog (${groups.length} groups)`);
+  } catch (e) {
+    cards = null;
+    log(`WARN TCGplayer catalog failed (${e.message})`);
+  }
+  // 2) optcgapi.com: fills card numbers the catalog lacks, or replaces it if the catalog failed.
   try {
     const [set, st] = await Promise.all([fetchJSON(`${OPTCG}/allSetCards/`), fetchJSON(`${OPTCG}/allSTCards/`)]);
-    cards = normalizeCards([...set, ...st]);
-    updated.cards = today();
-    log(`cards: ${cards.length}`);
+    const extra = normalizeCards([...set, ...st]);
+    if (!cards) { cards = extra; log(`cards: ${cards.length} from optcgapi`); }
+    else {
+      const have = new Set(cards.map(c => c.id));
+      cards = fillGaps(cards, extra);
+      const add = extra.filter(c => !have.has(c.id)).map(c => ({ ...c, source: 'optcgapi' }));
+      cards.push(...add);
+      log(`cards: +${add.length} only on optcgapi`);
+    }
   } catch (e) {
-    log(`WARN cards source failed, keeping previous (${e.message})`);
+    log(`WARN optcgapi failed (${e.message})`);
   }
+  if (cards) updated.cards = today();
+  else { cards = prev.cards || []; log('WARN keeping previous cards'); }
 
   const limitless = async path => { if (delayMs) await sleep(delayMs); return fetchText(LIMITLESS + path); };
   const tcg = async url => { if (delayMs) await sleep(delayMs); return fetchJSON(url); };

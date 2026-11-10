@@ -1,0 +1,301 @@
+{
+ "results": [
+  {
+   "productId": 705922,
+   "name": "Shanks (020)",
+   "cleanName": "Shanks 020",
+   "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/705922_200w.jpg",
+   "categoryId": 68,
+   "groupId": 24736,
+   "url": "https://www.tcgplayer.com/product/705922/one-piece-card-game-the-worlds-strongest-warriors-shanks-020",
+   "modifiedOn": "2026-08-28T04:10:21.193",
+   "imageCount": 1,
+   "presaleInfo": {
+    "isPresale": false,
+    "releasedOn": "2026-08-28T00:00:00",
+    "note": null
+   },
+   "extendedData": [
+    {
+     "name": "Rarity",
+     "displayName": "Rarity",
+     "value": "L"
+    },
+    {
+     "name": "Number",
+     "displayName": "Number",
+     "value": "OP17-020"
+    },
+    {
+     "name": "Description",
+     "displayName": "Description",
+     "value": "[Activate: Main] [Once Per Turn] <strong>You may trash 1 card from\r\nyour hand or rest 1 of your DON!! cards:</strong> Up to 1 of your opponent's rested Characters will not become active in your opponent's next Refresh Phase."
+    },
+    {
+     "name": "Color",
+     "displayName": "Color",
+     "value": "Green"
+    },
+    {
+     "name": "CardType",
+     "displayName": "Card Type",
+     "value": "Leader"
+    },
+    {
+     "name": "Life",
+     "displayName": "Life",
+     "value": "5"
+    },
+    {
+     "name": "Power",
+     "displayName": "Power",
+     "value": "5000"
+    },
+    {
+     "name": "Subtypes",
+     "displayName": "Subtype(s)",
+     "value": "The Four Emperors;Red-Haired Pirates"
+    },
+    {
+     "name": "Attribute",
+     "displayName": "Attribute",
+     "value": "Slash"
+    }
+   ]
+  },
+  {
+   "productId": 705923,
+   "name": "Shanks (020) (Alternate Art)",
+   "cleanName": "Shanks 020 Alternate Art",
+   "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/705923_200w.jpg",
+   "categoryId": 68,
+   "groupId": 24736,
+   "url": "https://www.tcgplayer.com/product/705923/one-piece-card-game-the-worlds-strongest-warriors-shanks-020-alternate-art",
+   "modifiedOn": "2026-08-28T04:10:21.193",
+   "imageCount": 1,
+   "presaleInfo": {
+    "isPresale": false,
+    "releasedOn": "2026-08-28T00:00:00",
+    "note": null
+   },
+   "extendedData": [
+    {
+     "name": "Rarity",
+     "displayName": "Rarity",
+     "value": "L"
+    },
+    {
+     "name": "Number",
+     "displayName": "Number",
+     "value": "OP17-020"
+    },
+    {
+     "name": "Description",
+     "displayName": "Description",
+     "value": "[Activate: Main] [Once Per Turn] <strong>You may trash 1 card from\r\nyour hand or rest 1 of your DON!! cards:</strong> Up to 1 of your opponent's rested Characters will not become active in your opponent's next Refresh Phase."
+    },
+    {
+     "name": "Color",
+     "displayName": "Color",
+     "value": "Green"
+    },
+    {
+     "name": "CardType",
+     "displayName": "Card Type",
+     "value": "Leader"
+    },
+    {
+     "name": "Life",
+     "displayName": "Life",
+     "value": "5"
+    },
+    {
+     "name": "Power",
+     "displayName": "Power",
+     "value": "5000"
+    },
+    {
+     "name": "Subtypes",
+     "displayName": "Subtype(s)",
+     "value": "The Four Emperors;Red-Haired Pirates"
+    },
+    {
+     "name": "Attribute",
+     "displayName": "Attribute",
+     "value": "Slash"
+    }
+   ]
+  },
+  {
+   "productId": 705920,
+   "name": "Bonk Punch & Monster",
+   "cleanName": "Bonk Punch and Monster",
+   "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/705920_200w.jpg",
+   "categoryId": 68,
+   "groupId": 24736,
+   "url": "https://www.tcgplayer.com/product/705920/one-piece-card-game-the-worlds-strongest-warriors-bonk-punch-and-monster",
+   "modifiedOn": "2026-08-28T04:10:21.193",
+   "imageCount": 1,
+   "presaleInfo": {
+    "isPresale": false,
+    "releasedOn": "2026-08-28T00:00:00",
+    "note": null
+   },
+   "extendedData": [
+    {
+     "name": "Rarity",
+     "displayName": "Rarity",
+     "value": "C"
+    },
+    {
+     "name": "Number",
+     "displayName": "Number",
+     "value": "OP17-028"
+    },
+    {
+     "name": "Description",
+     "displayName": "Description",
+     "value": "[Blocker] <em>(After your opponent declares an attack, you may rest this card to make it the new target of the attack.)</em>\r\n<br>[On Play] K.O. up to 1 of your opponent's rested Characters with a cost of 6 or less."
+    },
+    {
+     "name": "Color",
+     "displayName": "Color",
+     "value": "Green"
+    },
+    {
+     "name": "CardType",
+     "displayName": "Card Type",
+     "value": "Character"
+    },
+    {
+     "name": "Cost",
+     "displayName": "Cost",
+     "value": "4"
+    },
+    {
+     "name": "Power",
+     "displayName": "Power",
+     "value": "3000"
+    },
+    {
+     "name": "Subtypes",
+     "displayName": "Subtype(s)",
+     "value": "Animal;Red-Haired Pirates"
+    },
+    {
+     "name": "Counterplus",
+     "displayName": "Counter+",
+     "value": "1000"
+    },
+    {
+     "name": "Attribute",
+     "displayName": "Attribute",
+     "value": "Strike"
+    }
+   ]
+  },
+  {
+   "productId": 711424,
+   "name": "Are You That Afraid of the New Era?!",
+   "cleanName": "Are You That Afraid of the New Era",
+   "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/711424_200w.jpg",
+   "categoryId": 68,
+   "groupId": 24736,
+   "url": "https://www.tcgplayer.com/product/711424/one-piece-card-game-the-worlds-strongest-warriors-are-you-that-afraid-of-the-new-era",
+   "modifiedOn": "2026-08-28T04:10:21.193",
+   "imageCount": 1,
+   "presaleInfo": {
+    "isPresale": false,
+    "releasedOn": "2026-08-28T00:00:00",
+    "note": null
+   },
+   "extendedData": [
+    {
+     "name": "Rarity",
+     "displayName": "Rarity",
+     "value": "R"
+    },
+    {
+     "name": "Number",
+     "displayName": "Number",
+     "value": "OP17-037"
+    },
+    {
+     "name": "Description",
+     "displayName": "Description",
+     "value": "[Main] Look at 5 cards from the top of your deck; reveal up to 1 card with a type including \"Red-Haired Pirates\" and add it to your hand. Then, place the rest at the bottom of your deck in any order.\r\n<br>[Counter] <strong>You may rest 1 of your cards:</strong> Up to 1 of your Leader or Characters gains +3000 power during this battle."
+    },
+    {
+     "name": "Color",
+     "displayName": "Color",
+     "value": "Green"
+    },
+    {
+     "name": "CardType",
+     "displayName": "Card Type",
+     "value": "Event"
+    },
+    {
+     "name": "Cost",
+     "displayName": "Cost",
+     "value": "1"
+    },
+    {
+     "name": "Subtypes",
+     "displayName": "Subtype(s)",
+     "value": "The Four Emperors;Red-Haired Pirates"
+    }
+   ]
+  },
+  {
+   "productId": 710859,
+   "name": "DON!! Card (Alternate Art) (Gold)",
+   "cleanName": "DON Card Alternate Art Gold",
+   "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/710859_200w.jpg",
+   "categoryId": 68,
+   "groupId": 24736,
+   "url": "https://www.tcgplayer.com/product/710859/one-piece-card-game-the-worlds-strongest-warriors-don-card-alternate-art-gold",
+   "modifiedOn": "2026-09-21T13:02:45.923",
+   "imageCount": 1,
+   "presaleInfo": {
+    "isPresale": false,
+    "releasedOn": null,
+    "note": null
+   },
+   "extendedData": [
+    {
+     "name": "Rarity",
+     "displayName": "Rarity",
+     "value": "DON!!"
+    },
+    {
+     "name": "Description",
+     "displayName": "Description",
+     "value": "Your Turn +1000"
+    },
+    {
+     "name": "CardType",
+     "displayName": "Card Type",
+     "value": "DON!!"
+    }
+   ]
+  },
+  {
+   "productId": 704752,
+   "name": "The World's Strongest Warriors Booster Box",
+   "cleanName": "The Worlds Strongest Warriors Booster Box",
+   "imageUrl": "https://tcgplayer-cdn.tcgplayer.com/product/704752_200w.jpg",
+   "categoryId": 68,
+   "groupId": 24736,
+   "url": "https://www.tcgplayer.com/product/704752/one-piece-card-game-the-worlds-strongest-warriors-the-worlds-strongest-warriors-booster-box",
+   "modifiedOn": "2026-08-28T04:10:21.193",
+   "imageCount": 1,
+   "presaleInfo": {
+    "isPresale": false,
+    "releasedOn": "2026-08-28T00:00:00",
+    "note": null
+   },
+   "extendedData": []
+  }
+ ]
+}

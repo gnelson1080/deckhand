@@ -88,6 +88,13 @@ async function show({ view, param }) {
   }
 }
 installDefineHandler();
+// Back links go to the previous screen when there is one (e.g. card opened from a deck).
+let navCount = 0;
+addEventListener('hashchange', () => navCount++);
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[data-back]');
+  if (a && navCount > 0) { e.preventDefault(); history.back(); }
+});
 onRoute(show);
 
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
