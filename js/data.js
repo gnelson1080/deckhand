@@ -24,6 +24,7 @@ export const getUpdated = () => loadJSON('data/updated.json').catch(() => ({}));
 export const getGlossary = () => loadJSON('content/glossary.json');
 export const getLessonIndex = () => loadJSON('content/lessons/index.json');
 export const getLesson = n => loadJSON(`content/lessons/${String(n).padStart(2, '0')}.json`);
+export const getPriceShard = set => (/^[A-Z0-9]{1,8}$/i.test(set) ? loadJSON(`data/prices/${set}.json`).catch(() => null) : Promise.resolve(null));
 export const getDeckGuide = leaderId => loadJSON(`content/deck-guides/${leaderId}.json`).catch(() => null);
 
 export const tcgplayerUrl = card => card?.tcgUrl

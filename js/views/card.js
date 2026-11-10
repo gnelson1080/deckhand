@@ -1,4 +1,5 @@
-import { getCards, getGlossary, getMeta, tcgplayerUrl } from '../data.js';
+import { getCards, getGlossary, getMeta, getPriceShard, tcgplayerUrl } from '../data.js';
+import { renderPriceChart } from '../ui/price-chart.js';
 import { richText, termsIn, escapeHtml, safeUrl, safeColors } from '../ui/rich-text.js';
 import { termIndex, displayName } from '../ui/define.js';
 import { icon } from '../icons.js';
@@ -14,7 +15,9 @@ const TYPE_HELP = {
 
 export async function render(root, id) {
   root.innerHTML = `<p class="muted">Loading card…</p>`;
-  const [cards, glossary, idx] = await Promise.all([getCards(), getGlossary(), termIndex()]);
+  let cards, glossary, idx;
+  try { [cards, glossary, idx] = await Promise.all([getCards(), getGlossary(), termIndex()]); }
+  catch { root.innerHTML = `<p class="empty">The card list didn't load. Connect to the internet once, and Deckhand will keep a copy for offline use.</p><a class="btn" href="#/cards" data-back>Back</a>`; return; }
   const c = cards.get(id);
   if (!c) {
     root.innerHTML = `<h1 class="page-title">Card not found</h1><p class="page-lede">There's no card numbered ${escapeHtml(id)}. It may be too new for our card list.</p><a class="btn" href="#/cards">Search cards</a>`;
@@ -57,7 +60,10 @@ export async function render(root, id) {
     <section class="buy panel">
       <div><span class="muted">TCGplayer market price</span><strong class="price">${c.price != null ? '$' + c.price.toFixed(2) : 'Not listed yet'}</strong></div>
       <a class="btn btn-primary" href="${escapeHtml(safeUrl(tcgplayerUrl(c)))}" target="_blank" rel="noopener">View on TCGplayer ${icon('link', { size: 18 })}</a>
-    </section>`;
+    </section>
+    <section class="panel price-host"></section>`;
+
+  getPriceShard(c.id.split('-')[0]).then(shard => { const host = root.querySelector('.price-host'); if (host) renderPriceChart(host, shard, c.id); });
 
   // Flip in, then let the reader tilt the card.
   const box = root.querySelector('.card-3d');

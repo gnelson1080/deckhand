@@ -471,3 +471,27 @@ main#view:has(.build-bar:not([hidden])) { padding-bottom: calc(var(--tabbar-h) +
 .problems { padding-left: 1.1em; margin: 0 0 6px; }
 .hints h2, .export h2 { font-size: var(--t-lg); margin: 22px 0 8px; }
 .hints ul { padding-left: 1.1em; display: grid; gap: 6px; }
+
+/* ---------- Price chart ---------- */
+.price-host { padding: 14px 16px; margin: 14px 0; }
+.pc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.pc-head h2 { font-size: var(--t-lg); }
+.pc-change { margin: 0; font-size: var(--t-sm); color: var(--ink-soft); display: flex; gap: 8px; align-items: baseline; }
+.pc-change strong { font: 400 var(--t-lg) var(--font-display); color: var(--ink); }
+.pc-chips { display: flex; gap: 6px; margin: 8px 0; }
+.pc-chips .chip { min-height: 32px; font-size: var(--t-xs); }
+.pc-plot { position: relative; }
+.pc-plot svg { width: 100%; height: auto; display: block; touch-action: pan-y; }
+.pc-grid { stroke: var(--rule); stroke-width: 1; }
+.pc-tick { font: 400 9.5px var(--font-body); fill: var(--ink-soft); }
+.pc-line { fill: none; stroke: var(--sea); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw-line 1s var(--ease-out) forwards; }
+@keyframes draw-line { to { stroke-dashoffset: 0; } }
+.pc-vline { stroke: var(--ink-faint); stroke-width: 1; stroke-dasharray: 3 3; }
+.pc-dot { fill: var(--sea); stroke: var(--paper); stroke-width: 2; }
+.pc-tip { position: absolute; top: -6px; transform: translateX(-50%); padding: 4px 8px; border-radius: 6px; background: var(--ink); color: var(--paper); font-size: var(--t-xs); font-weight: 700; white-space: nowrap; pointer-events: none; }
+.pc-empty { color: var(--ink-soft); font-size: var(--t-sm); margin: 4px 0 0; }
+.pc-table { margin-top: 8px; font-size: var(--t-sm); }
+.pc-table summary { cursor: pointer; color: var(--sea); font-weight: 700; min-height: 32px; }
+.pc-table table { width: 100%; border-collapse: collapse; margin-top: 6px; }
+.pc-table td, .pc-table th { text-align: left; padding: 4px 0; border-bottom: 1px solid var(--rule); }
+@media (prefers-reduced-motion: reduce) { .pc-line { animation: none; stroke-dashoffset: 0; } }
