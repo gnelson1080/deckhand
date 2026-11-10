@@ -338,6 +338,20 @@ const phone = async (opts = {}) => {
     await page.keyboard.press('e');
     await page.locator('.g-wait').waitFor({ timeout: 3000 });
   });
+  await step('game table is a playmat; hover shows a big card; Big board makes cards bigger and is remembered', async () => {
+    for (const z of ['Life', 'Leader', 'Stage', 'Deck', 'Trash', 'Cost area', 'DON!! deck', 'Character area']) assert.equal(await page.locator(`.g-zone.me [data-zone="${z}"]`).count(), 1, z);
+    const lead = page.locator('.g-zone.me .g-lead .gc').first();
+    const w0 = (await lead.boundingBox()).width;
+    await lead.hover();
+    await page.locator('.g-preview:not([hidden]) .gp-info').waitFor();
+    await page.click('.side-toggle');
+    assert.ok(await page.locator('.game.collapsed').count());
+    const w1 = (await page.locator('.g-zone.me .g-lead .gc').first().boundingBox()).width;
+    assert.ok(w1 > w0, `big board cards should be bigger (${w0} -> ${w1})`);
+    assert.equal(await page.evaluate(() => localStorage.getItem('deckhand:gameSideCollapsed')), 'true');
+    await page.keyboard.press('t');
+    assert.equal(await page.locator('.game.collapsed').count(), 0);
+  });
   await ctx.close();
 }
 

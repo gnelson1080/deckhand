@@ -41,14 +41,17 @@ export async function render(root) {
   }
   const rand = mulberry32((meta.seed || 1) + s.turn * 7919);
   let selected = null, picks = [], coachMsg = null, hintFor = null, aiTimer = null, alive = true, fast = st.get('gameFast', false);
+  let collapsed = st.get('gameSideCollapsed', false);
 
   document.body.classList.add('in-game');
-  root.innerHTML = `<div class="game" aria-live="polite">
-    <div class="g-hud opp"></div><div class="g-zone opp"></div>
+  root.innerHTML = `<div class="game ${collapsed ? 'collapsed' : ''}" aria-live="polite">
+    <div class="g-top"></div>
+    <div class="g-zone opp" aria-label="Computer's side of the table"></div>
     <div class="g-mid"></div>
-    <div class="g-zone me"></div><div class="g-hud me"></div>
+    <div class="g-zone me" aria-label="Your side of the table"></div>
     <div class="g-hand" aria-label="Your hand"></div>
     <div class="g-panel"></div>
+    <div class="g-preview" aria-hidden="true" hidden></div>
   </div>`;
   const $ = sel => root.querySelector(sel);
 
@@ -67,17 +70,37 @@ export async function render(root) {
       ${kw.has('Blocker') ? '<span class="gc-kw">B</span>' : ''}
     </button>`;
   };
-  const lifeStack = (P, label) => `<span class="g-life" aria-label="${label} Life ${P.life.length}">${P.life.slice(0, 5).map(() => '<i></i>').join('')}<b>${P.life.length}</b></span>`;
-  const donRow = P => `<span class="g-don" aria-label="${P.donActive} active DON!!, ${P.donRested} rested">${'<i class="a"></i>'.repeat(P.donActive)}${'<i class="r"></i>'.repeat(P.donRested)}</span>`;
+  // ---------- the playmat (laid out like the official mat) ----------
+  const back = (cls = '') => `<span class="cb ${cls}" aria-hidden="true"></span>`;
+  const pile = (count, label, kind = '') => `<span class="pile ${kind}" aria-label="${label}: ${count}">${count ? back() : '<span class="slot sm"></span>'}${count > 1 ? back('b2') : ''}${count > 8 ? back('b3') : ''}<b class="pile-n">${count}</b></span>`;
+  const lifeCol = (P, label) => `<span class="life-col" aria-label="${label} Life: ${P.life.length}">${P.life.map((_, i) => `<span class="cb life" style="--k:${i}"></span>`).join('') || '<span class="slot sm"></span>'}<b class="pile-n life-n">${P.life.length}</b></span>`;
+  const donChips = P => `<span class="don-row" aria-label="${P.donActive} active DON!!, ${P.donRested} rested">${'<i class="dn a"></i>'.repeat(P.donActive)}${'<i class="dn r"></i>'.repeat(P.donRested)}</span>`;
+  const trashTop = (P, who) => { const t = P.trash.at(-1); return `<button type="button" class="pile trash-btn" data-trash="${who}" aria-label="Trash: ${P.trash.length} cards. Open.">${t ? `<img src="${escapeHtml(thumb(def(t.id).img))}" alt="" draggable="false">` : '<span class="slot sm"></span>'}<b class="pile-n">${P.trash.length}</b></button>`; };
+  const side = (P, who) => {
+    const mine = who === ME;
+    const extra = c => (mine ? `${canAct(c.uid)} ${targetClass(c.uid)}` : targetClass(c.uid));
+    const slots = Array.from({ length: 5 }, (_, i) => (P.chars[i] ? card(P.chars[i], who, extra(P.chars[i])) : '<span class="slot" aria-hidden="true"></span>')).join('');
+    return `<div class="z z-chars" data-zone="Character area">${slots}</div>
+      <div class="z z-life" data-zone="Life">${lifeCol(P, mine ? 'Your' : "Computer's")}</div>
+      <div class="z z-deck" data-zone="Deck">${pile(P.deck.length, 'Deck')}</div>
+      <div class="z-leadrow"><div class="z z-leader g-lead" data-zone="Leader">${card(P.leader, who, extra(P.leader))}</div>
+        <div class="z z-stage" data-zone="Stage">${P.stage ? card(P.stage, who, `stage ${mine ? canAct(P.stage.uid) : ''}`) : '<span class="slot" aria-hidden="true"></span>'}</div></div>
+      <div class="z z-trash" data-zone="Trash">${trashTop(P, who)}</div>
+      <div class="z z-dondeck" data-zone="DON!! deck">${pile(P.donDeck, 'DON!! deck', 'don')}</div>
+      <div class="z z-cost" data-zone="Cost area">${donChips(P)}</div>`;
+  };
 
   function draw() {
     const P = s.players[ME], Q = s.players[AI];
-    $('.g-hud.opp').innerHTML = `<a class="g-exit" href="#/play" aria-label="Leave the game (it is saved)">${icon('back', { size: 18 })}</a><span class="g-who">Computer <small>${escapeHtml(meta.level)}</small></span>${lifeStack(Q, 'Opponent')}<span class="g-count">${icon('scroll', { size: 16 })}${Q.hand.length}</span><span class="g-count">Deck ${Q.deck.length}</span>${donRow(Q)}`;
-    $('.g-zone.opp').innerHTML = `<div class="g-row"><span class="g-lead">${card(Q.leader, AI, targetClass(Q.leader.uid))}${Q.stage ? card(Q.stage, AI, 'stage') : ''}</span>
-      <span class="g-chars">${Q.chars.map(c => card(c, AI, targetClass(c.uid))).join('') || '<span class="g-empty">No Characters</span>'}</span></div>`;
-    $('.g-zone.me').innerHTML = `<div class="g-row"><span class="g-lead">${card(P.leader, ME, `${canAct(P.leader.uid)} ${targetClass(P.leader.uid)}`)}${P.stage ? card(P.stage, ME, `stage ${canAct(P.stage.uid)}`) : ''}</span>
-      <span class="g-chars">${P.chars.map(c => card(c, ME, `${canAct(c.uid)} ${targetClass(c.uid)}`)).join('') || '<span class="g-empty">No Characters</span>'}</span></div>`;
-    $('.g-hud.me').innerHTML = `${lifeStack(P, 'Your')}${donRow(P)}<span class="g-count">Deck ${P.deck.length}</span><span class="g-count">Trash ${P.trash.length}</span>`;
+    $('.g-preview').hidden = true;
+    $('.g-top').innerHTML = `<a class="g-exit" href="#/play" aria-label="Leave the game (it is saved)">${icon('back', { size: 18 })}</a>
+      <span class="g-who">Computer <small>${escapeHtml(meta.level)}</small></span>
+      <span class="g-opphand" aria-label="Computer's hand: ${Q.hand.length} cards">${Q.hand.slice(0, 10).map(() => back('mini')).join('')}<b>${Q.hand.length}</b></span>
+      <span class="g-turn">Turn ${Math.ceil(s.turn / 2) || 1}${s.phase !== 'over' ? ` · ${actor(s) === ME ? 'You' : 'Computer'}` : ''}</span>
+      <button type="button" class="chip side-toggle" aria-pressed="${!collapsed}" title="Switch between the big board and the side panel (T)">${icon(collapsed ? 'back' : 'next', { size: 16 })}${collapsed ? 'Normal view' : 'Big board'}</button>`;
+    $('.g-zone.opp').innerHTML = side(Q, AI);
+    $('.g-zone.me').innerHTML = side(P, ME);
+    $('.g-hand').style.setProperty('--n', P.hand.length);
     $('.g-hand').innerHTML = P.hand.map(c => card(c, ME, `in-hand ${canAct(c.uid)} ${counterable(c.uid)}`)).join('');
     drawMid(); drawPanel();
   }
@@ -110,7 +133,7 @@ export async function render(root) {
 
   function drawMid() {
     const b = s.battle;
-    const lines = s.log.slice(isDesktop() ? -14 : -3).map(eventText).filter(Boolean);
+    const lines = s.log.slice(isDesktop() && !collapsed ? -16 : -2).map(eventText).filter(Boolean);
     $('.g-mid').innerHTML = `${b ? `<div class="g-battle"><span>${nm(s, b.attacker)} <b>${n(power(s, b.attacker))}</b></span><span class="vs">vs</span><span>${nm(s, b.target)} <b>${n(power(s, b.target))}</b></span></div>` : ''}
       <div class="g-log">${lines.map(l => `<p>${l}</p>`).join('')}</div>
       ${meta.coach && s.phase !== 'over' ? `<div class="g-coach ${coachMsg?.tone || ''}">${icon('compass', { size: 18 })}<span>${coachMsg ? escapeHtml(coachMsg.text) : escapeHtml(phaseTip(s, ME))}</span></div>` : ''}`;
@@ -149,7 +172,7 @@ export async function render(root) {
       return;
     }
     panel.innerHTML = `<div class="g-btns main">${meta.coach ? '<button type="button" class="btn hint-btn">Hint</button>' : ''}<button type="button" class="btn log-btn">Log</button><button type="button" class="btn btn-primary" data-act='{"type":"endTurn"}'>End turn</button></div>
-      <p class="muted small g-help">${isDesktop() ? 'Click a glowing card to play it, give it DON!!, or attack. Keys: <kbd>E</kbd> end turn, <kbd>H</kbd> hint, <kbd>1</kbd>–<kbd>9</kbd> pick a button, <kbd>Esc</kbd> back.' : 'Tap a glowing card to play it, give it DON!!, or attack.'}</p>`;
+      <p class="muted small g-help">${isDesktop() ? 'Click a glowing card to play it, give it DON!!, or attack. Hover any card to read it. Keys: <kbd>E</kbd> end turn, <kbd>H</kbd> hint, <kbd>T</kbd> big board, <kbd>1</kbd>–<kbd>9</kbd> pick a button, <kbd>Esc</kbd> back.' : 'Tap a glowing card to play it, give it DON!!, or attack.'}</p>`;
   }
   const label = a => {
     if (a.type === 'attack') return `Attack ${def(find(s, a.target).inst.id).name}${find(s, a.target).zone === 'leader' ? ' (Leader)' : ''}: ${n(power(s, a.uid))} vs ${n(power(s, a.target))}`;
@@ -232,6 +255,9 @@ export async function render(root) {
     if (e.target.closest('[data-cancel]')) { selected = null; drawPanel(); draw(); return; }
     if (e.target.closest('.rematch')) { alive = false; clearTimeout(aiTimer); st.set('newGame', { mine: meta.mine, theirs: meta.theirs, level: meta.level, coach: meta.coach, first: 'random', seed: (Date.now() >>> 0) }); render(root); return; }
     if (e.target.closest('.fast-btn')) { fast = !fast; st.set('gameFast', fast); drawPanel(); return; }
+    if (e.target.closest('.side-toggle')) { toggleSide(); return; }
+    const tb = e.target.closest('[data-trash]');
+    if (tb) { const T = s.players[+tb.dataset.trash].trash; openSheet({ title: `${+tb.dataset.trash === ME ? 'Your' : "Computer's"} trash (${T.length})`, html: T.length ? `<div class="g-trashlist">${[...T].reverse().map(c => `<img src="${escapeHtml(thumb(def(c.id).img))}" alt="${escapeHtml(def(c.id).name)}" title="${escapeHtml(def(c.id).name)}">`).join('')}</div>` : '<p class="muted">Empty.</p>' }); return; }
     if (e.target.closest('.log-btn')) { openSheet({ title: 'Game log', html: `<ol class="g-fulllog">${s.log.slice(-60).map(eventText).filter(Boolean).reverse().map(l => `<li>${l}</li>`).join('')}</ol>` }); return; }
     if (e.target.closest('.hint-btn')) { const h = hint(s, ME); if (h) { coachMsg = { tone: 'hint', text: h.text }; hintFor = h.action.uid || null; draw(); } return; }
     const info = e.target.closest('.info-btn');
@@ -251,6 +277,28 @@ export async function render(root) {
     showCard(uid);
   });
 
+  function toggleSide() {
+    collapsed = !collapsed; st.set('gameSideCollapsed', collapsed);
+    gameEl.classList.toggle('collapsed', collapsed); draw();
+  }
+
+  // Big preview while hovering a card (computer with a mouse): the board stays small, the text stays readable.
+  const preview = $('.g-preview');
+  const fine = matchMedia('(hover: hover) and (pointer: fine)');
+  gameEl.addEventListener('pointerover', e => {
+    if (!fine.matches) return;
+    const el = e.target.closest('.gc[data-uid], .opt[data-pick]');
+    if (!el) return;
+    const f = find(s, el.dataset.uid || el.dataset.pick); if (!f) return;
+    const d = def(f.inst.id);
+    const pw = ['Leader', 'Character'].includes(d.type) ? power(s, f.inst.uid) : null;
+    preview.innerHTML = `<img src="${escapeHtml(d.img)}" alt="" style="--thumb:url('${escapeHtml(thumb(d.img))}')"><div class="gp-info"><strong>${escapeHtml(d.name)}</strong><span class="muted small">${escapeHtml(d.type)}${d.cost != null ? ` · cost ${costOf(s, f.inst.uid)}` : ''}${pw != null ? ` · <b>${n(pw)}</b> power now` : ''}${d.counter ? ` · Counter +${n(d.counter)}` : ''}</span>${d.text ? `<p>${richText(d.text, idx)}</p>` : ''}</div>`;
+    const r = el.getBoundingClientRect();
+    preview.classList.toggle('left', r.left + r.width / 2 > innerWidth / 2);
+    preview.hidden = false;
+  });
+  gameEl.addEventListener('pointerout', e => { if (e.target.closest('.gc[data-uid], .opt[data-pick]') && !e.relatedTarget?.closest?.('.gc[data-uid], .opt[data-pick]')) preview.hidden = true; });
+
   function showCard(uid) {
     const f = find(s, uid); if (!f) return;
     const d = def(f.inst.id);
@@ -264,6 +312,7 @@ export async function render(root) {
     const panel = $('.g-panel');
     if (!panel) return;
     if (k === 'e') { const b = panel.querySelector('[data-act*="endTurn"]'); if (b) { e.preventDefault(); b.click(); } }
+    else if (k === 't' && isDesktop()) { e.preventDefault(); toggleSide(); }
     else if (k === 'h') { const b = panel.querySelector('.hint-btn'); if (b) { e.preventDefault(); b.click(); } }
     else if (k === 'escape') { if (selected) { selected = null; draw(); } }
     else if (/^[1-9]$/.test(k)) { const bs = [...panel.querySelectorAll('[data-act], .opt, .pick-ok:not([disabled])')]; const b = bs[+k - 1]; if (b) { e.preventDefault(); b.click(); } }

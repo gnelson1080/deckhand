@@ -94,39 +94,7 @@ kbd { font: 700 .78rem var(--font-body); padding: 1px 6px; border-radius: 4px; b
 :root[data-layout="desktop"] .play-form .seg { max-width: 520px; }
 :root[data-layout="desktop"] .start-game { max-width: 420px; }
 
-/* Practice game table: board left, coach + controls right */
-:root[data-layout="desktop"] body.in-game .tabbar { display: none; }
-:root[data-layout="desktop"] body.in-game main#view { margin-left: 0; max-width: 1400px; margin: 0 auto; padding: 14px 24px 20px; }
-:root[data-layout="desktop"] .game {
-  grid-template-columns: minmax(0, 1fr) 360px; column-gap: 20px;
-  grid-template-rows: auto auto 1fr auto auto auto;
-  grid-template-areas: "hudo mid" "zoneo mid" "space mid" "zonem panel" "hudm panel" "hand panel";
-  min-height: calc(100vh - var(--header-h) - 34px);
-}
-:root[data-layout="desktop"] .g-hud.opp { grid-area: hudo; }
-:root[data-layout="desktop"] .g-zone.opp { grid-area: zoneo; }
-:root[data-layout="desktop"] .g-zone.me { grid-area: zonem; }
-:root[data-layout="desktop"] .g-hud.me { grid-area: hudm; }
-:root[data-layout="desktop"] .g-hand { grid-area: hand; padding: 14px 8px 18px; min-height: 150px; gap: 10px; }
-:root[data-layout="desktop"] .g-mid { grid-area: mid; align-content: start; padding: 14px; border-radius: var(--r-lg); background: var(--paper); border: 1px solid var(--rule); max-height: calc(100vh - var(--header-h) - 300px); overflow: auto; }
-:root[data-layout="desktop"] .g-log p { text-align: left; padding: 3px 0; border-bottom: 1px solid var(--rule); }
-:root[data-layout="desktop"] .g-panel { grid-area: panel; align-self: end; padding: 14px; border-radius: var(--r-lg); background: var(--paper); border: 1px solid var(--rule); }
-:root[data-layout="desktop"] .g-zone { padding: 16px 18px 22px; }
-:root[data-layout="desktop"] .g-row { min-height: 130px; gap: 14px; }
-:root[data-layout="desktop"] .g-chars { gap: 12px; }
-:root[data-layout="desktop"] .gc { width: 84px; border-radius: 6px; }
-:root[data-layout="desktop"] .gc img { border-radius: 6px; }
-:root[data-layout="desktop"] .g-lead .gc:first-child { width: 92px; }
-:root[data-layout="desktop"] .gc.stage { width: 64px !important; }
-:root[data-layout="desktop"] .gc-pow { font-size: .78rem; bottom: -9px; padding: 1px 7px; }
-:root[data-layout="desktop"] .g-hand .gc { width: 104px; margin-right: 0; }
-:root[data-layout="desktop"] .gc:hover { transform: translateY(-4px); }
-:root[data-layout="desktop"] .gc.rested:hover { transform: rotate(90deg) scale(.82) translateX(-4px); }
-:root[data-layout="desktop"] .g-hud { font-size: var(--t-sm); }
-:root[data-layout="desktop"] .g-life i { width: 12px; height: 17px; }
-:root[data-layout="desktop"] .g-don i { width: 11px; height: 16px; }
-:root[data-layout="desktop"] .g-don { max-width: 220px; }
-:root[data-layout="desktop"] .opt { width: 92px; }
+/* Practice game table: see css/mat.css */
 
 /* Dialog-style sheet on a computer */
 :root[data-layout="desktop"] .sheet-panel { left: 50%; right: auto; top: 50%; bottom: auto; width: min(560px, 92vw); max-height: 82vh; border-radius: var(--r-lg); padding: 10px 24px 24px; transform: translate(-50%, -46%) scale(.97); opacity: 0; transition: transform .25s var(--ease-out), opacity .2s; }
