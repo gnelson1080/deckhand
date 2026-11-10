@@ -82,3 +82,46 @@ test('canAdd explains a missing Leader instead of blaming colors', () => {
   assert.equal(r.ok, false);
   assert.match(r.reason, /Leader .*isn't in the card list/);
 });
+
+import { banStatus } from '../js/lib/deck.js';
+const RULES = { banned: [{ id: 'B-1' }], pairs: [{ ids: ['P-1', 'P-2'] }], rotation: { rotatedSets: ['OP01'] } };
+const mk = (id, extra = {}) => [id, { id, name: id, type: 'Character', colors: ['Red'], ...extra }];
+const POOL = new Map([mk('L-1', { type: 'Leader' }), mk('B-1'), mk('P-1'), mk('P-2'), mk('OP01-001'), mk('X-1')]);
+const deckOf = ids => ({ leaderId: 'L-1', entries: ids.map(id => ({ id, count: 1 })) });
+
+test('validateDeck flags banned cards and banned pairs when rules are given', async () => {
+  const { validateDeck } = await import('../js/lib/deck.js');
+  const v = validateDeck(deckOf(['B-1', 'P-1', 'P-2']), POOL, RULES);
+  assert.ok(v.problems.some(p => p.code === 'banned' && p.id === 'B-1'));
+  assert.ok(v.problems.some(p => p.code === 'pair'));
+  assert.equal(validateDeck(deckOf(['P-1']), POOL, RULES).problems.some(p => p.code === 'pair'), false);
+});
+test('banned Leader is a problem; rotated cards are warnings, not problems', async () => {
+  const { validateDeck } = await import('../js/lib/deck.js');
+  const v = validateDeck({ leaderId: 'B-1', entries: [{ id: 'OP01-001', count: 1 }] }, new Map([...POOL, mk('B-1', { type: 'Leader' })]), RULES);
+  assert.ok(v.problems.some(p => p.code === 'banned' && p.id === 'B-1'));
+  assert.ok(v.warnings.some(w => w.code === 'rotated' && w.id === 'OP01-001'));
+  assert.ok(!v.problems.some(p => p.code === 'rotated'));
+});
+test('validateDeck without rules behaves as before', async () => {
+  const { validateDeck } = await import('../js/lib/deck.js');
+  assert.deepEqual(validateDeck(deckOf(['B-1']), POOL).warnings, []);
+});
+test('canAdd refuses banned cards with the reason', async () => {
+  const { canAdd } = await import('../js/lib/deck.js');
+  const r = canAdd(deckOf([]), POOL.get('B-1'), POOL, RULES);
+  assert.equal(r.ok, false);
+  assert.match(r.reason, /banned/i);
+});
+test('banStatus reports banned / pair / rotated', () => {
+  assert.equal(banStatus('B-1', RULES).banned, true);
+  assert.deepEqual(banStatus('P-1', RULES).pairedWith, ['P-2']);
+  assert.equal(banStatus('OP01-001', RULES).rotated, true);
+  assert.equal(banStatus('X-1', RULES).banned, false);
+  assert.equal(banStatus('X-1', null).banned, false);
+});
+test('Block 1 cards still seen in tournament decks are not flagged', () => {
+  const r = { ...RULES, rotation: { rotatedSets: ['OP01'], stillPlayed: ['OP01-001'] } };
+  assert.equal(banStatus('OP01-001', r).rotated, false);
+  assert.equal(banStatus('OP01-002', r).rotated, true);
+});

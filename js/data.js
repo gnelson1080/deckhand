@@ -21,6 +21,9 @@ export async function getCards() {
 }
 export const getMeta = () => loadJSON('data/meta.json');
 export const getUpdated = () => loadJSON('data/updated.json').catch(() => ({}));
+// Ban list + the Block 1 cards that current tournament decks still play (newer-block reprints).
+export const getBanlist = () => Promise.all([loadJSON('content/banlist.json').catch(() => null), getMeta().catch(() => null)])
+  .then(([b, m]) => b && { ...b, rotation: { ...b.rotation, stillPlayed: m?.stillPlayed || [] } });
 export const getGlossary = () => loadJSON('content/glossary.json');
 export const getLessonIndex = () => loadJSON('content/lessons/index.json');
 export const getLesson = n => loadJSON(`content/lessons/${String(n).padStart(2, '0')}.json`);

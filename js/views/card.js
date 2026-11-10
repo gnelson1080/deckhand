@@ -1,4 +1,5 @@
-import { getCards, getGlossary, getMeta, getPriceShard, tcgplayerUrl } from '../data.js';
+import { getCards, getGlossary, getMeta, getPriceShard, getBanlist, tcgplayerUrl } from '../data.js';
+import { banStatus } from '../lib/deck.js';
 import { renderPriceChart } from '../ui/price-chart.js';
 import { richText, termsIn, escapeHtml, safeUrl, safeColors } from '../ui/rich-text.js';
 import { termIndex, displayName } from '../ui/define.js';
@@ -23,11 +24,13 @@ export async function render(root, id) {
     root.innerHTML = `<h1 class="page-title">Card not found</h1><p class="page-lede">There's no card numbered ${escapeHtml(id)}. It may be too new for our card list.</p><a class="btn" href="#/cards">Search cards</a>`;
     return;
   }
-  const meta = await getMeta().catch(() => null);
+  const [meta, rules] = await Promise.all([getMeta().catch(() => null), getBanlist()]);
+  const ban = banStatus(c.id, rules);
   const usedIn = (meta?.decks || []).filter(d => d.leaderId === c.id || d.lists.some(l => l.cards.some(x => x.id === c.id)));
   const terms = termsIn(c.text, idx).map(t => glossary.find(g => g.term === t)).filter(Boolean);
   const name = displayName(c.name);
   const arts = [c.img, ...(c.altImgs || [])];
+  const artNames = [c.imgLabel || 'Original', ...(c.altImgs || []).map((_, i) => c.altLabels?.[i] || 'Alternate art')];
 
   root.innerHTML = `
     <a class="back-link" href="#/cards" data-back>${icon('back', { size: 20 })}Cards</a>
@@ -40,10 +43,13 @@ export async function render(root, id) {
         </div>
       </div>
     </div>
-    ${arts.length > 1 ? `<div class="arts" role="group" aria-label="Other artwork">${arts.map((a, i) => `<button type="button" class="art" data-art="${i}" aria-pressed="${i === 0}" aria-label="Art ${i + 1}"><img src="${escapeHtml(a.replace(/_in_1000x1000\.jpg$/, '_200w.jpg'))}" alt="" loading="lazy"></button>`).join('')}</div>` : ''}
+    ${arts.length > 1 ? `<div class="arts" role="group" aria-label="Other artwork">${arts.map((a, i) => `<button type="button" class="art" data-art="${i}" aria-pressed="${i === 0}" aria-label="${escapeHtml(artNames[i])}" title="${escapeHtml(artNames[i])}"><img src="${escapeHtml(a.replace(/_in_1000x1000\.jpg$/, '_200w.jpg'))}" alt="" loading="lazy"></button>`).join('')}</div><p class="art-name muted small" aria-live="polite">${escapeHtml(artNames[0])} · ${arts.length} arts, same card. Every art plays the same.</p>` : ''}
     </div><div class="card-right">
     <h1 class="card-title">${escapeHtml(name)}</h1>
     <p class="card-sub"><span>${escapeHtml(c.id)}</span><span>${escapeHtml(c.type || '')}</span>${c.rarity ? `<span>${escapeHtml(c.rarity)}</span>` : ''}</p>
+    ${ban.banned ? `<p class="legal-flag banned">${icon('alert', { size: 18 })}<span><strong>Banned.</strong> Not allowed in any deck, in any art. ${escapeHtml(ban.why || '')} <a href="#/lesson/12">About bans</a></span></p>` : ''}
+    ${!ban.banned && ban.pairedWith.length ? `<p class="legal-flag pair">${icon('alert', { size: 18 })}<span><strong>Banned pair.</strong> Can't be in the same deck as ${ban.pairedWith.map(id => `<a href="#/card/${escapeHtml(id)}">${escapeHtml(cards.get(id)?.name || id)} (${escapeHtml(id)})</a>`).join(' or ')}.</span></p>` : ''}
+    ${!ban.banned && ban.rotated ? `<p class="legal-flag rotated">${icon('alert', { size: 18 })}<span><strong>Block 1 card.</strong> Not legal in Standard since April 2026, unless your copy has a newer block number in its corner. <a href="#/lesson/12">What are blocks?</a></span></p>` : ''}
     <div class="color-row">${safeColors(c.colors).map(col => `<span class="chip static"><span class="dot ${col}"></span>${col}</span>`).join('')}${c.attribute ? `<span class="chip static">&lt;${escapeHtml(c.attribute)}&gt;</span>` : ''}</div>
     <div class="stats">
       ${c.type === 'Leader' ? stat('Life', c.life) : stat('Cost', c.cost)}
@@ -89,6 +95,7 @@ export async function render(root, id) {
   root.querySelector('.arts')?.addEventListener('click', e => {
     const b = e.target.closest('[data-art]'); if (!b) return;
     root.querySelectorAll('[data-art]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    const nameEl = root.querySelector('.art-name'); if (nameEl) nameEl.textContent = `${artNames[+b.dataset.art]} · ${arts.length} arts, same card. Every art plays the same.`;
     front.animate([{ opacity: 1 }, { opacity: 0.2 }], { duration: 120 }).onfinish = () => {
       front.src = arts[+b.dataset.art];
       front.animate([{ opacity: 0.2, transform: 'scale(.97)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 260, easing: 'ease-out' });

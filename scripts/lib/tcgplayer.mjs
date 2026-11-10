@@ -101,7 +101,7 @@ export function aggregateMeta(details, { maxDecks = 10, listsPerDeck = 3, colors
   const decks = [...groups].sort((a, b) => b[1].length - a[1].length || best(a[1]) - best(b[1])).slice(0, maxDecks)
     .map(([leaderId, g], i) => ({
       rank: i + 1,
-      name: mostCommon(g.map(d => d.name)),
+      name: g.some(d => d.name) ? mostCommon(g.map(d => d.name).filter(Boolean)) : null,
       leaderId,
       colors: colorsOf(leaderId),
       points: g.length,
@@ -109,7 +109,7 @@ export function aggregateMeta(details, { maxDecks = 10, listsPerDeck = 3, colors
       url: [...g].sort((a, b) => (a.placeMin ?? 999) - (b.placeMin ?? 999))[0].url,
       lists: [...g].sort((a, b) => (a.placeMin ?? 999) - (b.placeMin ?? 999) || String(b.date).localeCompare(String(a.date)))
         .slice(0, listsPerDeck)
-        .map(d => ({ place: d.place, placeMin: d.placeMin, player: d.player, event: d.event, date: d.date, players: d.players, url: d.url, cards: d.cards })),
+        .map(d => ({ place: d.place, placeMin: d.placeMin, player: d.player, event: d.event, date: d.date, players: d.players, url: d.url, source: d.source || 'TCGplayer', record: d.record || undefined, cards: d.cards })),
     }));
   const dates = details.map(d => d.date).filter(Boolean).sort();
   return { source: 'TCGplayer', format: details.find(d => d.format)?.format || null, sampleSize: total, from: dates[0] || null, to: dates.at(-1) || null, decks };

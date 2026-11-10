@@ -5,6 +5,14 @@ const PLAYABLE = ['Character', 'Event', 'Stage'];
 
 export const deckTotal = deck => (deck?.entries || []).reduce((n, e) => n + e.count, 0);
 const countOf = (deck, id) => deck.entries.find(e => e.id === id)?.count || 0;
+// Ban list + rotation (content/banlist.json). rules may be null: then nothing is checked.
+export function banStatus(id, rules) {
+  const banned = !!rules?.banned?.some(b => b.id === id);
+  const pairedWith = (rules?.pairs || []).filter(p => p.ids.includes(id)).flatMap(p => p.ids.filter(x => x !== id));
+  // Block 1 cards seen in current tournament lists were reprinted with a newer block, so they're fine.
+  const rotated = !!rules?.rotation?.rotatedSets?.includes(String(id).split('-')[0]) && !rules?.rotation?.stillPlayed?.includes(id);
+  return { banned, pairedWith, rotated, why: rules?.banned?.find(b => b.id === id)?.why || null };
+}
 const offColors = (card, leader) => (card.colors || []).filter(c => !(leader?.colors || []).includes(c));
 
 export function parseDeckText(text, cards) {
@@ -33,8 +41,9 @@ export function formatDeckText(deck, cards) {
   return [deck.leaderId ? `1x${deck.leaderId}` : null, ...sorted.map(e => `${e.count}x${e.id}`)].filter(Boolean).join('\n');
 }
 
-export function canAdd(deck, card, cards) {
+export function canAdd(deck, card, cards, rules = null) {
   if (!card) return { ok: false, reason: 'That card is missing from the card list.' };
+  if (banStatus(card.id, rules).banned) return { ok: false, reason: `${card.name} is banned. Bandai doesn't allow it in any deck.` };
   if (!deck.leaderId) return { ok: false, reason: 'Pick a Leader first. It decides which colors you can use.' };
   if (!PLAYABLE.includes(card.type)) return { ok: false, reason: `${card.type === 'Leader' ? 'A Leader' : 'That card'} can't go in the 50-card deck.` };
   const leader = cards.get(deck.leaderId);
@@ -46,8 +55,9 @@ export function canAdd(deck, card, cards) {
   return { ok: true };
 }
 
-export function validateDeck(deck, cards) {
+export function validateDeck(deck, cards, rules = null) {
   const problems = [];
+  const warnings = [];
   const total = deckTotal(deck);
   const leader = deck.leaderId ? cards.get(deck.leaderId) : null;
   if (!leader) problems.push({ code: 'no-leader', msg: 'Pick a Leader.' });
@@ -59,7 +69,17 @@ export function validateDeck(deck, cards) {
     if (!PLAYABLE.includes(c.type)) problems.push({ code: 'type', id: e.id, msg: `${c.name} is a ${c.type} and can't be in the deck.` });
     if (leader) { const off = offColors(c, leader); if (off.length) problems.push({ code: 'color', id: e.id, msg: `${c.name} is ${off.join(' and ')}, which isn't on your Leader.` }); }
   }
-  return { ok: problems.length === 0, total, problems };
+  if (rules) {
+    const ids = [deck.leaderId, ...deck.entries.map(e => e.id)].filter(Boolean);
+    const name = id => cards.get(id)?.name || id;
+    for (const id of ids) {
+      const s = banStatus(id, rules);
+      if (s.banned) problems.push({ code: 'banned', id, msg: `${name(id)} (${id}) is banned. Take it out${id === deck.leaderId ? ' and pick another Leader' : ''}.` });
+      else if (s.rotated) warnings.push({ code: 'rotated', id, msg: `${name(id)} (${id}) is from Block 1, which left Standard in April 2026. It's only legal if your copy has a newer block number.` });
+    }
+    for (const p of rules.pairs || []) if (p.ids.every(id => ids.includes(id))) problems.push({ code: 'pair', ids: p.ids, msg: `${name(p.ids[0])} and ${name(p.ids[1])} are a banned pair. Keep only one of them.` });
+  }
+  return { ok: problems.length === 0, total, problems, warnings };
 }
 
 const avg = xs => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);

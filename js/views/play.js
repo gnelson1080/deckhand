@@ -3,7 +3,8 @@ import { DECKS, POOL } from '../game/pool-data.js';
 import { loadGame } from '../game/save.js';
 import { store } from '../store.js';
 import { escapeHtml, safeColors } from '../ui/rich-text.js';
-import { getDeckGuide } from '../data.js';
+import { getDeckGuide, getBanlist } from '../data.js';
+import { banStatus } from '../lib/deck.js';
 import { difficultyMarks } from '../ui/charts.js';
 import { thumb } from '../lib/search.js';
 import { go } from '../router.js';
@@ -13,15 +14,16 @@ const LEVELS = [['easy', 'Easy', 'Plays random legal moves. Good for learning th
 
 export async function render(root) {
   const st = store();
-  const prefs = st.get('playPrefs', { mine: 'luffy-ace', theirs: 'mihawk', level: 'easy', coach: true, first: 'random' });
+  const prefs = st.get('playPrefs', { mine: 'luffy-ace', theirs: 'sabo', level: 'easy', coach: true, first: 'random' });
   const saved = st.get('game', null);
   const resume = saved ? loadGame(saved, POOL) : null;
+  const rules = await getBanlist();
   const guides = Object.fromEntries(await Promise.all(Object.values(DECKS).map(async d => [d.key, await getDeckGuide(d.leaderId)])));
 
   const deckCard = (d, group, on) => {
     const L = POOL[d.leaderId];
     return `<label class="pdeck ${on ? 'on' : ''}"><input type="radio" name="${group}" value="${d.key}" ${on ? 'checked' : ''}>
-      <img src="${escapeHtml(thumb(L.img))}" alt="" width="200" height="279"><span class="pdeck-name">${escapeHtml(guides[d.key]?.title || d.name)}</span>
+      <img src="${escapeHtml(thumb(L.img))}" alt="" width="200" height="279"><span class="pdeck-name">${escapeHtml(guides[d.key]?.title || d.name)}${banStatus(d.leaderId, rules).banned ? '<span class="banned-tag" title="Banned in tournaments since the latest ban list. Still fine for practice.">Banned</span>' : ''}</span>
       <span class="meta-sub">${safeColors(L.colors).map(c => `<span class="dot ${c}"></span>`).join('')}${guides[d.key] ? difficultyMarks(guides[d.key].difficulty) : ''}</span></label>`;
   };
   root.innerHTML = `
@@ -40,7 +42,7 @@ export async function render(root) {
       <div class="seg" role="radiogroup">${[['random', 'Random'], ['me', 'Me'], ['them', 'Computer']].map(([k, l]) => `<label><input type="radio" name="first" value="${k}" ${prefs.first === k ? 'checked' : ''}><span>${l}</span></label>`).join('')}</div>
       <label class="toggle"><input type="checkbox" name="coach" ${prefs.coach ? 'checked' : ''}><span>Coach on: tips, warnings and hints</span></label>
       <button type="submit" class="btn btn-primary btn-block start-game">${icon('ship', { size: 20 })}Start the game</button>
-      <p class="muted small">Decks are the current tournament lists from the Meta tab's beginner guides, frozen so games stay the same.</p>
+      <p class="muted small">Decks are real tournament lists, frozen so games stay the same. A deck marked Banned can't be played at events anymore, but it's still good practice.</p>
     </form>`;
 
   const form = root.querySelector('.play-form');

@@ -1,0 +1,51 @@
+{
+  "leaderId": "OP17-039",
+  "title": "Blue Rocks",
+  "difficulty": 2,
+  "summary": "The most played deck since the Mihawk ban. Nearly every card is a Rocks Pirate, so the Leader's attack usually draws you 2 cards. You trade cards from your hand for big effects, then finish with the 10-cost Rocks.D.Xebec, which plays two more Rocks Pirates for free.",
+  "gamePlan": [
+    "Early turns: play Streusen (1 cost) and Kyo (2 cost) to draw. Kyo also protects your board: when your opponent's effect would remove a Character, you can trash 2 cards from hand instead.",
+    "Attack with your Leader every turn and trash 1 card from hand. If the top card of your deck is a Rocks Pirate (almost every card is), you draw 2. That's how the deck keeps its hand full.",
+    "Mid game: Miss Buckingham Stussy stops a big Character from attacking, Gloriosa puts one on the bottom of its owner's deck, and Charlotte Linlin makes your opponent pick: you draw 2, or they trash 2.",
+    "Late game: Rocks.D.Xebec (10 cost) draws a card and plays two different Rocks Pirates with a total cost of 9 or less from your hand. Shiki and Edward.Newgate are the usual picks.",
+    "Defend with the two 0-cost Events: each one is a Counter for your Leader, and each one also has a Main effect when you have spare DON!!."
+  ],
+  "keyCards": [
+    {
+      "id": "OP17-039",
+      "why": "Leader. Trash 1 card when attacking: if the top card is a Rocks Pirate, draw 2."
+    },
+    {
+      "id": "OP17-045",
+      "why": "Kyo. 2 cost, draws a card, and protects your Characters from removal effects."
+    },
+    {
+      "id": "OP17-046",
+      "why": "Gloriosa. [Blocker] that sends a 5-cost-or-less Character to the bottom of the deck."
+    },
+    {
+      "id": "OP17-049",
+      "why": "Charlotte Linlin. Your opponent picks: you draw 2 or they trash 2. Also pumps your defense."
+    },
+    {
+      "id": "OP17-048",
+      "why": "Shiki. 9000 power, attacks Characters right away, and shrinks a Character by 3000."
+    },
+    {
+      "id": "OP17-118",
+      "why": "Rocks.D.Xebec. The finisher: draws, then plays two more Rocks Pirates for free."
+    },
+    {
+      "id": "OP17-056",
+      "why": "Rocks Pirates Event. 0-cost Counter, or bounce a Character when you have 5 DON!! to spare."
+    }
+  ],
+  "howItWins": "Card advantage. You draw 2 almost every attack, so you run your opponent out of answers, then land Rocks.D.Xebec plus two more big Characters in one turn.",
+  "weakTo": [
+    "Fast aggressive decks like Red/Green Luffy that hit you before the big turn.",
+    "The mirror match: it's the most played deck, so expect to face it a lot.",
+    "Decks that make you discard: you need your hand to pay for every effect."
+  ],
+  "mulliganTips": "Keep Kyo or Streusen plus a 3 or 4 cost Character. Redraw hands with only 7+ cost cards.",
+  "sampleListSource": "meta"
+}

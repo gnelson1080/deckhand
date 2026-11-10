@@ -108,3 +108,15 @@ test('disclaimer lines are removed from backup-source text too', async () => {
   const { cards } = await buildData(opts({ fetchJSON: json }));
   assert.equal(cards.find(c => c.id === raw[0].card_set_id).text, '[On Play] Draw 1 card.');
 });
+
+test('meta drops decks and lists that use banned cards, and skips lists from before the newest ban', async () => {
+  const banLeader = { banned: [{ id: 'OP13-001', since: '2000-01-01' }], pairs: [] };
+  const { meta } = await buildData(opts({ fetchJSON: tcgJSON, fetchText: async () => { throw new Error('x'); }, rules: banLeader, prev: { cards: [], meta: null } }));
+  for (const d of meta?.decks || []) {
+    assert.notEqual(d.leaderId, 'OP13-001');
+    for (const l of d.lists) assert.ok(!l.cards.some(c => c.id === 'OP13-001'));
+  }
+  const future = { banned: [{ id: 'ZZ-999', since: '2999-01-01' }], pairs: [] };
+  const r = await buildData(opts({ fetchJSON: tcgJSON, fetchText: async () => { throw new Error('x'); }, rules: future, prev: { cards: [], meta: null } }));
+  assert.ok(!r.meta || r.meta.source !== 'TCGplayer' || r.meta.decks.length === 0);
+});

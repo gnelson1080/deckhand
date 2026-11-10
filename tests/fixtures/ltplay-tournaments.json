@@ -1,0 +1,110 @@
+[
+ {
+  "game": "OP",
+  "name": "[EB05] ChinoizeCup #133 MONDAY",
+  "date": "2026-11-09T19:00:00.000Z",
+  "format": null,
+  "id": "6aec5b87e94eae0f94747bc0",
+  "players": 60,
+  "organizerId": 2339
+ },
+ {
+  "game": "OP",
+  "name": "PHOENIX LA PLATA - ONE PIECE - CASUAL",
+  "date": "2026-11-07T20:30:00.000Z",
+  "format": null,
+  "id": "6aef88c6c931f53978d95c0b",
+  "players": 8,
+  "organizerId": 281
+ },
+ {
+  "game": "OP",
+  "name": "Macaúba TCG - 37° Edição",
+  "date": "2026-11-07T17:15:00.000Z",
+  "format": null,
+  "id": "6aec7cd30c463890f304bd10",
+  "players": 19,
+  "organizerId": 2569
+ },
+ {
+  "game": "OP",
+  "name": "Torneo INAGURACION!!",
+  "date": "2026-11-06T21:25:00.000Z",
+  "format": null,
+  "id": "6aed0168e94eae0f947483b7",
+  "players": 19,
+  "organizerId": 1843
+ },
+ {
+  "game": "OP",
+  "name": "Versus Cup",
+  "date": "2026-11-05T20:00:00.000Z",
+  "format": null,
+  "id": "6aec9ca80c463890f304be5b",
+  "players": 6,
+  "organizerId": 1403
+ },
+ {
+  "game": "OP",
+  "name": "One pictavien X Le temple du jeu Poitiers",
+  "date": "2026-11-05T19:30:00.000Z",
+  "format": null,
+  "id": "6aec7d4de94eae0f94747cdb",
+  "players": 4,
+  "organizerId": 1080
+ },
+ {
+  "game": "OP",
+  "name": "[GER] Dressrosa Tournament-OP17.5",
+  "date": "2026-11-05T18:00:00.000Z",
+  "format": null,
+  "id": "6ae7565e0d00101b48bf3efd",
+  "players": 7,
+  "organizerId": 1815
+ },
+ {
+  "game": "OP",
+  "name": "[EB05] Win a box | Rumble league #16",
+  "date": "2026-11-04T19:30:00.000Z",
+  "format": null,
+  "id": "6ae444410d00101b48bf20e9",
+  "players": 20,
+  "organizerId": 2734
+ },
+ {
+  "game": "OP",
+  "name": "[EB05+EGB] ChinoizeCup #132 WEDNESDAY",
+  "date": "2026-11-04T19:00:00.000Z",
+  "format": "EXTRA",
+  "id": "6ae3127680a8f79408d20afb",
+  "players": 50,
+  "organizerId": 2339
+ },
+ {
+  "game": "OP",
+  "name": "Liga Phoenix 2026 -  ONE PIECE - MANA 43°",
+  "date": "2026-11-03T22:00:00.000Z",
+  "format": null,
+  "id": "6ae92cdbe94eae0f94746038",
+  "players": 10,
+  "organizerId": 281
+ },
+ {
+  "game": "OP",
+  "name": "[EB05] ChinoizeCup #131 TUESDAY",
+  "date": "2026-11-03T19:00:00.000Z",
+  "format": null,
+  "id": "6ae3115f80a8f79408d20af6",
+  "players": 53,
+  "organizerId": 2339
+ },
+ {
+  "game": "OP",
+  "name": "[EB05] ChinoizeCup #130 MONDAY",
+  "date": "2026-11-02T19:00:00.000Z",
+  "format": null,
+  "id": "6ae310ff22fd412b92a4f355",
+  "players": 63,
+  "organizerId": 2339
+ }
+]

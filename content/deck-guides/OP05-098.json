@@ -1,0 +1,30 @@
+{
+  "leaderId": "OP05-098",
+  "title": "Yellow Enel",
+  "difficulty": 2,
+  "summary": "A Life-control deck. You keep adding cards to your Life, play Characters that come out for free when they're revealed as [Trigger]s, and the Leader saves you once a turn when your Life hits 0. Games are long, and you win them late.",
+  "gamePlan": [
+    "Early turns: Streusen finds Big Mom Pirates cards, and Charlotte Pudding draws 3 if you trash a [Trigger] card.",
+    "Many of your Characters (Charlotte Daifuku, Charlotte Oven) have [Trigger] Play this card. When your opponent hits your Life and reveals one, it hits the table for free.",
+    "Use Zeus to K.O. a Character by taking a Life card into your hand. Then refill Life with Borsalino, Sweet 3 Generals or Marshall.D.Teach.",
+    "Late game: the 10-cost Charlotte Linlin turns all your 4000-power [Trigger] Characters into 8000 power on your turn. Swing with all of them.",
+    "Your Leader is your safety net: on your opponent's turn, when your Life becomes 0, you put the top card of your deck back into Life. That buys you one more turn, once per turn."
+  ],
+  "keyCards": [
+    { "id": "OP05-098", "why": "Leader. Once per opponent's turn, refills 1 Life when you hit 0." },
+    { "id": "OP17-109", "why": "Charlotte Pudding. Trash a [Trigger] card to draw 3." },
+    { "id": "OP11-106", "why": "Zeus. 2 cost K.O. for a 5-cost-or-less Character, paid with a Life card." },
+    { "id": "EB04-058", "why": "Borsalino. [Blocker] that adds a Life card when you're at 2 or less." },
+    { "id": "OP17-114", "why": "Sweet 3 Generals. Draws, adds Life, and shrinks two Characters by 3000." },
+    { "id": "OP17-112", "why": "Charlotte Linlin. Makes your 4000-power [Trigger] Characters 8000 power on your turn." },
+    { "id": "OP06-115", "why": "0-cost Counter for +3000. As a [Trigger] it can refill your Life at 0." }
+  ],
+  "howItWins": "You survive longer than your opponent. Life keeps coming back, [Trigger]s give you free Characters, and Charlotte Linlin turns your small Characters into a big final attack.",
+  "weakTo": [
+    "Decks that win with one huge turn of many attacks, since you can only refill once per turn.",
+    "Effects that negate [Trigger]s or trash Life cards.",
+    "Running out of deck: adding Life uses up deck cards, so watch your deck size in long games."
+  ],
+  "mulliganTips": "Keep Streusen or Pudding and at least two Counter cards. You don't need big Characters early.",
+  "sampleListSource": "meta"
+}

@@ -121,3 +121,47 @@ test('reprint/errata disclaimer sentences are removed from card text', async () 
   assert.equal(stripTcgHtml('[On Play] Draw 1 card.<br>Disclaimer: This card has been re-printed with new errata. Details here.'), '[On Play] Draw 1 card.');
   assert.equal(stripTcgHtml('[Main] Draw 2. Disclaimer: This card was reprinted from the original set.'), '[Main] Draw 2.');
 });
+
+test('cleanName keeps character aliases but drops printing/event tags', async () => {
+  const { cleanName } = await import('../scripts/lib/tcgcsv.mjs');
+  assert.equal(cleanName('Mr.1 (Daz.Bonez)'), 'Mr.1 (Daz.Bonez)');
+  assert.equal(cleanName('Gloriosa (Grandma Nyon) (Alternate Art)'), 'Gloriosa (Grandma Nyon)');
+  assert.equal(cleanName('Monkey.D.Luffy - P-006 (Tournament Pack Vol. 1)'), 'Monkey.D.Luffy');
+  assert.equal(cleanName('Roronoa Zoro (OP-06 Pre-Release Tournament) [Participant]'), 'Roronoa Zoro');
+  assert.equal(cleanName('Roronoa Zoro (EB04-007) (SP)'), 'Roronoa Zoro');
+  assert.equal(cleanName('Kaido (Promotion Pack 2022)'), 'Kaido');
+});
+
+test('mergeCardLists never picks an SP/foil/reprint over a standard printing', async () => {
+  const { mergeCardLists } = await import('../scripts/lib/tcgcsv.mjs');
+  const sp = { id: 'EB04-007', set: 'EB04', img: 'sp.jpg', imgLabel: 'SP', altImgs: [], altLabels: [], _variant: true, _group: 'OP17' };
+  const base = { id: 'EB04-007', set: 'EB04', img: 'base.jpg', imgLabel: 'Original', altImgs: [], altLabels: [], _variant: false, _group: 'OP15-EB04' };
+  for (const order of [[[sp], [base]], [[base], [sp]]]) {
+    const [m] = mergeCardLists(order);
+    assert.equal(m.img, 'base.jpg');
+    assert.deepEqual(m.altImgs, ['sp.jpg']);
+    assert.deepEqual(m.altLabels, ['SP']);
+    assert.ok(!('_variant' in m));
+  }
+});
+
+test('mergeCardLists keeps P- promos from the promo group over a Jolly Roger reprint', async () => {
+  const { mergeCardLists } = await import('../scripts/lib/tcgcsv.mjs');
+  const jr = { id: 'P-014', set: 'P', img: 'jr.jpg', altImgs: [], _variant: true, _group: 'PRB-01' };
+  const pr = { id: 'P-014', set: 'P', img: 'pr.jpg', altImgs: [], _variant: false, _group: 'OP-PR' };
+  assert.equal(mergeCardLists([[jr], [pr]])[0].img, 'pr.jpg');
+});
+
+test('tcgcsvToCards labels every art', () => {
+  const s = byId.get('OP17-020');
+  assert.equal(s.imgLabel, 'Original');
+  assert.equal(s.altLabels.length, s.altImgs.length);
+  assert.ok(s.altLabels[0] && s.altLabels[0] !== 'Original');
+});
+
+test('a P- promo reprinted in a premium booster is labeled with that booster', async () => {
+  const { mergeCardLists } = await import('../scripts/lib/tcgcsv.mjs');
+  const pr = { id: 'P-014', set: 'P', img: 'pr.jpg', imgLabel: 'Original', altImgs: [], altLabels: [], _variant: false, _group: 'OP-PR' };
+  const jr = { id: 'P-014', set: 'P', img: 'jr.jpg', imgLabel: 'Jolly Roger Foil', altImgs: [], altLabels: [], _variant: true, _group: 'PRB-01', _groupName: 'Premium Booster' };
+  assert.deepEqual(mergeCardLists([[jr], [pr]])[0].altLabels, ['Jolly Roger Foil · Premium Booster']);
+});

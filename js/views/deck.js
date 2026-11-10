@@ -1,3 +1,4 @@
+import { winRate } from './meta.js';
 import { getMeta, getCards, getDeckGuide, tcgplayerUrl, formatDate } from '../data.js';
 import { thumb } from '../lib/search.js';
 import { deckStats } from '../lib/deckstats.js';
@@ -21,6 +22,7 @@ export async function render(root, param) {
       <a class="deck-leader" href="#/card/${encodeURIComponent(d.leaderId)}"><img src="${escapeHtml(L?.img || '')}" alt="${escapeHtml(L?.name || '')} Leader card" width="600" height="838"></a>
       <div>
         <p class="deck-rank"><span class="rank">#${Number(d.rank) || 0}</span> right now, ${Number(d.share) || 0}% of top decks</p>
+        ${winRate(d.online)}
         <h1 class="deck-title">${escapeHtml(g?.title || d.name)}</h1>
         <p class="meta-sub">${safeColors(d.colors).map(c => `<span class="dot ${c}"></span>${c}`).join(' ')}</p>
         ${g ? `<p class="deck-diff">${difficultyMarks(g.difficulty)}${escapeHtml(difficultyLabel(g.difficulty))}</p>` : ''}

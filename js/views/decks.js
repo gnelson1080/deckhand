@@ -1,5 +1,5 @@
 // "My decks": saved decks, new deck, import a pasted list.
-import { getCards } from '../data.js';
+import { getCards, getBanlist } from '../data.js';
 import { store } from '../store.js';
 import { createDecks } from '../lib/decks-store.js';
 import { parseDeckText, validateDeck, deckTotal } from '../lib/deck.js';
@@ -24,6 +24,7 @@ export const ring = (n, max = 50, size = 44) => {
 export async function render(root) {
   const decks = createDecks(store());
   const cards = await getCards().catch(() => new Map());
+  const rules = await getBanlist();
   const list = decks.list();
 
   root.innerHTML = `
@@ -35,7 +36,7 @@ export async function render(root) {
     </div>
     ${list.length ? `<ul class="my-decks">${list.map((d, i) => {
       const L = cards.get(d.leaderId);
-      const v = validateDeck(d, cards);
+      const v = validateDeck(d, cards, rules);
       const s = deckStats(d.entries, cards);
       return `<li style="--i:${i}"><a class="my-deck" href="#/build/${encodeURIComponent(d.id)}">
           ${L ? `<img src="${escapeHtml(thumb(L.img))}" alt="" width="200" height="279">` : '<span class="no-leader">?</span>'}

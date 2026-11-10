@@ -2,7 +2,7 @@
   "leaderId": "OP14-020",
   "title": "Green Mihawk",
   "difficulty": 2,
-  "summary": "The most played deck in recent tournaments. Green turns your opponent's Characters sideways so you can attack them, lands a strong 5-cost Character every turn, and finishes with a 10-cost Shanks.",
+  "summary": "BANNED since October 12, 2026: you can no longer play this Leader in tournaments. The guide stays here because it's still a practice deck in Deckhand. The most played deck in recent tournaments. Green turns your opponent's Characters sideways so you can attack them, lands a strong 5-cost Character every turn, and finishes with a 10-cost Shanks.",
   "gamePlan": [
     "Early turns: 1-cost Characters (Otama, Kin'emon, Perona) dig for cards. The Stage Coffin Boat draws a card when played and stands 1 DON!! back up at the end of each of your turns.",
     "With 5 DON!!: play a 5-cost Character each turn. Kouzuki Oden draws and stops an opponent's Character from being rested (so it can't attack). Yasopp draws and rests an opponent's Character so you can attack it.",
@@ -10,12 +10,30 @@
     "Late game: Shanks (10 cost, [Rush], 12000 power) stands 2 DON!! back up and rests every Character your opponent has, then attacks."
   ],
   "keyCards": [
-    { "id": "OP14-020", "why": "Leader. Gets 3 DON!! back once per turn when you have a 5+ cost Character." },
-    { "id": "ST32-002", "why": "5 cost: draw 1 and lock down one of your opponent's Characters." },
-    { "id": "OP17-031", "why": "5 cost: draw 1 and rest an opponent's Character so you can attack it." },
-    { "id": "OP13-031", "why": "6 cost: return one of your Characters to hand to play a 5-cost one from your hand." },
-    { "id": "OP17-022", "why": "The finisher: rests your opponent's whole board and attacks with [Rush]." },
-    { "id": "OP14-039", "why": "Stage: draws 1, then readies a DON!! at the end of every turn." }
+    {
+      "id": "OP14-020",
+      "why": "Leader. Gets 3 DON!! back once per turn when you have a 5+ cost Character."
+    },
+    {
+      "id": "ST32-002",
+      "why": "5 cost: draw 1 and lock down one of your opponent's Characters."
+    },
+    {
+      "id": "OP17-031",
+      "why": "5 cost: draw 1 and rest an opponent's Character so you can attack it."
+    },
+    {
+      "id": "OP13-031",
+      "why": "6 cost: return one of your Characters to hand to play a 5-cost one from your hand."
+    },
+    {
+      "id": "OP17-022",
+      "why": "The finisher: rests your opponent's whole board and attacks with [Rush]."
+    },
+    {
+      "id": "OP14-039",
+      "why": "Stage: draws 1, then readies a DON!! at the end of every turn."
+    }
   ],
   "howItWins": "Rest, then attack. You keep your opponent's Characters sideways so you win battles, draw extra cards with every 5-cost, and end with a huge Shanks turn.",
   "weakTo": [
@@ -23,5 +41,6 @@
     "Removal that keeps K.O.ing your 5-cost Characters, which also turns off your Leader."
   ],
   "mulliganTips": "Keep 1-cost searchers and a 5-cost Character. You need to hit 5 DON!! with something to play.",
-  "sampleListSource": "meta"
+  "sampleListSource": "meta",
+  "banned": true
 }

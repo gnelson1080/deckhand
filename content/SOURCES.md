@@ -28,3 +28,6 @@ Key rule facts used in lessons (rule numbers from the Comprehensive Rules):
 - Damage: top Life card to hand, Trigger may be used instead (7-1-4-1-1-2, 10-1-5).
 - Defeat: Leader takes damage at 0 Life, or 0 cards in deck (1-2-1-1).
 - Up to 5 Characters; 1 Stage (3-7-6, 3-8-5).
+- Online tournament decklists and win/loss records: Limitless Play API (https://play.limitlesstcg.com/api/tournaments?game=OP).
+- Ban list, banned pairs and block rotation: Bandai official (https://en.onepiece-cardgame.com/rules/restriction/), stored in content/banlist.json. Update it by hand when Bandai announces a change.
+- Meta context (Nov 2026 check): ShonenTCG post-ban tier list, r/OnePieceTCG.

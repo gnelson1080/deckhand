@@ -30,7 +30,8 @@ export async function render(root) {
       <ul>
         <li>Rules: Bandai's official Comprehensive Rules (version 1.2.1, August 2026).</li>
         <li>Cards, pictures and prices: TCGplayer. Card list updated ${formatDate(u.cards)}.</li>
-        <li>Top decks: recent tournament results on TCGplayer. Updated ${formatDate(u.meta)}.</li>
+        <li>Top decks: paper tournament results on TCGplayer and online events on Limitless Play. Updated ${formatDate(u.meta)}.</li>
+        <li>Banned cards: Bandai's official ban list (en.onepiece-cardgame.com).</li>
       </ul>
       <h2>Install it on your phone</h2>
       <p><strong>iPhone:</strong> in Safari, tap the Share button, then "Add to Home Screen".</p>

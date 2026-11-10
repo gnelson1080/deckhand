@@ -1,0 +1,28 @@
+{
+  "leaderId": "OP09-081",
+  "title": "Black Blackbeard",
+  "difficulty": 3,
+  "summary": "A control deck that switches off your opponent's [On Play] effects. Your Leader's own [On Play]s are negated too, so the deck uses Characters with Activate and On K.O. effects instead. Few players use it, but it wins often.",
+  "gamePlan": [
+    "Your Leader: trash 1 card to negate your opponent's [On Play] effects until the end of their next turn. Use it before their big turn.",
+    "Remember your own [On Play] effects don't work. Your cards use [Activate: Main] and [On K.O.] instead.",
+    "Early turns: Laffitte digs for Blackbeard Pirates, Stronger and Doc Q lower costs and K.O. small Characters.",
+    "Van Augur gives -3 cost, then Doc Q or Marshall.D.Teach (ST27-005) K.O.s the now-cheap Character.",
+    "Jesus Burgess gets stronger as your trash fills up, and it can't be K.O.'d by effects. Kuzan (OP10-082) can't be removed at all."
+  ],
+  "keyCards": [
+    { "id": "OP09-081", "why": "Leader. Trash a card to negate your opponent's [On Play] effects." },
+    { "id": "OP09-095", "why": "Laffitte. Digs 5 deep for a Blackbeard Pirates card." },
+    { "id": "OP09-083", "why": "Van Augur. -3 cost to set up K.O.s." },
+    { "id": "OP09-086", "why": "Jesus Burgess. Can't be K.O.'d by effects; grows with your trash." },
+    { "id": "OP10-082", "why": "Kuzan. Can't be removed by your opponent's effects." },
+    { "id": "OP09-093", "why": "Marshall.D.Teach. 12000 [Blocker] that can negate the opposing Leader." }
+  ],
+  "howItWins": "You shut off the effects your opponent's deck relies on, pick off their Characters, and win with Characters they can't remove.",
+  "weakTo": [
+    "Decks that win with [Activate] or [When Attacking] effects instead of [On Play].",
+    "It's hard to play well: you have to time the Leader's negate and count costs."
+  ],
+  "mulliganTips": "Keep Laffitte and cheap Characters. Don't keep a hand that needs [On Play] effects.",
+  "sampleListSource": "meta"
+}

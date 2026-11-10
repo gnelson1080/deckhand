@@ -18,6 +18,7 @@ const P = {
   phone: '<rect x="6.6" y="2.6" width="10.8" height="18.8" rx="2.2"/><path d="M10.6 18.2h2.8"/>',
   info: '<circle cx="12" cy="12" r="9.2"/><path d="M12 11v5.6M12 7.6v.2"/>',
   link: '<path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v4.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 4 18.5v-11A1.5 1.5 0 0 1 5.5 6H10"/>',
+  alert: '<path d="M12 3.2 21.4 19.8H2.6z"/><path d="M12 9.6v4.6"/><circle cx="12" cy="17" r=".6" fill="currentColor"/>',
 };
 
 export function icon(name, { size = 24, stroke = 1.9, label } = {}) {

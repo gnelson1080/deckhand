@@ -1,0 +1,28 @@
+{
+  "leaderId": "OP12-061",
+  "title": "Purple/Yellow Rosinante",
+  "difficulty": 3,
+  "summary": "A Trafalgar Law deck. Your Leader makes Law cheaper to play and saves Law from being K.O.'d by taking a Life card instead. You fill the table with Blockers and control the game with DON!! minus effects.",
+  "gamePlan": [
+    "Early turns: Koby and Marineford find Navy cards, and Donquixote Rosinante (OP12-108) finds Trafalgar Law.",
+    "Use the Leader's Activate effect (return 1 DON!!) to play a 4-cost Law for 2 less. P-093 Law gives you a DON!! back when you're behind on DON!!.",
+    "Build a wall: most of your Laws, Rosinante & Law and Borsalino have [Blocker]. When a Law would be K.O.'d, your Leader lets you take a Life card instead (once per turn).",
+    "Sakazuki gives an opposing Character -6000 power until the end of their next turn. Mamaragan rests a Character and draws.",
+    "DON!! minus (DON!! -1) means returning DON!! from your field to your DON!! deck. Count your DON!! before your big turn."
+  ],
+  "keyCards": [
+    { "id": "OP12-061", "why": "Leader. Makes Law 2 cheaper, and saves Law from a K.O. once per turn." },
+    { "id": "P-093", "why": "Trafalgar Law. 6000 [Blocker] that gives you a DON!! when you're behind." },
+    { "id": "EB04-038", "why": "Rosinante & Law. Counts as Law. 8000 power [Blocker]." },
+    { "id": "EB04-058", "why": "Borsalino. [Blocker] that adds a Life card when you're at 2 or less." },
+    { "id": "OP16-065", "why": "Sakazuki. -6000 power to a Character for a whole round." },
+    { "id": "OP12-115", "why": "I Love You!! 1-cost +2000 Counter that can return a Law from trash." }
+  ],
+  "howItWins": "Defense first. You block and counter everything, keep your Laws alive, and attack once your opponent runs out of cards.",
+  "weakTo": [
+    "Decks that rest or move your Blockers before attacking.",
+    "Effects that stop Blockers or remove Characters without K.O.ing them (your Leader only stops K.O.s)."
+  ],
+  "mulliganTips": "Keep a Law, a searcher (Koby, Marineford or Rosinante) and a Counter Event.",
+  "sampleListSource": "meta"
+}

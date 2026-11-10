@@ -606,3 +606,19 @@ body.in-game main#view { padding: 6px 8px calc(env(safe-area-inset-bottom) + 8px
 .g-cardinfo img { width: 120px; border-radius: 6px; }
 .g-fulllog { padding-left: 1.2em; font-size: var(--t-sm); display: grid; gap: 4px; }
 @media (prefers-reduced-motion: reduce) { .gc.hinted, .spinner { animation: none; } }
+
+/* Legal status on a card page */
+.legal-flag { display: flex; gap: 10px; align-items: flex-start; margin: 10px 0 4px; padding: 10px 12px; border-radius: var(--r-md); border: 1.5px solid currentColor; font-size: var(--t-sm); line-height: 1.4; }
+.legal-flag svg { flex: none; margin-top: 1px; }
+.legal-flag.banned { color: var(--bad); background: color-mix(in srgb, var(--bad) 8%, transparent); }
+.legal-flag.pair, .legal-flag.rotated { color: var(--ink); border-color: var(--flag-yellow); background: color-mix(in srgb, var(--flag-yellow) 14%, transparent); }
+.legal-flag a { color: inherit; text-decoration: underline; }
+.art-name { text-align: center; margin: 2px 0 0; }
+.problems.warn li::marker { color: var(--flag-yellow); }
+.warn-h { font-size: var(--t-md); margin: 12px 0 4px; }
+.banned-tag { display: inline-block; font-size: var(--t-xs); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--bad); border: 1.5px solid currentColor; border-radius: 4px; padding: 0 5px; margin-left: 6px; vertical-align: 2px; }
+.win-rate { display: block; font-size: var(--t-xs); margin-top: 4px; color: var(--ink-soft); }
+.win-rate.hi { color: var(--good); font-weight: 700; }
+.win-rate.hi .muted, .win-rate.lo .muted { font-weight: 400; }
+.win-rate.lo { color: var(--bad); }
+.ban-note { font-size: var(--t-sm); padding: 10px 12px; border-left: 4px solid var(--flag-yellow); margin: 10px 0; }

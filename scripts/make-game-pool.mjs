@@ -5,13 +5,21 @@ import { readFileSync, writeFileSync } from 'node:fs';
 
 const cards = new Map(JSON.parse(readFileSync(new URL('../data/cards.json', import.meta.url))).map(c => [c.id, c]));
 const meta = JSON.parse(readFileSync(new URL('../data/meta.json', import.meta.url)));
+const OLD = await import('../js/game/pool-data.js');
 const LEADERS = [['ST30-001', 'luffy-ace'], ['OP14-020', 'mihawk'], ['OP13-001', 'luffy'], ['OP13-004', 'sabo'], ['OP09-062', 'robin']];
 
 const pool = {};
 const decks = {};
 for (const [leaderId, key] of LEADERS) {
   const d = meta.decks.find(x => x.leaderId === leaderId);
-  if (!d) throw new Error(`No meta deck for ${leaderId}`);
+  if (!d) {
+    // Leader left the meta (e.g. banned): keep the frozen list so saved games still load.
+    const old = OLD.DECKS[key];
+    if (!old) throw new Error(`No meta deck for ${leaderId}`);
+    decks[key] = old;
+    for (const id of [leaderId, ...old.entries.map(e => e.id)]) pool[id] = OLD.POOL[id];
+    continue;
+  }
   const list = d.lists[0];
   decks[key] = { key, name: d.name, leaderId, entries: list.cards.map(c => ({ id: c.id, count: c.count })), source: `${list.place || ''} ${list.event || ''} ${list.date || ''}`.trim() };
   for (const id of [leaderId, ...list.cards.map(c => c.id)]) {

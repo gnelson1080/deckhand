@@ -1,0 +1,28 @@
+{
+  "leaderId": "OP09-042",
+  "title": "Blue Buggy",
+  "difficulty": 2,
+  "summary": "A Cross Guild ramp deck. Your Leader can play a Cross Guild Character straight from your hand for 5 rested DON!! and a card, so big Characters arrive early. Many cheap Characters turn into Blockers once you have two big ones out.",
+  "gamePlan": [
+    "Early turns: Mr.3 (OP09-056) and the Cross Guild Event dig for Cross Guild cards. Alvida (ST25-001) draws 3.",
+    "Use the Leader: rest 5 DON!! and trash 1 card to play any Cross Guild Character from your hand, even a 9 or 10 cost one.",
+    "Once you have 2 Characters with a base cost of 5 or more, Cabaji and Mohji become Blockers.",
+    "Crocodile & Mihawk and the 9-cost Alvida (EB05-021) draw cards and play more Cross Guild Characters for free.",
+    "The 10-cost Buggy puts an opposing Character on the bottom of their deck. It also goes to the bottom itself unless you have 5 Characters that cost 5 or more."
+  ],
+  "keyCards": [
+    { "id": "OP09-042", "why": "Leader. Plays a Cross Guild Character from hand for 5 rested DON!! and a card." },
+    { "id": "OP09-056", "why": "Mr.3. 1-cost searcher for Cross Guild and Baroque Works cards." },
+    { "id": "ST25-003", "why": "Crocodile & Mihawk. Draws 2, then plays another Cross Guild Character." },
+    { "id": "EB05-021", "why": "Alvida. Draws 2 and plays a Cross Guild Character costing up to 8." },
+    { "id": "OP09-048", "why": "Dracule Mihawk. 7000 power [Blocker] that draws 2." },
+    { "id": "OP09-051", "why": "Buggy. Removes a Character by putting it on the bottom of the deck." }
+  ],
+  "howItWins": "Big bodies early. Your Leader cheats out Characters a few turns ahead of schedule, and the Blockers keep you safe while they attack.",
+  "weakTo": [
+    "Decks that bounce or shrink your big Characters right after you play them.",
+    "Hands with no Cross Guild Characters: then the Leader does nothing."
+  ],
+  "mulliganTips": "Keep a searcher and at least one Cross Guild Character costing 6 or more for the Leader to play.",
+  "sampleListSource": "meta"
+}

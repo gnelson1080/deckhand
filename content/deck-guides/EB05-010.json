@@ -1,0 +1,28 @@
+{
+  "leaderId": "EB05-010",
+  "title": "Green/Yellow Robin",
+  "difficulty": 2,
+  "summary": "A new Leader from EB-05. It uses Characters with the Wisdom attribute: your Leader readies one each turn, and when one of them (without [Blocker]) is K.O.'d, you add a card to your Life. Many cards are [Trigger]s, so taking damage helps you too.",
+  "gamePlan": [
+    "Early turns: Atlas and Lilith dig for Wisdom and [Trigger] cards. Charlotte Pudding draws 3.",
+    "Use the Leader's Activate effect to set a Wisdom Character with 6000 power or less as active, so it can attack twice or defend after attacking.",
+    "Nico Robin (EB05-016) plays a 5-cost Wisdom Character from your hand for free. Nami (EB05-055) adds a Life card.",
+    "When your Wisdom Characters get K.O.'d, your Leader adds a Life card. Trading Characters is good for you.",
+    "Finish with Shanks (OP17-022): [Rush], 12000 power, and it rests all of your opponent's Characters."
+  ],
+  "keyCards": [
+    { "id": "EB05-010", "why": "Leader. Readies a Wisdom Character, and gains Life when one is K.O.'d." },
+    { "id": "EB05-016", "why": "Nico Robin. Plays a Wisdom Character costing 5 or less for free." },
+    { "id": "EB05-055", "why": "Nami. Adds a Life card on your turn." },
+    { "id": "OP17-109", "why": "Charlotte Pudding. Trash a [Trigger] card to draw 3." },
+    { "id": "OP17-022", "why": "Shanks. [Rush] finisher that rests every opposing Character." },
+    { "id": "EB05-052", "why": "Gloriosa. Takes damage for you by going to the trash." }
+  ],
+  "howItWins": "You trade Characters and gain Life each time, then Shanks rests your opponent's whole board for a big final attack.",
+  "weakTo": [
+    "Effects that remove Characters without K.O.ing them (no Life gain).",
+    "Decks that negate [Trigger]s."
+  ],
+  "mulliganTips": "Keep Atlas or Lilith plus a Wisdom Character. Shanks can wait.",
+  "sampleListSource": "meta"
+}

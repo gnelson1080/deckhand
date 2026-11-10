@@ -1,0 +1,28 @@
+{
+  "leaderId": "OP17-058",
+  "title": "Purple Kaido",
+  "difficulty": 3,
+  "summary": "A DON!! ramp deck. You add extra DON!! early with Basil Hawkins and Yamato, then spend it on DON!! minus effects. Your Leader gives a Character -2000 power on every attack, on both players' turns.",
+  "gamePlan": [
+    "Early turns: Queen (EB04-032) draws 2, Basil Hawkins and Yamato add extra DON!! so you're ahead.",
+    "Your Leader, when attacking or being attacked: return 1 DON!! (DON!! -1) to give an opposing Character -2000 power. Use it to win battles and set up K.O.s.",
+    "King (6 cost) is hard to K.O.: return a DON!! instead. It's your best mid-game attacker.",
+    "Late game: two 10-cost Kaidos, the 9-cost Queen and Charlotte Linlin (ST34-004). Queen stops two Characters from attacking; Linlin sets a Character's power to 0.",
+    "Purple decks spend DON!! by returning it. Kaido (OP17-062) gives some back, so plan the order of your effects."
+  ],
+  "keyCards": [
+    { "id": "OP17-058", "why": "Leader. DON!! -1 on attack or defense: -2000 power to a Character." },
+    { "id": "OP17-073", "why": "Basil Hawkins. 3 cost, adds an active DON!!." },
+    { "id": "OP17-074", "why": "Yamato. [Blocker] that adds a DON!!." },
+    { "id": "EB04-031", "why": "King. Survives K.O.s by returning a DON!!." },
+    { "id": "OP17-062", "why": "Kaido. 12000 [Blocker] that refunds DON!! when you spend it." },
+    { "id": "OP17-065", "why": "Queen. [Banish], draws, and stops 2 Characters from attacking." }
+  ],
+  "howItWins": "You get ahead on DON!!, play 10-cost Characters earlier than your opponent can answer them, and use the Leader to win every key battle.",
+  "weakTo": [
+    "Fast decks that attack before your ramp pays off.",
+    "Removal on your DON!! makers early in the game."
+  ],
+  "mulliganTips": "Keep Basil Hawkins or Yamato. Ramp is the whole plan.",
+  "sampleListSource": "meta"
+}

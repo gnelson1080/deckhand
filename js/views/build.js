@@ -1,5 +1,5 @@
 // Deck builder: pick a Leader, add cards with live rule checks, review the deck.
-import { getCards, getMeta, tcgplayerUrl } from '../data.js';
+import { getCards, getMeta, getBanlist, tcgplayerUrl } from '../data.js';
 import { store } from '../store.js';
 import { createDecks } from '../lib/decks-store.js';
 import { canAdd, validateDeck, deckTotal, formatDeckText, metaHints, DECK_SIZE } from '../lib/deck.js';
@@ -20,7 +20,7 @@ const TYPE_ORDER = ['Character', 'Event', 'Stage'];
 export async function render(root, param) {
   const decks = createDecks(store());
   root.innerHTML = '<p class="muted">Opening the deck…</p>';
-  const [cards, meta] = await Promise.all([getCards(), getMeta().catch(() => null)]);
+  const [cards, meta, rules] = await Promise.all([getCards(), getMeta().catch(() => null), getBanlist()]);
   const all = [...cards.values()];
 
   // Resolve which deck to edit.
@@ -89,7 +89,7 @@ export async function render(root, param) {
 
   function drawBar() {
     const n = deckTotal(deck);
-    const v = validateDeck(deck, cards);
+    const v = validateDeck(deck, cards, rules);
     const s = deckStats(deck.entries, cards);
     bar.hidden = !hasLeader();
     bar.innerHTML = `${ring(n, DECK_SIZE, 48)}<span class="bar-main"><strong>${n} / ${DECK_SIZE} cards</strong><span class="muted">${s.price ? `About $${Math.round(s.price)} on TCGplayer` : 'Add cards to see the price'}</span></span>
@@ -97,7 +97,7 @@ export async function render(root, param) {
   }
 
   function add(card, from) {
-    const r = canAdd(deck, card, cards);
+    const r = canAdd(deck, card, cards, rules);
     if (!r.ok) { toast(r.reason, true); shake(from); buzz([25, 40, 25]); return; }
     const e = deck.entries.find(x => x.id === card.id);
     if (e) e.count++; else deck.entries.push({ id: card.id, count: 1 });
@@ -202,15 +202,16 @@ export async function render(root, param) {
 
   // ---- Check
   function drawCheck() {
-    const v = validateDeck(deck, cards);
+    const v = validateDeck(deck, cards, rules);
     const s = deckStats(deck.entries, cards);
     const hints = metaHints(deck, meta, cards);
     const text = formatDeckText(deck, cards);
     body.innerHTML = `
       <section class="check ${v.ok ? 'ok' : ''}">
         <h2>${v.ok ? 'Tournament legal' : 'Not legal yet'}</h2>
-        ${v.ok ? '<p>1 Leader, 50 cards, every color matches, no more than 4 of any card.</p>' : `<ul class="problems">${v.problems.map(p => `<li>${escapeHtml(p.msg)}</li>`).join('')}</ul>`}
-        <p class="muted small">Standard tournaments from April 2026 to March 2027 also ban Block 1 cards (the oldest sets) unless reprinted. Check the block number in each card's corner.</p>
+        ${v.ok ? '<p>1 Leader, 50 cards, every color matches, no more than 4 of any card, nothing banned.</p>' : `<ul class="problems">${v.problems.map(p => `<li>${escapeHtml(p.msg)}</li>`).join('')}</ul>`}
+        ${v.warnings.length ? `<h3 class="warn-h">Check these</h3><ul class="problems warn">${v.warnings.map(p => `<li>${escapeHtml(p.msg)}</li>`).join('')}</ul>` : ''}
+        <p class="muted small">Checked against Bandai's ban list from ${escapeHtml(rules?.checked || 'the latest update')}. Standard format right now allows Blocks ${escapeHtml(rules?.rotation?.legalBlocks || '2 to 5')}. <a href="#/lesson/12">What are bans and blocks?</a></p>
       </section>
       <div class="deck-stats">
         <div class="stat"><span class="stat-v">${s.counters}</span><span class="stat-l">with Counter</span></div>

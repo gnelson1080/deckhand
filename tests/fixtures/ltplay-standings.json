@@ -1,0 +1,1172 @@
+[
+ {
+  "name": "Pacio23",
+  "country": "IT",
+  "decklist": {
+   "leader": {
+    "name": "Rocks.D.Xebec",
+    "set": "OP17",
+    "number": "039"
+   },
+   "character": [
+    {
+     "count": 3,
+     "name": "Buckin",
+     "set": "OP08",
+     "number": "051"
+    },
+    {
+     "count": 3,
+     "name": "Streusen",
+     "set": "OP17",
+     "number": "050"
+    },
+    {
+     "count": 4,
+     "name": "Kyo",
+     "set": "OP17",
+     "number": "045"
+    },
+    {
+     "count": 4,
+     "name": "Don Marlon",
+     "set": "OP17",
+     "number": "052"
+    },
+    {
+     "count": 4,
+     "name": "Miss Buckingham Stussy",
+     "set": "OP17",
+     "number": "054"
+    },
+    {
+     "count": 4,
+     "name": "Gloriosa",
+     "set": "OP17",
+     "number": "046"
+    },
+    {
+     "count": 2,
+     "name": "Kaido",
+     "set": "OP17",
+     "number": "042"
+    },
+    {
+     "count": 2,
+     "name": "Captain John",
+     "set": "OP17",
+     "number": "044"
+    },
+    {
+     "count": 4,
+     "name": "Charlotte Linlin",
+     "set": "OP17",
+     "number": "049"
+    },
+    {
+     "count": 4,
+     "name": "Edward.Newgate",
+     "set": "OP17",
+     "number": "040"
+    },
+    {
+     "count": 4,
+     "name": "Shiki",
+     "set": "OP17",
+     "number": "048"
+    },
+    {
+     "count": 4,
+     "name": "Rocks.D.Xebec",
+     "set": "OP17",
+     "number": "118"
+    }
+   ],
+   "event": [
+    {
+     "count": 4,
+     "name": "There's No Authority in the World That Lasts Forever!!!",
+     "set": "OP17",
+     "number": "055"
+    },
+    {
+     "count": 4,
+     "name": "Rocks Pirates",
+     "set": "OP17",
+     "number": "056"
+    }
+   ],
+   "stage": []
+  },
+  "deck": {
+   "id": "OP17-039",
+   "name": "Rocks.D.Xebec"
+  },
+  "placing": 1,
+  "player": "pacio23",
+  "record": {
+   "wins": 6,
+   "losses": 0,
+   "ties": 0
+  },
+  "drop": null
+ },
+ {
+  "name": "lukas123",
+  "country": "BE",
+  "decklist": {
+   "leader": {
+    "name": "Donquixote Rosinante",
+    "set": "OP12",
+    "number": "061"
+   },
+   "character": [
+    {
+     "count": 4,
+     "name": "Koby",
+     "set": "OP16",
+     "number": "064"
+    },
+    {
+     "count": 3,
+     "name": "Donquixote Rosinante",
+     "set": "OP12",
+     "number": "108"
+    },
+    {
+     "count": 4,
+     "name": "Trafalgar Law",
+     "set": "ST10",
+     "number": "010"
+    },
+    {
+     "count": 4,
+     "name": "Trafalgar Law",
+     "set": "P",
+     "number": "088"
+    },
+    {
+     "count": 4,
+     "name": "Trafalgar Law",
+     "set": "P",
+     "number": "093"
+    },
+    {
+     "count": 4,
+     "name": "Borsalino",
+     "set": "EB04",
+     "number": "058"
+    },
+    {
+     "count": 4,
+     "name": "Rosinante & Law",
+     "set": "EB04",
+     "number": "038"
+    },
+    {
+     "count": 1,
+     "name": "Sweet 3 Generals",
+     "set": "OP17",
+     "number": "114"
+    },
+    {
+     "count": 4,
+     "name": "Sakazuki",
+     "set": "OP16",
+     "number": "065"
+    }
+   ],
+   "event": [
+    {
+     "count": 4,
+     "name": "Mamaragan",
+     "set": "OP15",
+     "number": "078"
+    },
+    {
+     "count": 4,
+     "name": "You Need Me, Don't You?!!♡",
+     "set": "EB05",
+     "number": "040"
+    },
+    {
+     "count": 1,
+     "name": "Divine Departure",
+     "set": "OP13",
+     "number": "076"
+    },
+    {
+     "count": 4,
+     "name": "I Love You!!",
+     "set": "OP12",
+     "number": "115"
+    },
+    {
+     "count": 1,
+     "name": "Gum-Gum Lightning",
+     "set": "OP09",
+     "number": "077"
+    }
+   ],
+   "stage": [
+    {
+     "count": 4,
+     "name": "Marineford",
+     "set": "OP16",
+     "number": "078"
+    }
+   ]
+  },
+  "deck": {
+   "id": "OP12-061",
+   "name": "Donquixote Rosinante"
+  },
+  "placing": 2,
+  "player": "lukas123",
+  "record": {
+   "wins": 5,
+   "losses": 1,
+   "ties": 0
+  },
+  "drop": null
+ },
+ {
+  "name": "Xevi",
+  "country": null,
+  "decklist": {
+   "leader": {
+    "name": "Marshall.D.Teach",
+    "set": "OP09",
+    "number": "081"
+   },
+   "character": [
+    {
+     "count": 4,
+     "name": "Stronger",
+     "set": "OP09",
+     "number": "089"
+    },
+    {
+     "count": 4,
+     "name": "Laffitte",
+     "set": "OP09",
+     "number": "095"
+    },
+    {
+     "count": 4,
+     "name": "Caribou",
+     "set": "OP11",
+     "number": "083"
+    },
+    {
+     "count": 4,
+     "name": "Doc Q",
+     "set": "OP09",
+     "number": "090"
+    },
+    {
+     "count": 4,
+     "name": "Jesus Burgess",
+     "set": "OP09",
+     "number": "086"
+    },
+    {
+     "count": 2,
+     "name": "Shiryu",
+     "set": "PRB02",
+     "number": "015"
+    },
+    {
+     "count": 4,
+     "name": "Van Augur",
+     "set": "OP09",
+     "number": "083"
+    },
+    {
+     "count": 4,
+     "name": "Kuzan",
+     "set": "OP10",
+     "number": "082"
+    },
+    {
+     "count": 1,
+     "name": "Catarina Devon",
+     "set": "OP09",
+     "number": "084"
+    },
+    {
+     "count": 3,
+     "name": "Kuzan",
+     "set": "ST27",
+     "number": "003"
+    },
+    {
+     "count": 1,
+     "name": "Marshall.D.Teach",
+     "set": "ST27",
+     "number": "005"
+    },
+    {
+     "count": 3,
+     "name": "Marshall.D.Teach",
+     "set": "OP09",
+     "number": "093"
+    }
+   ],
+   "event": [
+    {
+     "count": 3,
+     "name": "Tempest Kick",
+     "set": "OP07",
+     "number": "096"
+    },
+    {
+     "count": 3,
+     "name": "My Era...Begins!!",
+     "set": "OP09",
+     "number": "096"
+    },
+    {
+     "count": 2,
+     "name": "Black Hole",
+     "set": "OP09",
+     "number": "098"
+    }
+   ],
+   "stage": [
+    {
+     "count": 4,
+     "name": "Fullalead",
+     "set": "OP09",
+     "number": "099"
+    }
+   ]
+  },
+  "deck": {
+   "id": "OP09-081",
+   "name": "Marshall.D.Teach"
+  },
+  "placing": 3,
+  "player": "xevi",
+  "record": {
+   "wins": 5,
+   "losses": 1,
+   "ties": 0
+  },
+  "drop": null
+ },
+ {
+  "name": "ricmasterflash",
+  "country": null,
+  "decklist": {
+   "leader": {
+    "name": "Monkey.D.Luffy",
+    "set": "OP13",
+    "number": "001"
+   },
+   "character": [
+    {
+     "count": 4,
+     "name": "Monkey.D.Luffy",
+     "set": "OP14",
+     "number": "013"
+    },
+    {
+     "count": 4,
+     "name": "Vander Decken IX",
+     "set": "OP06",
+     "number": "033"
+    },
+    {
+     "count": 4,
+     "name": "Kid & Killer",
+     "set": "ST24",
+     "number": "002"
+    },
+    {
+     "count": 4,
+     "name": "Roronoa Zoro",
+     "set": "PRB02",
+     "number": "006"
+    },
+    {
+     "count": 4,
+     "name": "Nami",
+     "set": "OP14",
+     "number": "031"
+    },
+    {
+     "count": 3,
+     "name": "Lucky.Roux",
+     "set": "PRB02",
+     "number": "003"
+    },
+    {
+     "count": 4,
+     "name": "Sanji",
+     "set": "OP13",
+     "number": "027"
+    },
+    {
+     "count": 4,
+     "name": "Jewelry Bonney",
+     "set": "EB05",
+     "number": "001"
+    },
+    {
+     "count": 2,
+     "name": "Jinbe",
+     "set": "ST31",
+     "number": "002"
+    },
+    {
+     "count": 4,
+     "name": "Jinbe",
+     "set": "OP13",
+     "number": "029"
+    },
+    {
+     "count": 3,
+     "name": "Trafalgar Law",
+     "set": "OP13",
+     "number": "031"
+    },
+    {
+     "count": 4,
+     "name": "Shanks",
+     "set": "OP17",
+     "number": "022"
+    }
+   ],
+   "event": [
+    {
+     "count": 1,
+     "name": "I Know You're Strong... So I'll Go All Out from the Very Start!!!",
+     "set": "OP13",
+     "number": "040"
+    },
+    {
+     "count": 1,
+     "name": "I Have a Plan to Take Down One of the Four Emperors!!",
+     "set": "OP14",
+     "number": "019"
+    }
+   ],
+   "stage": [
+    {
+     "count": 4,
+     "name": "Thousand Sunny",
+     "set": "ST31",
+     "number": "005"
+    }
+   ]
+  },
+  "deck": {
+   "id": "OP13-001",
+   "name": "Monkey.D.Luffy"
+  },
+  "placing": 4,
+  "player": "ricmasterflash",
+  "record": {
+   "wins": 5,
+   "losses": 1,
+   "ties": 0
+  },
+  "drop": null
+ },
+ {
+  "name": "Gyan",
+  "country": "CH",
+  "decklist": {
+   "leader": {
+    "name": "Rocks.D.Xebec",
+    "set": "OP17",
+    "number": "039"
+   },
+   "character": [
+    {
+     "count": 4,
+     "name": "Buckin",
+     "set": "OP08",
+     "number": "051"
+    },
+    {
+     "count": 2,
+     "name": "Streusen",
+     "set": "OP17",
+     "number": "050"
+    },
+    {
+     "count": 4,
+     "name": "Kyo",
+     "set": "OP17",
+     "number": "045"
+    },
+    {
+     "count": 4,
+     "name": "Don Marlon",
+     "set": "OP17",
+     "number": "052"
+    },
+    {
+     "count": 4,
+     "name": "Miss Buckingham Stussy",
+     "set": "OP17",
+     "number": "054"
+    },
+    {
+     "count": 4,
+     "name": "Gloriosa",
+     "set": "OP17",
+     "number": "046"
+    },
+    {
+     "count": 2,
+     "name": "Kaido",
+     "set": "OP17",
+     "number": "042"
+    },
+    {
+     "count": 2,
+     "name": "Captain John",
+     "set": "OP17",
+     "number": "044"
+    },
+    {
+     "count": 4,
+     "name": "Charlotte Linlin",
+     "set": "OP17",
+     "number": "049"
+    },
+    {
+     "count": 4,
+     "name": "Edward.Newgate",
+     "set": "OP17",
+     "number": "040"
+    },
+    {
+     "count": 4,
+     "name": "Shiki",
+     "set": "OP17",
+     "number": "048"
+    },
+    {
+     "count": 4,
+     "name": "Rocks.D.Xebec",
+     "set": "OP17",
+     "number": "118"
+    }
+   ],
+   "event": [
+    {
+     "count": 4,
+     "name": "There's No Authority in the World That Lasts Forever!!!",
+     "set": "OP17",
+     "number": "055"
+    },
+    {
+     "count": 4,
+     "name": "Rocks Pirates",
+     "set": "OP17",
+     "number": "056"
+    }
+   ],
+   "stage": []
+  },
+  "deck": {
+   "id": "OP17-039",
+   "name": "Rocks.D.Xebec"
+  },
+  "placing": 5,
+  "player": "gyan",
+  "record": {
+   "wins": 5,
+   "losses": 1,
+   "ties": 0
+  },
+  "drop": null
+ },
+ {
+  "name": "Slodea",
+  "country": "DE",
+  "decklist": {
+   "leader": {
+    "name": "Enel",
+    "set": "OP05",
+    "number": "098"
+   },
+   "character": [
+    {
+     "count": 4,
+     "name": "Streusen",
+     "set": "OP17",
+     "number": "113"
+    },
+    {
+     "count": 2,
+     "name": "Lilith",
+     "set": "OP13",
+     "number": "113"
+    },
+    {
+     "count": 4,
+     "name": "Zeus",
+     "set": "OP11",
+     "number": "106"
+    },
+    {
+     "count": 4,
+     "name": "Genbo",
+     "set": "OP15",
+     "number": "103"
+    },
+    {
+     "count": 4,
+     "name": "Charlotte Daifuku",
+     "set": "OP17",
+     "number": "107"
+    },
+    {
+     "count": 4,
+     "name": "Charlotte Pudding",
+     "set": "OP17",
+     "number": "109"
+    },
+    {
+     "count": 4,
+     "name": "Charlotte Oven",
+     "set": "OP17",
+     "number": "102"
+    },
+    {
+     "count": 4,
+     "name": "Borsalino",
+     "set": "EB04",
+     "number": "058"
+    },
+    {
+     "count": 4,
+     "name": "Sweet 3 Generals",
+     "set": "OP17",
+     "number": "114"
+    },
+    {
+     "count": 4,
+     "name": "Gecko Moria",
+     "set": "OP14",
+     "number": "104"
+    },
+    {
+     "count": 3,
+     "name": "Marshall.D.Teach",
+     "set": "OP16",
+     "number": "119"
+    },
+    {
+     "count": 4,
+     "name": "Charlotte Linlin",
+     "set": "OP17",
+     "number": "112"
+    },
+    {
+     "count": 1,
+     "name": "Enel",
+     "set": "EB02",
+     "number": "052"
+    }
+   ],
+   "event": [
+    {
+     "count": 4,
+     "name": "You're the One Who Should Disappear.",
+     "set": "OP06",
+     "number": "115"
+    }
+   ],
+   "stage": []
+  },
+  "deck": {
+   "id": "OP05-098",
+   "name": "Enel"
+  },
+  "placing": 6,
+  "player": "slodea",
+  "record": {
+   "wins": 5,
+   "losses": 1,
+   "ties": 0
+  },
+  "drop": null
+ },
+ {
+  "name": "Frodon",
+  "country": "FR",
+  "decklist": {
+   "leader": {
+    "name": "Rocks.D.Xebec",
+    "set": "OP17",
+    "number": "039"
+   },
+   "character": [
+    {
+     "count": 3,
+     "name": "Buckin",
+     "set": "OP08",
+     "number": "051"
+    },
+    {
+     "count": 4,
+     "name": "Kyo",
+     "set": "OP17",
+     "number": "045"
+    },
+    {
+     "count": 4,
+     "name": "Don Marlon",
+     "set": "OP17",
+     "number": "052"
+    },
+    {
+     "count": 4,
+     "name": "Miss Buckingham Stussy",
+     "set": "OP17",
+     "number": "054"
+    },
+    {
+     "count": 4,
+     "name": "Captain John",
+     "set": "OP17",
+     "number": "044"
+    },
+    {
+     "count": 4,
+     "name": "Gloriosa",
+     "set": "OP17",
+     "number": "046"
+    },
+    {
+     "count": 2,
+     "name": "Kaido",
+     "set": "OP17",
+     "number": "042"
+    },
+    {
+     "count": 1,
+     "name": "Boa Hancock",
+     "set": "EB05",
+     "number": "028"
+    },
+    {
+     "count": 4,
+     "name": "Charlotte Linlin",
+     "set": "OP17",
+     "number": "049"
+    },
+    {
+     "count": 4,
+     "name": "Edward.Newgate",
+     "set": "OP17",
+     "number": "040"
+    },
+    {
+     "count": 4,
+     "name": "Shiki",
+     "set": "OP17",
+     "number": "048"
+    },
+    {
+     "count": 4,
+     "name": "Rocks.D.Xebec",
+     "set": "OP17",
+     "number": "118"
+    }
+   ],
+   "event": [
+    {
+     "count": 4,
+     "name": "There's No Authority in the World That Lasts Forever!!!",
+     "set": "OP17",
+     "number": "055"
+    },
+    {
+     "count": 4,
+     "name": "Rocks Pirates",
+     "set": "OP17",
+     "number": "056"
+    }
+   ],
+   "stage": []
+  },
+  "deck": {
+   "id": "OP17-039",
+   "name": "Rocks.D.Xebec"
+  },
+  "placing": 7,
+  "player": "frodon",
+  "record": {
+   "wins": 5,
+   "losses": 1,
+   "ties": 0
+  },
+  "drop": null
+ },
+ {
+  "name": "Simpiii",
+  "country": "CA",
+  "decklist": {
+   "leader": {
+    "name": "Monkey.D.Luffy",
+    "set": "OP13",
+    "number": "001"
+   },
+   "character": [
+    {
+     "count": 4,
+     "name": "Otama",
+     "set": "OP07",
+     "number": "022"
+    },
+    {
+     "count": 4,
+     "name": "Monkey.D.Garp",
+     "set": "OP13",
+     "number": "016"
+    },
+    {
+     "count": 4,
+     "name": "Emporio.Ivankov",
+     "set": "ST30",
+     "number": "004"
+    },
+    {
+     "count": 4,
+     "name": "Vander Decken IX",
+     "set": "OP06",
+     "number": "033"
+    },
+    {
+     "count": 4,
+     "name": "Kouzuki Hiyori",
+     "set": "EB01",
+     "number": "013"
+    },
+    {
+     "count": 4,
+     "name": "Nami",
+     "set": "OP14",
+     "number": "031"
+    },
+    {
+     "count": 1,
+     "name": "Lucky.Roux",
+     "set": "PRB02",
+     "number": "003"
+    },
+    {
+     "count": 4,
+     "name": "Kawamatsu",
+     "set": "OP12",
+     "number": "023"
+    },
+    {
+     "count": 4,
+     "name": "Kouzuki Oden",
+     "set": "ST32",
+     "number": "002"
+    },
+    {
+     "count": 4,
+     "name": "Jewelry Bonney",
+     "set": "EB05",
+     "number": "001"
+    },
+    {
+     "count": 3,
+     "name": "Jinbe",
+     "set": "ST31",
+     "number": "002"
+    },
+    {
+     "count": 3,
+     "name": "Trafalgar Law",
+     "set": "OP13",
+     "number": "031"
+    },
+    {
+     "count": 2,
+     "name": "Shanks",
+     "set": "OP17",
+     "number": "022"
+    }
+   ],
+   "event": [
+    {
+     "count": 2,
+     "name": "You Can Be My Samurai!!",
+     "set": "OP01",
+     "number": "055"
+    },
+    {
+     "count": 2,
+     "name": "Munch-Munch Mutation",
+     "set": "OP08",
+     "number": "019"
+    },
+    {
+     "count": 1,
+     "name": "The Weak Do Not Have the Right to Choose How They Die",
+     "set": "OP10",
+     "number": "040"
+    }
+   ],
+   "stage": []
+  },
+  "deck": {
+   "id": "OP13-001",
+   "name": "Monkey.D.Luffy"
+  },
+  "placing": 8,
+  "player": "simpiii",
+  "record": {
+   "wins": 4,
+   "losses": 2,
+   "ties": 0
+  },
+  "drop": null
+ },
+ {
+  "name": "TTP Voly",
+  "country": "DE",
+  "decklist": {
+   "leader": {
+    "name": "Boa Hancock",
+    "set": "OP14",
+    "number": "041"
+   },
+   "character": [
+    {
+     "count": 4,
+     "name": "Gloriosa (Grandma Nyon)",
+     "set": "OP14",
+     "number": "103"
+    },
+    {
+     "count": 4,
+     "name": "Charlotte Pudding",
+     "set": "OP17",
+     "number": "109"
+    },
+    {
+     "count": 4,
+     "name": "Ran",
+     "set": "OP14",
+     "number": "114"
+    },
+    {
+     "count": 4,
+     "name": "Roronoa Zoro",
+     "set": "OP15",
+     "number": "113"
+    },
+    {
+     "count": 3,
+     "name": "Boa Hancock",
+     "set": "EB05",
+     "number": "028"
+    },
+    {
+     "count": 4,
+     "name": "Borsalino",
+     "set": "EB04",
+     "number": "058"
+    },
+    {
+     "count": 4,
+     "name": "Boa Marigold",
+     "set": "OP16",
+     "number": "113"
+    },
+    {
+     "count": 2,
+     "name": "Nami",
+     "set": "OP11",
+     "number": "054"
+    },
+    {
+     "count": 4,
+     "name": "Gorgon Sisters",
+     "set": "OP14",
+     "number": "105"
+    },
+    {
+     "count": 4,
+     "name": "Shakuyaku",
+     "set": "OP14",
+     "number": "107"
+    },
+    {
+     "count": 3,
+     "name": "Bartholomew Kuma",
+     "set": "OP12",
+     "number": "119"
+    },
+    {
+     "count": 4,
+     "name": "Gecko Moria",
+     "set": "OP14",
+     "number": "104"
+    },
+    {
+     "count": 4,
+     "name": "Boa Hancock",
+     "set": "OP14",
+     "number": "112"
+    }
+   ],
+   "event": [
+    {
+     "count": 2,
+     "name": "You're the One Who Should Disappear.",
+     "set": "OP06",
+     "number": "115"
+    }
+   ],
+   "stage": []
+  },
+  "deck": {
+   "id": "OP14-041",
+   "name": "Boa Hancock"
+  },
+  "placing": 9,
+  "player": "volkiso",
+  "record": {
+   "wins": 4,
+   "losses": 2,
+   "ties": 0
+  },
+  "drop": null
+ },
+ {
+  "name": "NinjaTrain",
+  "country": "GB",
+  "decklist": {
+   "leader": {
+    "name": "Rocks.D.Xebec",
+    "set": "OP17",
+    "number": "039"
+   },
+   "character": [
+    {
+     "count": 4,
+     "name": "Buckin",
+     "set": "OP08",
+     "number": "051"
+    },
+    {
+     "count": 4,
+     "name": "Kyo",
+     "set": "OP17",
+     "number": "045"
+    },
+    {
+     "count": 4,
+     "name": "Don Marlon",
+     "set": "OP17",
+     "number": "052"
+    },
+    {
+     "count": 4,
+     "name": "Miss Buckingham Stussy",
+     "set": "OP17",
+     "number": "054"
+    },
+    {
+     "count": 4,
+     "name": "Kaido",
+     "set": "OP17",
+     "number": "042"
+    },
+    {
+     "count": 4,
+     "name": "Gloriosa",
+     "set": "OP17",
+     "number": "046"
+    },
+    {
+     "count": 2,
+     "name": "Captain John",
+     "set": "OP17",
+     "number": "044"
+    },
+    {
+     "count": 4,
+     "name": "Charlotte Linlin",
+     "set": "OP17",
+     "number": "049"
+    },
+    {
+     "count": 4,
+     "name": "Edward.Newgate",
+     "set": "OP17",
+     "number": "040"
+    },
+    {
+     "count": 4,
+     "name": "Shiki",
+     "set": "OP17",
+     "number": "048"
+    },
+    {
+     "count": 4,
+     "name": "Rocks.D.Xebec",
+     "set": "OP17",
+     "number": "118"
+    }
+   ],
+   "event": [
+    {
+     "count": 4,
+     "name": "There's No Authority in the World That Lasts Forever!!!",
+     "set": "OP17",
+     "number": "055"
+    },
+    {
+     "count": 4,
+     "name": "Rocks Pirates",
+     "set": "OP17",
+     "number": "056"
+    }
+   ],
+   "stage": []
+  },
+  "deck": {
+   "id": "OP17-039",
+   "name": "Rocks.D.Xebec"
+  },
+  "placing": 10,
+  "player": "ninjatrain",
+  "record": {
+   "wins": 4,
+   "losses": 2,
+   "ties": 0
+  },
+  "drop": null
+ },
+ {
+  "name": "Mi_co",
+  "country": "HR",
+  "decklist": null,
+  "deck": {
+   "id": "OP17-039",
+   "name": "Rocks.D.Xebec"
+  },
+  "placing": 12,
+  "player": "mi_co",
+  "record": {
+   "wins": 4,
+   "losses": 2,
+   "ties": 0
+  },
+  "drop": null
+ }
+]

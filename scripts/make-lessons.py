@@ -174,13 +174,29 @@ L.append(dict(id=11, title="Picking your first deck", minutes=3,
     T("<p>You know the rules. Now pick a ship. Three good ways to choose:</p><ol><li><strong>A starter deck</strong> in the color you like. Cheap, complete and easy to upgrade.</li><li><strong>A beginner-friendly meta deck.</strong> These are decks winning tournaments right now that are also simple to play.</li><li><strong>Your favorite character.</strong> You'll play more if you love your Leader.</li></ol>"),
     {"type": "deckpick"},
     T("<p>Before you buy:</p><ul><li>Check the deck's guide in the <strong>Meta</strong> tab: game plan, key cards, what beats it.</li><li>Check prices: every card links to TCGplayer.</li><li>Play some games, even against a friend with a starter deck. You'll learn faster by playing than by reading.</li></ul>"),
-    TIP("<p>Strong decks change every few months when new sets come out. Deckhand updates its tournament data every day, so come back to the Meta tab to see what's winning.</p>"),
+    TIP("<p>Strong decks change every few months when new sets come out. Bans change it too: Dracule Mihawk, the most played Leader, was banned on October 12, 2026. Deckhand updates its tournament data every day, so come back to the Meta tab to see what's winning.</p>"),
     T("<p>Ready to try it? <a href=\"#/play\">Play a practice game against the computer</a>. The coach will guide you through your first match.</p>"),
   ],
   quiz=[
     Q("What's a good first deck for someone brand new?", ["The most expensive deck", "A starter deck or a beginner-friendly meta deck", "A random pile of 50 cards", "A deck with no Leader"], 1, "Starter decks and simple meta decks are the easiest way in."),
     Q("Where in Deckhand can you see which decks are winning tournaments now?", ["Glossary tab", "Meta tab", "Learn tab", "Nowhere"], 1, "The Meta tab updates daily from recent tournament results."),
     Q("Why might the best decks change?", ["New sets add new cards every few months", "The rules change every week", "Decks wear out", "They never change"], 0, "New sets, and the yearly block rotation, change what's strong."),
+  ]))
+
+L.append(dict(id=12, title="Banned cards, blocks and new sets", minutes=4,
+  goal="Know which cards you're allowed to play, and why that list changes.",
+  steps=[
+    T("<p>Not every card can be played in a tournament. Three things decide it: the <kw>Ban list</kw>, the <kw>Block rotation</kw>, and when a new set becomes <strong>tournament legal</strong>.</p>"),
+    T("<p><strong>1. Banned cards.</strong> When a card makes games unfun or one deck takes over, Bandai bans it. A <strong>banned</strong> card can't be in your deck at all, in any art (alternate arts and parallels count too). Right now 6 cards are banned. The newest is <strong>Dracule Mihawk (OP14-020)</strong>, the Green Leader that was the most played deck. It's been banned since <strong>October 12, 2026</strong>.</p>"),
+    T("<p><strong>2. Banned pairs.</strong> Some cards are fine alone but too strong together. A <kw>Banned pair</kw> means you may play one or the other, never both in the same deck. Example: Luffy Leader OP11-040 can't be used with Charlotte Katakuri OP11-067.</p>"),
+    T("<p><strong>3. Blocks.</strong> Look at the bottom corner of any card: there's a small number in a box. That's its <strong>block</strong>. Every April the oldest block leaves the <kw>Standard format</kw>. Until March 2027, Standard allows <strong>Blocks 2 to 5</strong>. Block 1 (sets OP-01 to OP-04 and the first 10 starter decks) is out, unless Bandai reprinted the card with a newer block number. Block 2 (OP-05 to OP-08) leaves in April 2027.</p>"),
+    T("<p><strong>4. New sets.</strong> A new booster set comes out every few months. In English, a set is usually tournament legal a short time after its release. The next set is <strong>OP-18, The Dominance of God</strong>, out <strong>November 20, 2026</strong>. New sets are why the best decks keep changing.</p>"),
+    TIP("<p>You don't have to memorize any of this. Deckhand's deck builder checks the ban list for you and warns you about Block 1 cards. The Meta tab only counts tournament decks that are still legal.</p>"),
+  ],
+  quiz=[
+    Q("Can you play an alternate-art copy of a banned card?", ["Yes, art doesn't matter", "No, every art of a banned card is banned", "Only in casual games at a store event", "Only 1 copy"], 1, "A ban covers the card number, so every art and parallel is banned."),
+    Q("What does a banned pair mean?", ["Both cards are banned", "You can play only 2 copies of each", "You can play one of them, but not both in the same deck", "They must be played together"], 2, "Each card is fine alone, but not together in one deck."),
+    Q("Which cards does Standard allow until March 2027?", ["Every card ever made", "Blocks 2 to 5", "Only the newest set", "Block 1 only"], 1, "Block 1 rotated out in April 2026. Blocks 2 to 5 are legal."),
   ]))
 
 os.makedirs(OUT, exist_ok=True)

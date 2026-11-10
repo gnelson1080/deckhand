@@ -14,9 +14,19 @@ export const stripTcgHtml = s => String(s || '')
   .replace(/\s*Disclaimer:[^\n]*/g, '')
   .split('\n').map(l => l.trim()).filter(Boolean).join('\n');
 
-// "Shanks (020) (Alternate Art)" -> 1 extra tag; "Shanks (020)" -> 0
-const variantTags = name => (String(name).match(/\(([^)]*)\)/g) || []).filter(t => !/^\((?:[A-Z]*-?\d+[A-Z\d-]*)\)$/.test(t)).length;
-export const cleanName = name => String(name || '').replace(/\s*\([^)]*\)/g, '').replace(/\s+-\s+[A-Z]+\d*-\d+$/, '').trim();
+// Printing tags TCGplayer adds to product names. Character aliases like "Mr.1 (Daz.Bonez)" are kept.
+const VARIANT_RE = /alternate art|parallel|\bsp\b|foil|full art|manga|box topper|wanted poster|reprint|treasure|gold|super alt|oda stamped|signature/i;
+const EVENT_RE = /pack|regional|deck|collection|cup|edition|fest|vol\.?|promo|film|event|anniversary|championship|tournament|release|kit|party|participant|winner|judge|set|exclusive|celebration|battle|gift|top players|finalist|store|convention|stamped|online|offline|\d{4}/i;
+const NUM_RE = /^(?:[A-Z]*-?\d+[A-Z\d-]*)$/;
+const tagsOf = name => (String(name).match(/\(([^)]*)\)|\[([^\]]*)\]/g) || []).map(t => t.slice(1, -1).trim());
+const printTags = name => tagsOf(name).filter(t => !NUM_RE.test(t) && (VARIANT_RE.test(t) || EVENT_RE.test(t)));
+export const isVariantName = name => tagsOf(name).some(t => VARIANT_RE.test(t));
+export const artLabel = name => printTags(name).join(' · ') || 'Original';
+export const cleanName = name => {
+  let out = String(name || '').replace(/\s+-\s+[A-Z]*\d*-\d+\b/g, '');
+  for (const t of tagsOf(out)) if (NUM_RE.test(t) || VARIANT_RE.test(t) || EVENT_RE.test(t)) out = out.replace(new RegExp(`\\s*[\\(\\[]${t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[\\)\\]]`), '');
+  return out.replace(/\s+/g, ' ').trim();
+};
 
 export const isCardGroup = g => !/playmat|sleeve|binder|storage|accessor|deck box|card case/i.test(g?.name || '');
 
@@ -36,7 +46,7 @@ export function tcgcsvToCards(products, prices, group = {}) {
   }
   const out = [];
   for (const [id, recs] of byNumber) {
-    recs.sort((a, b) => variantTags(a.p.name) - variantTags(b.p.name) || a.p.productId - b.p.productId);
+    recs.sort((a, b) => isVariantName(a.p.name) - isVariantName(b.p.name) || printTags(a.p.name).length - printTags(b.p.name).length || a.p.productId - b.p.productId);
     const { p, ex } = recs[0];
     const type = ex.CardType;
     const counter = num(ex.Counterplus);
@@ -56,10 +66,14 @@ export function tcgcsvToCards(products, prices, group = {}) {
       traits: list(ex.Subtypes),
       text: stripTcgHtml(ex.Description),
       img: bigImg(p.imageUrl),
+      imgLabel: artLabel(p.name),
       altImgs: recs.slice(1).map(r => bigImg(r.p.imageUrl)),
+      altLabels: recs.slice(1).map(r => artLabel(r.p.name)),
       price: price.get(p.productId) ?? null,
       tcgUrl: p.url,
       _group: group.abbreviation || null,
+      _groupName: group.groupName || null,
+      _variant: isVariantName(p.name),
     });
   }
   return out;
@@ -70,18 +84,35 @@ export function tcgcsvToCards(products, prices, group = {}) {
 export function mergeCardLists(lists) {
   const by = new Map();
   const squash = v => String(v || '').replace(/[^A-Z0-9]/gi, '').toUpperCase();
-  // 2 = exact home group (ST-01 for ST01-xxx), 1 = related group (ST-01 PRE), 0 = reprint elsewhere
-  const homeRank = c => (squash(c._group) === squash(c.set) ? 2 : squash(c._group).startsWith(squash(c.set)) ? 1 : 0);
+  // 3 = exact home group (ST-01 for ST01-xxx), 2 = group named after it (ST-01 PRE, OP15-EB04, OP-PR for P-),
+  // 0 = reprint elsewhere. A standard printing always beats an SP/foil/reprint.
+  const homeRank = c => {
+    const g = squash(c._group), s = squash(c.set);
+    if (g === s) return 3;
+    if (s === 'P') return g === 'OPPR' ? 2 : 0;
+    if (g.startsWith(s) || (s.length > 2 && g.includes(s))) return 2;
+    return 0;
+  };
+  const score = c => (c._variant ? 0 : 10) + homeRank(c);
+  const label = c => {
+    const l = c.imgLabel || 'Original';
+    return homeRank(c) >= 2 || !c._groupName ? l : `${l === 'Original' ? 'Reprint' : l} · ${c._groupName}`;
+  };
+  const arts = c => [[c.img, label(c)], ...(c.altImgs || []).map((img, i) => [img, c.altLabels?.[i] ? (homeRank(c) >= 2 || !c._groupName ? c.altLabels[i] : `${c.altLabels[i]} · ${c._groupName}`) : 'Alternate art'])];
   for (const c of lists.flat()) {
     const cur = by.get(c.id);
-    if (!cur) { by.set(c.id, { ...c, altImgs: [...c.altImgs] }); continue; }
-    const winner = homeRank(c) > homeRank(cur) ? { ...c, altImgs: [...c.altImgs] } : cur;
-    const loser = winner === cur ? c : cur;
-    winner.altImgs = [...new Set([...winner.altImgs, loser.img, ...loser.altImgs])].filter(i => i && i !== winner.img);
-    if (winner.price == null) winner.price = loser.price;
-    by.set(c.id, winner);
+    if (!cur) { by.set(c.id, { card: c, arts: arts(c) }); continue; }
+    const win = score(c) > score(cur.card) ? c : cur.card;
+    const all = win === c ? [...arts(c), ...cur.arts] : [...cur.arts, ...arts(c)];
+    if (win.price == null) win.price = (win === c ? cur.card : c).price;
+    by.set(c.id, { card: win, arts: all });
   }
-  return [...by.values()].map(({ _group, ...c }) => c).sort((a, b) => a.id.localeCompare(b.id));
+  return [...by.values()].map(({ card, arts: all }) => {
+    const { _group, _groupName, _variant, ...c } = card;
+    const seen = new Set([c.img]);
+    const rest = all.filter(([img]) => img && !seen.has(img) && seen.add(img));
+    return { ...c, imgLabel: c.imgLabel || 'Original', altImgs: rest.map(a => a[0]), altLabels: rest.map(a => a[1]) };
+  }).sort((a, b) => a.id.localeCompare(b.id));
 }
 
 // Fill empty fields on catalog cards from a backup list (same card numbers).

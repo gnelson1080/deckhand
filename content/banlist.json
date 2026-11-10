@@ -1,0 +1,78 @@
+{
+  "checked": "2026-11-10",
+  "source": "https://en.onepiece-cardgame.com/rules/restriction/",
+  "note": "Official Bandai list. Banned cards can't be in a deck at all, in any art. A banned pair means those two cards can't be in the same deck.",
+  "banned": [
+    {
+      "id": "OP14-020",
+      "since": "2026-10-12",
+      "why": "Green Mihawk was over a fifth of all tournament decks. Bandai banned the Leader (every art of it)."
+    },
+    {
+      "id": "OP06-047",
+      "why": "Charlotte Pudding: makes your opponent shuffle away their whole hand and draw 5, wiping out their plan."
+    },
+    {
+      "id": "OP03-040",
+      "why": "Nami (Leader): wins the game when her own deck runs out, which became too fast and hard to stop."
+    },
+    {
+      "id": "OP06-086",
+      "why": "Gecko Moria: brings back two Characters from the trash for one card."
+    },
+    {
+      "id": "ST10-001",
+      "why": "Trafalgar Law (Leader): removes an opposing Character and plays one of yours every turn."
+    },
+    {
+      "id": "OP06-116",
+      "why": "Reject: a cheap Event that K.O.s a Character or deals the last point of damage, and draws you a card."
+    }
+  ],
+  "pairs": [
+    {
+      "ids": [
+        "OP07-115",
+        "EB04-058"
+      ],
+      "why": "Borsalino could refill Life as fast as Re-Quasar used it, so the game stalled."
+    },
+    {
+      "ids": [
+        "OP11-040",
+        "OP11-067"
+      ],
+      "why": "Luffy Leader with Katakuri untapped Characters and ramped DON!! every turn."
+    },
+    {
+      "ids": [
+        "OP11-040",
+        "OP08-069"
+      ],
+      "why": "Luffy Leader with Big Mom gained Life while burying the opponent's Characters."
+    }
+  ],
+  "restricted": [],
+  "rotation": {
+    "format": "Standard",
+    "window": "April 1, 2026 to March 31, 2027",
+    "legalBlocks": "2 to 5",
+    "rotatedSets": [
+      "OP01",
+      "OP02",
+      "OP03",
+      "OP04",
+      "ST01",
+      "ST02",
+      "ST03",
+      "ST04",
+      "ST05",
+      "ST06",
+      "ST07",
+      "ST08",
+      "ST09",
+      "ST10"
+    ],
+    "note": "Block 1 (OP-01 to OP-04 and starter decks 1 to 10) left Standard on April 1, 2026. A few of those cards were reprinted with a newer block icon, and then every copy is legal again. Check the small number in the bottom corner of the card. Block 2 (OP-05 to OP-08) leaves in April 2027."
+  }
+}
