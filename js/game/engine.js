@@ -164,7 +164,7 @@ export function actor(s) {
   return s.active;
 }
 
-const log = (s, e) => { s.log.push({ t: s.turn, ...e }); if (s.log.length > 400) s.log.splice(0, s.log.length - 400); };
+const log = (s, e) => { s.logN = (s.logN || 0) + 1; s.log.push({ t: s.turn, ...e }); if (s.log.length > 400) s.log.splice(0, s.log.length - 400); };
 
 // ---------- turn flow ----------
 function placeLife(s) {

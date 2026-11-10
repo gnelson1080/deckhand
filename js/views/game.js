@@ -14,6 +14,7 @@ import { confetti, buzz, shake } from '../ui/fx.js';
 import { go } from '../router.js';
 import { icon } from '../icons.js';
 import { isDesktop } from '../lib/layout.js';
+import { snapshot, animate, drawArrow } from '../ui/table-fx.js';
 
 const ME = 0, AI = 1;
 // The standard DON!! card (Bandai), from TCGplayer like every other card picture.
@@ -105,6 +106,7 @@ export async function render(root) {
     $('.g-hand').style.setProperty('--n', P.hand.length);
     $('.g-hand').innerHTML = P.hand.map(c => card(c, ME, `in-hand ${canAct(c.uid)} ${counterable(c.uid)}`)).join('');
     drawMid(); drawPanel();
+    requestAnimationFrame(() => { if (alive) drawArrow(root, s); });
   }
   const acts = () => (actor(s) === ME ? legalActions(s) : []);
   const canAct = uid => (acts().some(a => a.uid === uid && a.type !== 'counter' && a.type !== 'block') ? 'can' : '');
@@ -214,7 +216,7 @@ export async function render(root) {
     if (next.error) { coachMsg = { tone: 'risky', text: next.error }; shake($('.g-panel')); buzz([25, 40, 25]); drawMid(); return; }
     coachMsg = meta.coach && actor(prev) === ME ? judge(prev, a, next, ME) : null;
     s = next; selected = null; picks = []; hintFor = null;
-    flip(() => draw());
+    flip(prev, () => draw());
     save();
     if (s.phase === 'over') { if (s.winner === ME) confetti(); buzz(s.winner === ME ? [20, 60, 20] : 40); return; }
     scheduleAI();
@@ -227,28 +229,25 @@ export async function render(root) {
       if (!alive) return;
       const a = chooseAction(s, AI, meta.level, rand);
       const next = dispatch(s, a);
+      const prev = s;
       s = next.error ? dispatch(s, legalActions(s)[0]) : next;
       coachMsg = null;
-      flip(() => draw());
+      flip(prev, () => draw());
       save();
       if (s.phase === 'over') { if (s.winner === ME) confetti(); return; }
       scheduleAI();
-    }, fast ? 120 : actor(s) === AI && s.battle ? 650 : 520);
+    }, Math.max(fast ? 120 : actor(s) === AI && s.battle ? 650 : 520, fxBusyUntil - Date.now()));
   }
 
-  // FLIP: cards that moved slide from their old spot; new cards pop in.
-  function flip(update) {
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const before = new Map([...root.querySelectorAll('.gc[data-uid]')].map(el => [el.dataset.uid, el.getBoundingClientRect()]));
+  // Real-table animations + battle effects (js/ui/table-fx.js). The computer waits for them to finish.
+  let fxBusyUntil = 0;
+  function flip(prev, update) {
+    const before = snapshot(root, prev);
     update();
-    if (reduce) return;
-    for (const el of root.querySelectorAll('.gc[data-uid]')) {
-      const r0 = before.get(el.dataset.uid), r1 = el.getBoundingClientRect();
-      if (!r0) { el.animate([{ opacity: 0, transform: 'translateY(14px) scale(.9)' }, { opacity: 1, transform: 'none' }], { duration: 320, easing: 'cubic-bezier(.2,.8,.2,1)' }); continue; }
-      const dx = r0.left - r1.left, dy = r0.top - r1.top;
-      if (Math.abs(dx) + Math.abs(dy) > 2) el.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], { duration: 380, easing: 'cubic-bezier(.2,.8,.2,1)' });
-    }
+    const ms = animate(root, before, prev, s, { fast });
+    fxBusyUntil = Date.now() + ms;
   }
+
 
   const gameEl = $('.game');
   gameEl.addEventListener('click', e => {
@@ -321,11 +320,18 @@ export async function render(root) {
     else if (k === 'enter' && e.target === document.body) { const b = panel.querySelector('.btn-primary:not([disabled])'); if (b) { e.preventDefault(); b.click(); } }
   };
   addEventListener('keydown', onKey);
+  const onResize = () => drawArrow(root, s);
+  addEventListener('resize', onResize);
 
   draw();
+  if (fresh) { // deal: hands and Life come off the top of each deck
+    const dealt = structuredClone(s);
+    for (const P of dealt.players) { P.deck = [...P.hand, ...P.life, ...P.deck]; P.hand = []; P.life = []; }
+    requestAnimationFrame(() => { fxBusyUntil = Date.now() + animate(root, { cards: new Map(), pw: new Map() }, dealt, s, { fast }); });
+  }
   save();
   scheduleAI();
-  const stop = () => { alive = false; clearTimeout(aiTimer); removeEventListener('keydown', onKey); document.body.classList.remove('in-game'); if (unmount === stop) unmount = null; };
+  const stop = () => { alive = false; clearTimeout(aiTimer); removeEventListener('keydown', onKey); removeEventListener('resize', onResize); document.body.classList.remove('in-game'); if (unmount === stop) unmount = null; };
   unmount = stop;
   // The router keeps only the first cleanup; route it to whichever game is live now.
   return () => unmount?.();

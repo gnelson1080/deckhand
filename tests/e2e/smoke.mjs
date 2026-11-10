@@ -270,6 +270,7 @@ const phone = async (opts = {}) => {
     await panel.locator('[data-act*="giveDon"]').click();
     await page.locator('.g-zone.me .g-lead .gc').first().click();
     await panel.locator('[data-act*="attack"]').first().click();
+    await page.locator('.fx-arrow .fx-arrow-line').waitFor({ timeout: 2000 });
     await page.locator('.g-log p').last().waitFor();
     assert.ok((await page.textContent('.g-log')).length > 0);
   });
