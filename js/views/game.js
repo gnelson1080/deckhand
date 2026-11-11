@@ -49,11 +49,15 @@ export async function render(root) {
   document.body.classList.add('in-game');
   root.innerHTML = `<div class="game ${collapsed ? 'collapsed' : ''}" aria-live="polite" style="--don-img:url('${DON_IMG}')">
     <div class="g-top"></div>
-    <div class="g-zone opp" aria-label="Computer's side of the table"></div>
-    <div class="g-mid"></div>
-    <div class="g-zone me" aria-label="Your side of the table"></div>
-    <div class="g-hand" aria-label="Your hand"></div>
-    <div class="g-panel"></div>
+    <div class="g-mats">
+      <div class="g-zone opp" aria-label="Computer's side of the table"></div>
+      <div class="g-zone me" aria-label="Your side of the table"></div>
+    </div>
+    <div class="g-side">
+      <div class="g-mid"></div>
+      <div class="g-hand" aria-label="Your hand"></div>
+      <div class="g-panel"></div>
+    </div>
     <div class="g-preview" aria-hidden="true" hidden></div>
   </div>`;
   const $ = sel => root.querySelector(sel);
@@ -137,10 +141,13 @@ export async function render(root) {
 
   function drawMid() {
     const b = s.battle;
-    const lines = s.log.slice(isDesktop() && !collapsed ? -16 : -2).map(eventText).filter(Boolean);
+    const lines = s.log.slice(isDesktop() && !collapsed ? -16 : isDesktop() ? -3 : -2).map(eventText).filter(Boolean);
+    // The coach stays quiet when the panel below is already asking the same question (no repeated text).
+    const asking = s.pending && s.pending.kind !== 'trigger' && actor(s) === ME;
+    const tip = !meta.coach || s.phase === 'over' ? '' : coachMsg ? coachMsg.text : asking ? '' : phaseTip(s, ME);
     $('.g-mid').innerHTML = `${b ? `<div class="g-battle"><span>${nm(s, b.attacker)} <b>${n(power(s, b.attacker))}</b></span><span class="vs">vs</span><span>${nm(s, b.target)} <b>${n(power(s, b.target))}</b></span></div>` : ''}
       <div class="g-log">${lines.map(l => `<p>${l}</p>`).join('')}</div>
-      ${meta.coach && s.phase !== 'over' ? `<div class="g-coach ${coachMsg?.tone || ''}">${icon('compass', { size: 18 })}<span>${coachMsg ? escapeHtml(coachMsg.text) : escapeHtml(phaseTip(s, ME))}</span></div>` : ''}`;
+      ${tip ? `<div class="g-coach ${coachMsg?.tone || ''}">${icon('compass', { size: 18 })}<span>${escapeHtml(tip)}</span></div>` : ''}`;
   }
 
   // ---------- bottom panel ----------
@@ -197,7 +204,7 @@ export async function render(root) {
     if (pd.kind === 'mode') { panel.innerHTML = `<p class="g-q">${escapeHtml(pd.prompt)}</p><div class="g-btns col">${pd.labels.map((l, i) => `<button type="button" class="btn" data-act='{"type":"choose","option":${i}}'>${escapeHtml(l)}</button>`).join('')}</div>`; return; }
     // pick
     const opt = u => {
-      if (u.includes('DON:')) return `<button type="button" class="opt don ${picks.includes(u) ? 'on' : ''}" data-pick="${u}">DON!!</button>`;
+      if (u.includes('DON:')) return `<button type="button" class="opt don ${picks.includes(u) ? 'on' : ''}" data-pick="${u}" aria-pressed="${picks.includes(u)}"><i class="opt-don" aria-hidden="true"></i><span>DON!!</span></button>`;
       const c = find(s, u)?.inst; if (!c) return '';
       const d = def(c.id);
       return `<button type="button" class="opt ${picks.includes(u) ? 'on' : ''}" data-pick="${u}" aria-pressed="${picks.includes(u)}"><img src="${escapeHtml(thumb(d.img))}" alt=""><span>${escapeHtml(d.name)}${find(s, u).owner === AI ? ' (opp.)' : ''}</span></button>`;
@@ -250,7 +257,9 @@ export async function render(root) {
 
 
   const gameEl = $('.game');
+  const preview = $('.g-preview');
   gameEl.addEventListener('click', e => {
+    preview.hidden = true;
     const actBtn = e.target.closest('[data-act]');
     if (actBtn) { act(JSON.parse(actBtn.dataset.act)); return; }
     if (e.target.closest('[data-cancel]')) { selected = null; drawPanel(); draw(); return; }
@@ -284,7 +293,6 @@ export async function render(root) {
   }
 
   // Big preview while hovering a card (computer with a mouse): the board stays small, the text stays readable.
-  const preview = $('.g-preview');
   const fine = matchMedia('(hover: hover) and (pointer: fine)');
   gameEl.addEventListener('pointerover', e => {
     if (!fine.matches) return;
@@ -294,10 +302,25 @@ export async function render(root) {
     const d = def(f.inst.id);
     const pw = ['Leader', 'Character'].includes(d.type) ? power(s, f.inst.uid) : null;
     preview.innerHTML = `<img src="${escapeHtml(d.img)}" alt="" style="--thumb:url('${escapeHtml(thumb(d.img))}')"><div class="gp-info"><strong>${escapeHtml(d.name)}</strong><span class="muted small">${escapeHtml(d.type)}${d.cost != null ? ` · cost ${costOf(s, f.inst.uid)}` : ''}${pw != null ? ` · <b>${n(pw)}</b> power now` : ''}${d.counter ? ` · Counter +${n(d.counter)}` : ''}</span>${d.text ? `<p>${richText(d.text, idx)}</p>` : ''}</div>`;
-    const r = el.getBoundingClientRect();
-    preview.classList.toggle('left', r.left + r.width / 2 > innerWidth / 2);
-    preview.hidden = false;
+    placePreview(el.getBoundingClientRect());
   });
+  // Show it on the side away from the card. It never covers the buttons: on the buttons' side it is cut to
+  // the space above them, and if that is too short it moves to the other side.
+  function placePreview(r) {
+    const panel = $('.g-panel').getBoundingClientRect();
+    const head = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 56) + 14;
+    const panelRight = panel.left + panel.width / 2 > innerWidth / 2;
+    const roomRight = panelRight ? panel.top - head - 12 : innerHeight - head - 14;
+    const roomLeft = !panelRight ? panel.top - head - 12 : innerHeight - head - 14;
+    let left = r.left + r.width / 2 > innerWidth / 2;
+    if (!left && roomRight < 300 && r.left > innerWidth * .3) left = true;
+    const room = Math.max(220, left ? roomLeft : roomRight);
+    preview.classList.toggle('left', left);
+    preview.style.maxHeight = `${room}px`;
+    preview.hidden = false;
+    const info = preview.querySelector('.gp-info');
+    preview.style.setProperty('--pv-img', `${Math.max(120, room - (info?.offsetHeight || 0) - 34)}px`);
+  }
   gameEl.addEventListener('pointerout', e => { if (e.target.closest('.gc[data-uid], .opt[data-pick]') && !e.relatedTarget?.closest?.('.gc[data-uid], .opt[data-pick]')) preview.hidden = true; });
 
   function showCard(uid) {

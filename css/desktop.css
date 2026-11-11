@@ -56,8 +56,6 @@ kbd { font: 700 .78rem var(--font-body); padding: 1px 6px; border-radius: 4px; b
 :root[data-layout="desktop"] .isle-label { max-width: 260px; }
 :root[data-layout="desktop"] .lesson-top, :root[data-layout="desktop"] .route, :root[data-layout="desktop"] .lesson-title,
 :root[data-layout="desktop"] .lesson-goal, :root[data-layout="desktop"] .lesson-page, :root[data-layout="desktop"] .lesson-nav { max-width: 820px; margin-left: auto; margin-right: auto; }
-:root[data-layout="desktop"] .bcard { width: 84px; }
-:root[data-layout="desktop"] .hand .bcard { width: 76px; }
 :root[data-layout="desktop"] .callout-fig { grid-template-columns: 300px 1fr; align-items: start; gap: 28px; }
 :root[data-layout="desktop"] .callout-card { width: 300px; }
 

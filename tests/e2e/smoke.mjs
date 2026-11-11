@@ -51,8 +51,8 @@ const phone = async (opts = {}) => {
     await page.locator('.lesson-title').waitFor();
     while (!(await page.locator('.board').count())) { await page.click('.lesson-next'); await page.waitForTimeout(150); }
     assert.equal(await page.isDisabled('.lesson-next'), true);
-    await page.click('.hand .bcard[data-id="vivi"]');
-    await page.click('.hand .bcard[data-id="brook"]');
+    await page.click('.b-hand .bcard[data-id="vivi"]');
+    await page.click('.b-hand .bcard[data-id="brook"]');
     await page.click('[data-act="resolve"]');
     await page.waitForFunction(() => !document.querySelector('.lesson-next').disabled);
   });

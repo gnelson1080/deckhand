@@ -7,19 +7,19 @@ import { escapeHtml } from './rich-text.js';
 
 const BACK = 'assets/card-back.jpg';
 const sideSel = p => (p === 0 ? '.g-zone.me' : '.g-zone.opp');
-const rectOf = el => el?.getBoundingClientRect();
-const center = r => ({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
-const tfOf = el => { const t = getComputedStyle(el).transform; return t === 'none' ? '' : t; };
-const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-const EASE = 'cubic-bezier(.2,.8,.2,1)';
+export const rectOf = el => el?.getBoundingClientRect();
+export const center = r => ({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
+export const tfOf = el => { const t = getComputedStyle(el).transform; return t === 'none' ? '' : t; };
+export const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+export const EASE = 'cubic-bezier(.2,.8,.2,1)';
 
 function pileRect(root, p, kind) {
   if (kind === 'hand') return p === 0 ? rectOf(root.querySelector('.g-hand')) : rectOf(root.querySelector('.g-opphand'));
   const z = root.querySelector(`${sideSel(p)} .z-${kind}`);
   return rectOf(z?.querySelector('.pile, .life-col, .don-row') || z);
 }
-function tableCenter(root) {
-  const me = rectOf(root.querySelector('.g-zone.me')), opp = rectOf(root.querySelector('.g-zone.opp'));
+export function tableCenter(root) {
+  const me = rectOf(root.querySelector('.g-zone.me, .b-mat.me')), opp = rectOf(root.querySelector('.g-zone.opp, .b-mat.opp'));
   if (!me || !opp) return { x: innerWidth / 2, y: innerHeight / 2 };
   return { x: (me.left + me.right) / 2, y: (opp.bottom + me.top) / 2 };
 }
@@ -36,38 +36,41 @@ export function snapshot(root, s) {
 }
 
 // ---------- overlay helpers ----------
+// The practice game keeps its layer inside .game. Lesson boards use one on <body>, so a page-turn animation on
+// the lesson can't shift the effects away from the cards.
 function layer(root) {
-  let l = root.querySelector('.fx-layer');
-  if (!l) { l = document.createElement('div'); l.className = 'fx-layer'; l.setAttribute('aria-hidden', 'true'); root.querySelector('.game')?.append(l); }
+  const host = root.querySelector('.game') || document.body;
+  let l = host.querySelector(':scope > .fx-layer');
+  if (!l) { l = document.createElement('div'); l.className = 'fx-layer'; l.setAttribute('aria-hidden', 'true'); host.append(l); }
   return l;
 }
-const at = (root, ms, fn) => setTimeout(() => { if (root.isConnected) fn(); }, ms);
+export const at = (root, ms, fn) => setTimeout(() => { if (root.isConnected) fn(); }, ms);
 
-function floatText(root, pt, text, cls, delay, k) {
+export function floatText(root, pt, text, cls, delay, k) {
   at(root, delay, () => {
     const t = document.createElement('div'); t.className = `fx-float ${cls}`; t.textContent = text;
     t.style.left = `${pt.x}px`; t.style.top = `${pt.y}px`; layer(root).append(t);
     t.animate([{ opacity: 0, transform: 'translate(-50%, -30%) scale(.6)' }, { opacity: 1, transform: 'translate(-50%, -70%) scale(1.15)', offset: .25 }, { opacity: 1, transform: 'translate(-50%, -110%) scale(1)', offset: .75 }, { opacity: 0, transform: 'translate(-50%, -150%) scale(.95)' }], { duration: 1100 * k, easing: 'ease-out' }).onfinish = () => t.remove();
   });
 }
-function burst(root, pt, cls, delay, k) {
+export function burst(root, pt, cls, delay, k) {
   at(root, delay, () => {
     const b = document.createElement('div'); b.className = `fx-burst ${cls}`; b.style.left = `${pt.x}px`; b.style.top = `${pt.y}px`; layer(root).append(b);
     b.animate([{ opacity: .95, transform: 'translate(-50%,-50%) scale(.2)' }, { opacity: 0, transform: 'translate(-50%,-50%) scale(1.6)' }], { duration: 520 * k, easing: 'ease-out' }).onfinish = () => b.remove();
   });
 }
-function stamp(root, rect, text, cls, delay, k) {
+export function stamp(root, rect, text, cls, delay, k) {
   at(root, delay, () => {
     const st = document.createElement('div'); st.className = `fx-stamp ${cls}`; st.textContent = text;
     const c = center(rect); st.style.left = `${c.x}px`; st.style.top = `${c.y}px`; layer(root).append(st);
     st.animate([{ opacity: 0, transform: 'translate(-50%,-50%) rotate(-14deg) scale(2.4)' }, { opacity: 1, transform: 'translate(-50%,-50%) rotate(-14deg) scale(1)', offset: .22 }, { opacity: 1, transform: 'translate(-50%,-50%) rotate(-14deg) scale(1)', offset: .8 }, { opacity: 0, transform: 'translate(-50%,-50%) rotate(-14deg) scale(1.05)' }], { duration: 950 * k, easing: 'ease-out' }).onfinish = () => st.remove();
   });
 }
-function shakeEl(el, delay, k, strength = 6) {
+export function shakeEl(el, delay, k, strength = 6) {
   if (!el) return;
   el.animate([{ translate: '0 0' }, { translate: `${-strength}px 2px` }, { translate: `${strength}px -2px` }, { translate: `${-strength / 2}px 1px` }, { translate: '0 0' }], { duration: 360 * k, delay, easing: 'ease-out' });
 }
-function banner(root, { title, sub = '', img = '', cls = '' }, delay, k, hold = 900) {
+export function banner(root, { title, sub = '', img = '', cls = '' }, delay, k, hold = 900) {
   at(root, delay, () => {
     const b = document.createElement('div'); b.className = `fx-banner ${cls}`;
     b.innerHTML = `${img ? `<img src="${escapeHtml(img)}" alt="">` : ''}<div><strong>${escapeHtml(title)}</strong>${sub ? `<span>${escapeHtml(sub)}</span>` : ''}</div>`;
@@ -77,7 +80,7 @@ function banner(root, { title, sub = '', img = '', cls = '' }, delay, k, hold = 
 }
 
 // A card-shaped ghost that travels across the table (for cards leaving the table, or the computer's hidden plays).
-function ghost(root, { html, img, rect, w, h, tf = '' }, path, { delay = 0, k = 1, toBack = false, fromBack = false, holdAt = -1 } = {}) {
+export function ghost(root, { html, img, rect, w, h, tf = '' }, path, { delay = 0, k = 1, toBack = false, fromBack = false, holdAt = -1 } = {}) {
   at(root, delay, () => {
     let g;
     if (html) { const t = document.createElement('div'); t.innerHTML = html; g = t.firstElementChild; g.classList.remove('can', 'sel', 'hinted', 'target', 'attacker'); }
@@ -97,30 +100,33 @@ function ghost(root, { html, img, rect, w, h, tf = '' }, path, { delay = 0, k = 
     if (holdAt >= 0) g.style.zIndex = 70;
   });
 }
-const pathOf = (pts, dur) => Object.assign(pts, { dur });
+export const pathOf = (pts, dur) => Object.assign(pts, { dur });
 
 // ---------- the attack arrow (stays while a battle is on) ----------
-let lastArrow = '';
 export function drawArrow(root, s) {
   const g = root.querySelector('.game'); if (!g) return;
-  let svg = g.querySelector('.fx-arrow');
   const b = s.battle;
   const a = b && root.querySelector(`.gc[data-uid="${b.attacker}"]`), t = b && root.querySelector(`.gc[data-uid="${b.target}"]`);
-  if (!a || !t) { svg?.remove(); lastArrow = ''; return; }
+  arrowBetween(g, a, t, { blocked: b?.blocked, key: b ? `${b.attacker}>${b.target}` : '' });
+}
+// Curved arrow from card a to card t, drawn in an SVG over `g` (which must be position: relative).
+const lastArrow = new WeakMap();
+export function arrowBetween(g, a, t, { blocked = false, key = '' } = {}) {
+  let svg = g.querySelector(':scope > .fx-arrow');
+  if (!a || !t) { svg?.remove(); lastArrow.delete(g); return; }
   const gr = rectOf(g), ar = center(rectOf(a)), tr = rectOf(t), tc = center(tr);
   const x1 = ar.x - gr.left, y1 = ar.y - gr.top, x2 = tc.x - gr.left, y2 = tc.y - gr.top;
   const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1;
   const stop = Math.min(tr.height, tr.width) * .45; // end at the card's edge
   const ex = x2 - (dx / len) * stop, ey = y2 - (dy / len) * stop;
   const mx = (x1 + ex) / 2 - (dy / len) * len * .18, my = (y1 + ey) / 2 + (dx / len) * len * .18;
-  const key = `${b.attacker}>${b.target}`;
   if (!svg) { svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.classList.add('fx-arrow'); svg.setAttribute('aria-hidden', 'true'); g.append(svg); }
   svg.setAttribute('viewBox', `0 0 ${gr.width} ${gr.height}`);
   svg.innerHTML = `<defs><marker id="fxhead" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#ff3b45"/></marker></defs>
     <path class="fx-arrow-glow" d="M${x1} ${y1} Q${mx} ${my} ${ex} ${ey}"/>
-    <path class="fx-arrow-line ${key !== lastArrow ? 'enter' : ''} ${b.blocked ? 'blocked' : ''}" d="M${x1} ${y1} Q${mx} ${my} ${ex} ${ey}" marker-end="url(#fxhead)"/>
+    <path class="fx-arrow-line ${key !== lastArrow.get(g) ? 'enter' : ''} ${blocked ? 'blocked' : ''}" d="M${x1} ${y1} Q${mx} ${my} ${ex} ${ey}" marker-end="url(#fxhead)"/>
     <circle class="fx-target-ring" cx="${x2}" cy="${y2}" r="${Math.max(tr.width, tr.height) * .62}"/>`;
-  lastArrow = key;
+  lastArrow.set(g, key);
 }
 
 // ---------- animate the change from prev to next ----------
