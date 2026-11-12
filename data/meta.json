@@ -1,8 +1,8 @@
 {
   "source": "TCGplayer + Limitless Play",
   "format": "standard regulation",
-  "sampleSize": 199,
-  "from": "2026-10-12",
+  "sampleSize": 191,
+  "from": "2026-10-13",
   "to": "2026-11-10",
   "decks": [
     {
@@ -13,8 +13,8 @@
         "Green",
         "Red"
       ],
-      "points": 58,
-      "share": 29.15,
+      "points": 57,
+      "share": 29.84,
       "url": "https://www.tcgplayer.com/content/one-piece/deck/Red-Green-Luffy/552613",
       "lists": [
         {
@@ -171,34 +171,42 @@
           ]
         },
         {
-          "place": "1st",
-          "placeMin": 1,
-          "player": "snorlax1cynda",
-          "event": "[OP17.5] ChinoizeCup #121 Monday",
-          "date": "2026-10-12",
-          "players": 64,
-          "url": "https://play.limitlesstcg.com/tournament/6ac7870a85920e4d253669db/player/snorlax1cynda/decklist",
+          "place": "2nd",
+          "placeMin": 2,
+          "player": "GabylidadesOP",
+          "event": "[EB05] ChinoizeCup #134 TUESDAY",
+          "date": "2026-11-10",
+          "players": 60,
+          "url": "https://play.limitlesstcg.com/tournament/6aec5bdc0c463890f304bbfe/player/gabylidadesop/decklist",
           "source": "Limitless Play",
           "record": {
-            "wins": 6,
-            "losses": 0,
+            "wins": 5,
+            "losses": 1,
             "ties": 0
           },
           "cards": [
             {
-              "id": "OP01-016",
+              "id": "OP07-022",
               "count": 4
             },
             {
-              "id": "EB02-017",
+              "id": "OP13-016",
               "count": 4
             },
             {
-              "id": "OP15-035",
+              "id": "ST30-004",
               "count": 4
             },
             {
-              "id": "OP14-022",
+              "id": "ST32-001",
+              "count": 2
+            },
+            {
+              "id": "OP06-033",
+              "count": 4
+            },
+            {
+              "id": "EB01-013",
               "count": 4
             },
             {
@@ -206,45 +214,45 @@
               "count": 4
             },
             {
-              "id": "OP13-027",
+              "id": "PRB02-003",
+              "count": 2
+            },
+            {
+              "id": "OP12-023",
               "count": 4
             },
             {
-              "id": "OP13-118",
+              "id": "ST32-002",
               "count": 4
             },
             {
-              "id": "OP15-032",
+              "id": "EB05-001",
               "count": 4
             },
             {
-              "id": "EB04-007",
+              "id": "OP13-031",
               "count": 4
             },
             {
-              "id": "ST31-004",
-              "count": 3
+              "id": "OP17-022",
+              "count": 2
             },
             {
-              "id": "OP05-038",
-              "count": 4
+              "id": "OP01-055",
+              "count": 2
             },
             {
-              "id": "OP08-036",
-              "count": 3
-            },
-            {
-              "id": "ST31-005",
-              "count": 4
+              "id": "OP14-037",
+              "count": 2
             }
           ]
         }
       ],
       "online": {
-        "wins": 294,
-        "losses": 202,
+        "wins": 284,
+        "losses": 200,
         "ties": 3,
-        "players": 107
+        "players": 105
       }
     },
     {
@@ -254,8 +262,8 @@
       "colors": [
         "Blue"
       ],
-      "points": 34,
-      "share": 17.09,
+      "points": 31,
+      "share": 16.23,
       "url": "https://www.tcgplayer.com/content/one-piece/deck/Blue-Rocks/552656",
       "lists": [
         {
@@ -473,10 +481,10 @@
         }
       ],
       "online": {
-        "wins": 360,
-        "losses": 335,
+        "wins": 334,
+        "losses": 312,
         "ties": 8,
-        "players": 160
+        "players": 148
       }
     },
     {
@@ -486,8 +494,8 @@
       "colors": [
         "Yellow"
       ],
-      "points": 18,
-      "share": 9.05,
+      "points": 17,
+      "share": 8.9,
       "url": "https://play.limitlesstcg.com/tournament/6adb736097e21d82e5c6d43b/player/drcommodore/decklist",
       "lists": [
         {
@@ -711,10 +719,10 @@
         }
       ],
       "online": {
-        "wins": 142,
-        "losses": 120,
+        "wins": 135,
+        "losses": 116,
         "ties": 3,
-        "players": 55
+        "players": 52
       }
     },
     {
@@ -725,8 +733,8 @@
         "Green",
         "Red"
       ],
-      "points": 14,
-      "share": 7.04,
+      "points": 13,
+      "share": 6.81,
       "url": "https://play.limitlesstcg.com/tournament/6addff8d97e21d82e5c6ec84/player/shirohige06/decklist",
       "lists": [
         {
@@ -974,10 +982,10 @@
         }
       ],
       "online": {
-        "wins": 163,
-        "losses": 146,
+        "wins": 142,
+        "losses": 130,
         "ties": 1,
-        "players": 63
+        "players": 56
       }
     },
     {
@@ -989,7 +997,7 @@
         "Yellow"
       ],
       "points": 9,
-      "share": 4.52,
+      "share": 4.71,
       "url": "https://play.limitlesstcg.com/tournament/6aec5b87e94eae0f94747bc0/player/lukas123/decklist",
       "lists": [
         {
@@ -1229,10 +1237,10 @@
         }
       ],
       "online": {
-        "wins": 106,
-        "losses": 107,
+        "wins": 98,
+        "losses": 100,
         "ties": 0,
-        "players": 45
+        "players": 42
       }
     },
     {
@@ -1244,7 +1252,7 @@
         "Black"
       ],
       "points": 7,
-      "share": 3.52,
+      "share": 3.66,
       "url": "https://play.limitlesstcg.com/tournament/6adfa75822fd412b92a4d72a/player/raiguy425/decklist",
       "lists": [
         {
@@ -1500,10 +1508,10 @@
         }
       ],
       "online": {
-        "wins": 112,
-        "losses": 110,
+        "wins": 106,
+        "losses": 106,
         "ties": 1,
-        "players": 49
+        "players": 47
       }
     },
     {
@@ -1514,7 +1522,7 @@
         "Blue"
       ],
       "points": 7,
-      "share": 3.52,
+      "share": 3.66,
       "url": "https://play.limitlesstcg.com/tournament/6ae3115f80a8f79408d20af6/player/gyan/decklist",
       "lists": [
         {
@@ -1751,7 +1759,7 @@
         "Purple"
       ],
       "points": 6,
-      "share": 3.02,
+      "share": 3.14,
       "url": "https://play.limitlesstcg.com/tournament/6ad889ac115c12b73a5a8de9/player/crossai8/decklist",
       "lists": [
         {
@@ -1982,10 +1990,10 @@
         }
       ],
       "online": {
-        "wins": 87,
-        "losses": 109,
+        "wins": 81,
+        "losses": 99,
         "ties": 0,
-        "players": 47
+        "players": 43
       }
     },
     {
@@ -1997,7 +2005,7 @@
         "Yellow"
       ],
       "points": 5,
-      "share": 2.51,
+      "share": 2.62,
       "url": "https://play.limitlesstcg.com/tournament/6aec5bdc0c463890f304bbfe/player/bangouro/decklist",
       "lists": [
         {
@@ -2263,7 +2271,7 @@
         "Black"
       ],
       "points": 4,
-      "share": 2.01,
+      "share": 2.09,
       "url": "https://play.limitlesstcg.com/tournament/6ae310ff22fd412b92a4f355/player/penaraul05/decklist",
       "lists": [
         {
@@ -2530,9 +2538,9 @@
     "ST10-005",
     "ST10-010"
   ],
-  "onlineEvents": 18,
-  "onlinePlayers": 913,
+  "onlineEvents": 17,
+  "onlinePlayers": 849,
   "sinceBan": "2026-10-12",
-  "fetchedAt": "2026-11-11T17:13:15.443Z",
+  "fetchedAt": "2026-11-12T17:38:31.946Z",
   "banListChecked": "2026-11-10"
 }
