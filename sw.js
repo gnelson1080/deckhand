@@ -2,7 +2,7 @@
 // - App files (precached): cache first, refreshed in the background.
 // - data/*.json: network first, cached copy when offline.
 // - Card images: served from cache, then refreshed in the background so fixed art replaces old art. At most 400 kept.
-const VERSION = '2c484a92a1';
+const VERSION = 'e0a23751b7';
 const SHELL = `deckhand-shell-${VERSION}`;
 const DATA = 'deckhand-data';
 const IMAGES = 'deckhand-images-v2'; // v2: dropped images cached before the art fixes

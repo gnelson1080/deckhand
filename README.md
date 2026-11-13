@@ -2,7 +2,7 @@
 
 Learn the One Piece Card Game from zero, on your phone or computer. On first open, Deckhand asks which version you want (switch anytime with the button at the top).
 
-- **Learn:** 11 short lessons with practice boards and a 3-question check after each one.
+- **Learn:** 12 short lessons with practice boards and a 3-question check after each one.
 - **Cards:** every card with its picture, effect in plain English, and TCGplayer price.
 - **Meta:** the decks winning tournaments right now, with beginner guides for five of them.
 - **Glossary:** every game word explained. Tap any underlined word in the app to see it.

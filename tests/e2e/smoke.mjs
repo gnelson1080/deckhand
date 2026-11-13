@@ -201,6 +201,8 @@ const phone = async (opts = {}) => {
   await step('a slow price file for the previous card never draws on the next card', async () => {
     const dates = Array.from({ length: 30 }, (_, i) => new Date(Date.UTC(2026, 9, 1 + i)).toISOString().slice(0, 10));
     await page.route('**/data/prices/OP14.json', async r => { await new Promise(res => setTimeout(res, 1500)); r.fulfill({ contentType: 'application/json', body: JSON.stringify({ dates, p: { 'OP14-031': dates.map((_, i) => 5 + i / 10) } }) }); });
+    // ST01-001 has real price history now; give it none here so any chart that shows up came from OP14-031.
+    await page.route('**/data/prices/ST01.json', r => r.fulfill({ contentType: 'application/json', body: JSON.stringify({ dates: [], p: {} }) }));
     await page.goto(base + '#/card/OP14-031');
     await page.locator('.card-title').waitFor();
     await page.goto(base + '#/card/ST01-001');

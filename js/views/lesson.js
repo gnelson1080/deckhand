@@ -43,6 +43,7 @@ export async function render(root, param) {
   const next = root.querySelector('.lesson-next');
   const route = root.querySelector('.route');
   const solved = new Set();
+  pageEl.addEventListener('animationend', e => { if (e.target === pageEl) pageEl.classList.remove('turn-in', 'turn-back'); });
 
   const setRoute = () => {
     const k = pages > 1 ? page / (pages - 1) : 1;
@@ -51,7 +52,12 @@ export async function render(root, param) {
     route.setAttribute('aria-valuetext', page < steps.length ? `Step ${page + 1} of ${steps.length}` : 'Quiz');
   };
 
+  // Each page change gets a ticket. A slow page (card picture, deck list, board) that finishes loading after
+  // the reader has already moved on is dropped, so tapping Next quickly never skips or mixes up steps.
+  let ticket = 0;
   async function show(dir = 1) {
+    const mine = ++ticket;
+    const stale = () => mine !== ticket;
     pageEl.classList.remove('turn-in', 'turn-back'); void pageEl.offsetWidth;
     pageEl.classList.add(dir > 0 ? 'turn-in' : 'turn-back');
     setRoute();
@@ -64,20 +70,22 @@ export async function render(root, param) {
       pageEl.innerHTML = '';
       if (st.type === 'text') pageEl.innerHTML = `<div class="step-text">${st.html}</div>`;
       else if (st.type === 'tip') pageEl.innerHTML = `<aside class="tip"><span class="tip-flag" aria-hidden="true"></span><div>${st.html}</div></aside>`;
-      else if (st.type === 'card') { const d = document.createElement('div'); pageEl.append(d); if (st.html) d.insertAdjacentHTML('beforebegin', `<div class="step-text">${st.html}</div>`); await renderCallout(d, st); }
-      else if (st.type === 'deckpick') pageEl.innerHTML = await deckPick();
+      else if (st.type === 'card') { const d = document.createElement('div'); pageEl.append(d); if (st.html) d.insertAdjacentHTML('beforebegin', `<div class="step-text">${st.html}</div>`); await renderCallout(d, st).catch(() => {}); if (stale()) return; }
+      else if (st.type === 'deckpick') { const html = await deckPick(); if (stale()) return; pageEl.innerHTML = html; }
       else if (st.type === 'board') {
         if (st.html) pageEl.insertAdjacentHTML('beforeend', `<div class="step-text">${st.html}</div>`);
         const d = document.createElement('div'); pageEl.append(d);
         if (!solved.has(page)) { next.disabled = true; next.innerHTML = 'Solve the board to continue'; }
         const here = page;
         await createBoard(st.scenario, d, () => { solved.add(here); if (page === here) { next.disabled = false; next.innerHTML = `Next${icon('next', { size: 18 })}`; } });
+        if (stale()) return;
       }
       linkTerms(pageEl);
     } else {
       next.hidden = true;
       pageEl.innerHTML = `<h2 class="quiz-title">Quick check</h2><div class="quiz-box"></div>`;
       await renderQuiz(pageEl.querySelector('.quiz-box'), lesson.quiz, r => { if (r.passed) finish(r.score); });
+      if (stale()) return;
     }
     root.querySelector('.lesson-title').scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   }

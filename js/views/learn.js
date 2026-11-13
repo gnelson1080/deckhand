@@ -77,7 +77,7 @@ function intro(root, onStart) {
         <span class="intro-compass">${icon('compass', { size: 64, stroke: 1.4 })}</span>
       </div>
       <h1 class="intro-title">Learn the One&nbsp;Piece Card Game from zero.</h1>
-      <p class="intro-lede">Eleven short lessons, a few minutes each. You'll practice on a real board, take a 3-question check after each lesson, and finish knowing which deck to pick up first.</p>
+      <p class="intro-lede">Twelve short lessons, a few minutes each. You'll practice on a real board, take a 3-question check after each lesson, and finish knowing which deck to pick up first.</p>
       <a class="btn btn-primary btn-block intro-go" href="#/lesson/1">Start here</a>
       <p class="intro-small">No account needed. Your progress is saved on this device.</p>
     </section>`;

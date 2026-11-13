@@ -510,7 +510,7 @@ main#view:has(.build-bar:not([hidden])) { padding-bottom: calc(var(--tabbar-h) +
 .play-cta { margin: 0 0 12px; }
 .play-form h2 { font-size: var(--t-lg); margin: 20px 0 8px; }
 .pdecks { display: grid; grid-auto-flow: column; grid-auto-columns: 112px; gap: 10px; overflow-x: auto; padding: 2px 2px 8px; margin: 0 calc(-1 * var(--gutter)); padding-inline: var(--gutter); scrollbar-width: none; }
-.pdeck { display: grid; gap: 4px; cursor: pointer; padding: 6px; border-radius: var(--r-md); border: 2px solid transparent; background: var(--paper); }
+.pdeck { position: relative; display: grid; gap: 4px; cursor: pointer; padding: 6px; border-radius: var(--r-md); border: 2px solid transparent; background: var(--paper); }
 .pdeck.on { border-color: var(--flag-red); box-shadow: 0 3px 0 var(--ink); }
 .pdeck input { position: absolute; opacity: 0; pointer-events: none; }
 .pdeck img { width: 100%; border-radius: 4px; }
