@@ -1,8 +1,8 @@
 {
   "source": "TCGplayer + Limitless Play",
   "format": "standard regulation",
-  "sampleSize": 220,
-  "from": "2026-10-21",
+  "sampleSize": 212,
+  "from": "2026-10-22",
   "to": "2026-11-19",
   "decks": [
     {
@@ -14,7 +14,7 @@
         "Red"
       ],
       "points": 74,
-      "share": 33.64,
+      "share": 34.91,
       "url": "https://www.tcgplayer.com/content/one-piece/deck/Red-Green-Luffy/553103",
       "lists": [
         {
@@ -253,8 +253,8 @@
       "colors": [
         "Blue"
       ],
-      "points": 43,
-      "share": 19.55,
+      "points": 41,
+      "share": 19.34,
       "url": "https://www.tcgplayer.com/content/one-piece/deck/Blue-Rocks/552656",
       "lists": [
         {
@@ -482,10 +482,10 @@
         }
       ],
       "online": {
-        "wins": 332,
-        "losses": 315,
+        "wins": 319,
+        "losses": 306,
         "ties": 14,
-        "players": 151
+        "players": 146
       }
     },
     {
@@ -497,7 +497,7 @@
         "Black"
       ],
       "points": 12,
-      "share": 5.45,
+      "share": 5.66,
       "url": "https://play.limitlesstcg.com/tournament/6af73f74ee43ef7891473606/player/drcommodore/decklist",
       "lists": [
         {
@@ -743,7 +743,7 @@
         "Yellow"
       ],
       "points": 12,
-      "share": 5.45,
+      "share": 5.66,
       "url": "https://play.limitlesstcg.com/tournament/6adb736097e21d82e5c6d43b/player/drcommodore/decklist",
       "lists": [
         {
@@ -967,10 +967,10 @@
         }
       ],
       "online": {
-        "wins": 93,
-        "losses": 83,
+        "wins": 91,
+        "losses": 80,
         "ties": 3,
-        "players": 39
+        "players": 38
       }
     },
     {
@@ -981,7 +981,7 @@
         "Blue"
       ],
       "points": 11,
-      "share": 5,
+      "share": 5.19,
       "url": "https://play.limitlesstcg.com/tournament/6ae3115f80a8f79408d20af6/player/gyan/decklist",
       "lists": [
         {
@@ -1224,7 +1224,7 @@
         "Yellow"
       ],
       "points": 7,
-      "share": 3.18,
+      "share": 3.3,
       "url": "https://play.limitlesstcg.com/tournament/6aec5bdc0c463890f304bbfe/player/bangouro/decklist",
       "lists": [
         {
@@ -1499,7 +1499,7 @@
         "Yellow"
       ],
       "points": 7,
-      "share": 3.18,
+      "share": 3.3,
       "url": "https://play.limitlesstcg.com/tournament/6aec5b87e94eae0f94747bc0/player/lukas123/decklist",
       "lists": [
         {
@@ -1753,7 +1753,7 @@
         "Purple"
       ],
       "points": 6,
-      "share": 2.73,
+      "share": 2.83,
       "url": "https://play.limitlesstcg.com/tournament/6ad889ac115c12b73a5a8de9/player/crossai8/decklist",
       "lists": [
         {
@@ -1988,22 +1988,274 @@
         }
       ],
       "online": {
-        "wins": 65,
-        "losses": 73,
+        "wins": 63,
+        "losses": 68,
         "ties": 0,
-        "players": 33
+        "players": 31
       }
     },
     {
       "rank": 9,
+      "name": "Black Blackbeard",
+      "leaderId": "OP09-081",
+      "colors": [
+        "Black"
+      ],
+      "points": 5,
+      "share": 2.36,
+      "url": "https://www.tcgplayer.com/content/one-piece/deck/Black-Blackbeard/553119",
+      "lists": [
+        {
+          "place": "1st",
+          "placeMin": 1,
+          "player": "Aldo-Baglio",
+          "event": "Regional Bordeaux",
+          "date": "2026-11-15",
+          "players": 1024,
+          "url": "https://www.tcgplayer.com/content/one-piece/deck/Black-Blackbeard/553119",
+          "source": "TCGplayer",
+          "cards": [
+            {
+              "id": "OP09-089",
+              "count": 4
+            },
+            {
+              "id": "OP09-095",
+              "count": 4
+            },
+            {
+              "id": "OP11-083",
+              "count": 4
+            },
+            {
+              "id": "OP09-090",
+              "count": 4
+            },
+            {
+              "id": "OP09-086",
+              "count": 4
+            },
+            {
+              "id": "OP10-082",
+              "count": 4
+            },
+            {
+              "id": "OP09-084",
+              "count": 1
+            },
+            {
+              "id": "OP09-083",
+              "count": 4
+            },
+            {
+              "id": "ST27-003",
+              "count": 2
+            },
+            {
+              "id": "ST27-005",
+              "count": 2
+            },
+            {
+              "id": "OP09-093",
+              "count": 3
+            },
+            {
+              "id": "OP09-096",
+              "count": 4
+            },
+            {
+              "id": "OP07-096",
+              "count": 3
+            },
+            {
+              "id": "OP09-098",
+              "count": 3
+            },
+            {
+              "id": "OP09-099",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "place": "1st",
+          "placeMin": 1,
+          "player": "penguino s",
+          "event": "[EB05] ChinoizeCup #130 MONDAY",
+          "date": "2026-11-02",
+          "players": 63,
+          "url": "https://play.limitlesstcg.com/tournament/6ae310ff22fd412b92a4f355/player/penaraul05/decklist",
+          "source": "Limitless Play",
+          "record": {
+            "wins": 6,
+            "losses": 0,
+            "ties": 0
+          },
+          "cards": [
+            {
+              "id": "OP09-089",
+              "count": 4
+            },
+            {
+              "id": "OP11-083",
+              "count": 4
+            },
+            {
+              "id": "OP09-095",
+              "count": 3
+            },
+            {
+              "id": "OP09-090",
+              "count": 4
+            },
+            {
+              "id": "OP09-086",
+              "count": 4
+            },
+            {
+              "id": "EB05-046",
+              "count": 2
+            },
+            {
+              "id": "OP09-083",
+              "count": 4
+            },
+            {
+              "id": "OP10-082",
+              "count": 4
+            },
+            {
+              "id": "OP09-084",
+              "count": 1
+            },
+            {
+              "id": "ST27-003",
+              "count": 2
+            },
+            {
+              "id": "ST27-005",
+              "count": 1
+            },
+            {
+              "id": "OP09-093",
+              "count": 4
+            },
+            {
+              "id": "OP07-096",
+              "count": 3
+            },
+            {
+              "id": "OP09-096",
+              "count": 3
+            },
+            {
+              "id": "OP09-098",
+              "count": 3
+            },
+            {
+              "id": "OP09-099",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "place": "2nd",
+          "placeMin": 2,
+          "player": "Borsaistrash",
+          "event": "Regional Porto",
+          "date": "2026-11-08",
+          "players": 512,
+          "url": "https://www.tcgplayer.com/content/one-piece/deck/Black-Blackbeard/552657",
+          "source": "TCGplayer",
+          "cards": [
+            {
+              "id": "OP09-089",
+              "count": 4
+            },
+            {
+              "id": "OP09-095",
+              "count": 4
+            },
+            {
+              "id": "OP11-083",
+              "count": 4
+            },
+            {
+              "id": "OP09-090",
+              "count": 4
+            },
+            {
+              "id": "OP09-086",
+              "count": 3
+            },
+            {
+              "id": "OP10-086",
+              "count": 1
+            },
+            {
+              "id": "EB05-046",
+              "count": 2
+            },
+            {
+              "id": "OP10-082",
+              "count": 4
+            },
+            {
+              "id": "OP09-084",
+              "count": 1
+            },
+            {
+              "id": "OP09-083",
+              "count": 4
+            },
+            {
+              "id": "ST27-003",
+              "count": 2
+            },
+            {
+              "id": "ST27-005",
+              "count": 1
+            },
+            {
+              "id": "OP09-093",
+              "count": 3
+            },
+            {
+              "id": "OP09-096",
+              "count": 3
+            },
+            {
+              "id": "OP07-096",
+              "count": 3
+            },
+            {
+              "id": "OP09-098",
+              "count": 3
+            },
+            {
+              "id": "OP09-099",
+              "count": 4
+            }
+          ]
+        }
+      ],
+      "online": {
+        "wins": 32,
+        "losses": 19,
+        "ties": 0,
+        "players": 10
+      }
+    },
+    {
+      "rank": 10,
       "name": "Red/Black Sabo",
       "leaderId": "OP13-004",
       "colors": [
         "Red",
         "Black"
       ],
-      "points": 6,
-      "share": 2.73,
+      "points": 5,
+      "share": 2.36,
       "url": "https://play.limitlesstcg.com/tournament/6adfa75822fd412b92a4d72a/player/raiguy425/decklist",
       "lists": [
         {
@@ -2267,273 +2519,10 @@
         }
       ],
       "online": {
-        "wins": 58,
-        "losses": 57,
+        "wins": 55,
+        "losses": 55,
         "ties": 1,
-        "players": 27
-      }
-    },
-    {
-      "rank": 10,
-      "name": "Red/Green Luffy & Ace",
-      "leaderId": "ST30-001",
-      "colors": [
-        "Green",
-        "Red"
-      ],
-      "points": 6,
-      "share": 2.73,
-      "url": "https://play.limitlesstcg.com/tournament/6addff8d97e21d82e5c6ec84/player/shirohige06/decklist",
-      "lists": [
-        {
-          "place": "1st",
-          "placeMin": 1,
-          "player": "shirohige06",
-          "event": "Grand Line Cyprus - Season 2 Finals",
-          "date": "2026-11-01",
-          "players": 16,
-          "url": "https://play.limitlesstcg.com/tournament/6addff8d97e21d82e5c6ec84/player/shirohige06/decklist",
-          "source": "Limitless Play",
-          "record": {
-            "wins": 4,
-            "losses": 0,
-            "ties": 0
-          },
-          "cards": [
-            {
-              "id": "OP01-016",
-              "count": 4
-            },
-            {
-              "id": "EB02-017",
-              "count": 4
-            },
-            {
-              "id": "EB04-002",
-              "count": 4
-            },
-            {
-              "id": "OP17-023",
-              "count": 2
-            },
-            {
-              "id": "OP12-015",
-              "count": 4
-            },
-            {
-              "id": "ST30-012",
-              "count": 4
-            },
-            {
-              "id": "ST21-014",
-              "count": 4
-            },
-            {
-              "id": "ST31-001",
-              "count": 4
-            },
-            {
-              "id": "OP04-016",
-              "count": 4
-            },
-            {
-              "id": "OP12-037",
-              "count": 2
-            },
-            {
-              "id": "OP13-040",
-              "count": 2
-            },
-            {
-              "id": "OP14-019",
-              "count": 2
-            },
-            {
-              "id": "OP06-017",
-              "count": 3
-            },
-            {
-              "id": "OP08-036",
-              "count": 1
-            },
-            {
-              "id": "ST21-017",
-              "count": 2
-            },
-            {
-              "id": "ST31-005",
-              "count": 4
-            }
-          ]
-        },
-        {
-          "place": "3rd",
-          "placeMin": 3,
-          "player": "Ekorsteam",
-          "event": "Tenju Cup #1 (Beta Version)",
-          "date": "2026-10-21",
-          "players": 21,
-          "url": "https://play.limitlesstcg.com/tournament/6acbfe5a8a8383117e3e9c92/player/ekorsteam/decklist",
-          "source": "Limitless Play",
-          "record": {
-            "wins": 4,
-            "losses": 1,
-            "ties": 0
-          },
-          "cards": [
-            {
-              "id": "OP01-016",
-              "count": 4
-            },
-            {
-              "id": "EB02-017",
-              "count": 4
-            },
-            {
-              "id": "EB04-002",
-              "count": 4
-            },
-            {
-              "id": "OP17-023",
-              "count": 2
-            },
-            {
-              "id": "OP12-015",
-              "count": 4
-            },
-            {
-              "id": "ST30-012",
-              "count": 3
-            },
-            {
-              "id": "ST21-014",
-              "count": 4
-            },
-            {
-              "id": "ST31-001",
-              "count": 4
-            },
-            {
-              "id": "OP04-016",
-              "count": 4
-            },
-            {
-              "id": "OP13-040",
-              "count": 3
-            },
-            {
-              "id": "OP14-019",
-              "count": 3
-            },
-            {
-              "id": "OP17-017",
-              "count": 3
-            },
-            {
-              "id": "OP12-037",
-              "count": 2
-            },
-            {
-              "id": "OP16-039",
-              "count": 1
-            },
-            {
-              "id": "EB02-021",
-              "count": 1
-            },
-            {
-              "id": "ST31-005",
-              "count": 4
-            }
-          ]
-        },
-        {
-          "place": "5th",
-          "placeMin": 5,
-          "player": "bvlvvin",
-          "event": "Tenju Cup #1 (Beta Version)",
-          "date": "2026-10-21",
-          "players": 21,
-          "url": "https://play.limitlesstcg.com/tournament/6acbfe5a8a8383117e3e9c92/player/bvlvvin/decklist",
-          "source": "Limitless Play",
-          "record": {
-            "wins": 3,
-            "losses": 2,
-            "ties": 0
-          },
-          "cards": [
-            {
-              "id": "OP01-016",
-              "count": 4
-            },
-            {
-              "id": "EB02-017",
-              "count": 4
-            },
-            {
-              "id": "EB04-002",
-              "count": 4
-            },
-            {
-              "id": "OP12-015",
-              "count": 4
-            },
-            {
-              "id": "ST30-012",
-              "count": 4
-            },
-            {
-              "id": "ST21-014",
-              "count": 4
-            },
-            {
-              "id": "ST31-001",
-              "count": 4
-            },
-            {
-              "id": "OP15-032",
-              "count": 1
-            },
-            {
-              "id": "OP04-016",
-              "count": 3
-            },
-            {
-              "id": "OP12-018",
-              "count": 2
-            },
-            {
-              "id": "OP17-017",
-              "count": 4
-            },
-            {
-              "id": "OP12-037",
-              "count": 2
-            },
-            {
-              "id": "OP13-040",
-              "count": 2
-            },
-            {
-              "id": "OP14-019",
-              "count": 2
-            },
-            {
-              "id": "OP06-018",
-              "count": 2
-            },
-            {
-              "id": "ST31-005",
-              "count": 4
-            }
-          ]
-        }
-      ],
-      "online": {
-        "wins": 60,
-        "losses": 63,
-        "ties": 1,
-        "players": 27
+        "players": 26
       }
     }
   ],
@@ -2551,9 +2540,9 @@
     "ST10-010",
     "ST10-015"
   ],
-  "onlineEvents": 18,
-  "onlinePlayers": 830,
+  "onlineEvents": 17,
+  "onlinePlayers": 809,
   "sinceBan": "2026-10-12",
-  "fetchedAt": "2026-11-20T17:51:42.538Z",
+  "fetchedAt": "2026-11-21T16:49:36.708Z",
   "banListChecked": "2026-11-10"
 }
